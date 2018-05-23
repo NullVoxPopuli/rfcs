@@ -1,0 +1,852 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0143-module-unification - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html" class="active"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2016-05-09</li>
+<li>RFC PR: https://github.com/emberjs/rfcs/pull/143</li>
+<li>Ember Issue: https://github.com/emberjs/ember.js/issues/14882</li>
+</ul>
+<blockquote>
+<p>Note: This RFC replaces the closely related RFC for <a href="https://github.com/emberjs/rfcs/pull/124">Module
+Normalization</a>. As discussed in the
+<a href="0143-module-unification.html#alternatives">Alternatives</a> section below, many concepts are shared between
+the two proposals, but there is also a fundamental difference.</p>
+</blockquote>
+<a class="header" href="0143-module-unification.html#summary" id="summary"><h1>Summary</h1></a>
+<p>Create a unified pattern for organizing and naming modules in Ember projects
+that is deterministic, extensible, and ergonomic.</p>
+<a class="header" href="0143-module-unification.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>Ember CLI's conventions for project layouts and file naming are central to every
+Ember developer's experience. It's crucial to get both the technical and
+ergonomic details right.</p>
+<p>The existing conventions used by Ember CLI have evolved gradually and
+organically over the years. Ember CLI and its predecessor Ember App Kit were
+early adopters of ES modules and have always leveraged strong conventions to
+deduce an understanding of modules based on their locations. Ember CLI's
+resolver encodes those conventions to enable run-time module resolutions.</p>
+<p>The current system works fairly well, but has some complexities and
+inconsistencies that both steepen its learning curve and limit its technical
+potential.</p>
+<p>Drawbacks include:</p>
+<ul>
+<li>
+<p>Confusion over which of two orthogonal approaches to use for organizing
+modules:</p>
+<ul>
+<li>
+<p>classic - modules are organized at the top-level by &quot;type&quot;
+(<code>components</code>, <code>templates</code>, etc.) and then by namespace and name.</p>
+</li>
+<li>
+<p>pods - modules are organized by namespace, then name, then type.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Addons define modules to be merged into an application through a special <code>app</code>
+directory. These public modules are typically private modules that are
+imported and re-exported, which introduces an extra module per export and an
+extra level of abstraction to learn.</p>
+</li>
+<li>
+<p>Because addons' modules are mixed into an application, there's the possibility
+of naming collisions between two addons or an addon and its consuming
+application.</p>
+</li>
+<li>
+<p>Modules don't have a clear sense of &quot;locality&quot;, which prevents the ability to
+declare modules that are available only in a &quot;local&quot; namespace (this as-yet
+unsupported feature has been called &quot;local lookup&quot;).</p>
+</li>
+<li>
+<p>Resolution rules that are declared only in JavaScript are difficult to
+analyze and optimize.</p>
+</li>
+<li>
+<p>Module resolution is inefficient due to the number of potential places to
+lookup a particular module by name.</p>
+</li>
+</ul>
+<p>Recognizing these drawbacks, the Core Team compiled a set of
+<a href="https://github.com/emberjs/core-notes/blob/master/ember.js/2016-01/january-22.md#summary-of-pods-design-constraints">design constraints</a>
+for a rethink of Ember's approach to modules:</p>
+<ol>
+<li>Reasonable branching factor. Users should see a reasonable number of items at any given level in their hierarchy. Flattening out too much results in an unreasonably large number of items.</li>
+<li>No slashes in component names. The existing system allows this, but we don't want to support invocation of nested components in Glimmer Components.</li>
+<li>Addons need to participate in the naming scheme, most likely with namespace prefix and double-colon separator.</li>
+<li>Subtrees should be relocatable. If you move a directory to a new place in the tree, its internal structure should all still work.</li>
+<li>There should be no cognitive overhead when adding a new thing. The right way should be obvious and not impose unnecessary decisions.</li>
+<li>We need clean separation between the namespace of the user's own components, helpers, routes, etc and the framework's own type names (&quot;component&quot;, &quot;helper&quot;, etc) so that we can disambiguate them and add future ones.</li>
+<li>Ideally we will have a place to put tests and styles alongside corresponding components.</li>
+<li>Local relative lookup for components and helpers needs to work.</li>
+<li>Avoid the &quot;titlebar problem&quot;, in which many files are all named &quot;component.js&quot; and you can't tell them apart in your editor.</li>
+<li>The resolver should be configured via declarative rules, not imperative
+JavaScript. In addition to enforcing consistency, this allows addons to
+augment the system with their own types in a predictable way.</li>
+<li>Module structures must be statically analyzable at build time to enable
+efficiency optimizations.</li>
+<li>Module classifications must be extensible and allow for customizations by
+apps, engines, and addons.</li>
+</ol>
+<blockquote>
+<p>Note: Constraints &gt; 9 were added based on discussions subsequent to the
+initial meeting.</p>
+</blockquote>
+<p>This proposal attempts to address these constraints with a single consistent
+approach to modules that will make Ember easier to use and learn <em>and</em> improve
+the efficiency of Ember's resolver at run-time.</p>
+<a class="header" href="0143-module-unification.html#detailed-design" id="detailed-design"><h1>Detailed Design</h1></a>
+<p>This proposal introduces a new top-level directory, <code>src</code>, and establishes
+conventions for organizing modules within it. Also proposed is a refactor of the
+Ember resolver to enable efficient and flexible resolutions based upon the new
+module conventions.</p>
+<p>The <code>src</code> directory will be used to contain the core ES modules within an Ember
+CLI project, whether that project contains an application, addon, or engine. To
+maintain backward compatibility, the <code>src</code> directory will be allowed to
+co-exist alongside existing <code>app</code> and/or <code>addon</code> directories, although these
+directories should eventually be deprecated.</p>
+<a class="header" href="0143-module-unification.html#examples" id="examples"><h2>Examples</h2></a>
+<p>Let's start by taking a look at some examples of Ember projects organized
+according to the proposed conventions.</p>
+<a class="header" href="0143-module-unification.html#example-application" id="example-application"><h3>Example Application</h3></a>
+<p>A simple blogging application could be structured as follows:</p>
+<pre><code>src
+├── data
+│   ├── models
+│   │   ├── comment
+│   │   │   ├── adapter.js
+│   │   │   ├── model.js
+│   │   │   └── serializer.js
+│   │   ├── post
+│   │   │   ├── adapter.js
+│   │   │   ├── model.js
+│   │   │   └── serializer.js
+│   │   └── author.js
+│   └── transforms
+│       └── date.js
+├── init
+│   ├── initializers
+│   │   └── i18n.js
+│   └── instance-initializers
+│       └── auth.js
+├── services
+│   └── auth.js
+├── ui
+│   ├── components
+│   │   ├── date-picker
+│   │   │   ├── component.js
+│   │   │   └── template.hbs
+│   │   └── list-paginator
+│   │       ├── paginator-control
+│   │       │   ├── component.js
+│   │       │   └── template.hbs
+│   │       ├── component.js
+│   │       └── template.js
+│   ├── partials
+│   │   └── footer.hbs
+│   ├── routes
+│   │   ├── application
+│   │   │   └── template.hbs
+│   │   ├── index
+│   │   │   ├── controller.js
+│   │   │   ├── route.js
+│   │   │   └── template.hbs
+│   │   └── posts
+│   │       ├── -components
+│   │       │   ├── -utils
+│   │       │   │   └── strings.js
+│   │       │   ├── capitalize.js
+│   │       │   └── titleize.js
+│   │       ├── post
+│   │       │   ├── -components
+│   │       │   │   └── post-viewer
+│   │       │   │       ├── component.js
+│   │       │   │       └── template.hbs
+│   │       │   ├── edit
+│   │       │   │   ├── -components
+│   │       │   │   │   ├── post-editor
+│   │       │   │   │   │   ├── post-editor-button
+│   │       │   │   │   │   │   ├── component.js
+│   │       │   │   │   │   │   └── template.hbs
+│   │       │   │   │   │   ├── calculate-post-title.js
+│   │       │   │   │   │   ├── component.js
+│   │       │   │   │   │   └── template.hbs
+│   │       │   │   │   ├── route.js
+│   │       │   │   │   └── template.hbs
+│   │       │   │   ├── route.js
+│   │       │   │   └── template.hbs
+│   │       │   ├── route.js
+│   │       │   └── template.hbs
+│   │       ├── route.js
+│   │       └── template.hbs
+│   ├── styles
+│   │   └── app.scss
+│   └── index.html
+├── utils
+│   └── md5.js
+├── main.js
+└── router.js
+</code></pre>
+<a class="header" href="0143-module-unification.html#example-engine" id="example-engine"><h3>Example Engine</h3></a>
+<p>An engine could provide the same blogging functionality with almost entirely the
+same module structure as the example blog application. Only the following
+notable changes would be needed:</p>
+<ul>
+<li>An engine should declare its routes in <code>src/routes.js</code> instead of <code>src/router.js</code></li>
+<li>An engine would require a <code>dummy</code> app within <code>tests</code></li>
+<li>An engine should export an <code>Engine</code> instead of an <code>Application</code> from <code>src/main.js</code></li>
+</ul>
+<a class="header" href="0143-module-unification.html#example-addon" id="example-addon"><h3>Example Addon</h3></a>
+<p>Here's how the
+<a href="https://github.com/cibernox/ember-power-select">ember-power-select</a> addon could
+be restructured:</p>
+<pre><code>src
+├── styles
+│   └── ember-power-select.scss
+├── ui
+│   └── components
+│       ├── main
+│       │   ├── before-options
+│       │   │   ├── component.js
+│       │   │   └── template.hbs
+│       │   ├── options
+│       │   │   ├── component.js
+│       │   │   └── template.hbs
+│       │   ├── trigger
+│       │   │   ├── component.js
+│       │   │   └── template.hbs
+│       │   ├── component.js
+│       │   └── template.hbs
+│       ├── multiple
+│       │   ├── trigger
+│       │   │   ├── component.js
+│       │   │   └── template.hbs
+│       │   ├── component.js
+│       │   └── template.hbs
+│       └── is-selected.js
+└── main.js
+</code></pre>
+<a class="header" href="0143-module-unification.html#migration-tool" id="migration-tool"><h3>Migration Tool</h3></a>
+<p>As a proof of concept for the module layout described in this RFC, Robert
+Jackson has created a <a href="https://github.com/rwjblue/ember-module-migrator">migration
+tool</a> and used it to migrate
+the following repos:</p>
+<ul>
+<li><a href="https://github.com/rwjblue/--ghost-modules-sample/tree/grouped-collections/src">Ghost admin client</a></li>
+<li><a href="https://github.com/rwjblue/--travis-modules-sample/tree/modules/src">Travis client</a></li>
+<li><a href="https://github.com/rwjblue/--new-app-blueprint/tree/modules/src"><code>ember new my-app</code></a></li>
+</ul>
+<p>You can also use Robert's migration tool on your own projects to gain a feel for
+how this RFC will affect your work.</p>
+<a class="header" href="0143-module-unification.html#es-modules" id="es-modules"><h2>ES Modules</h2></a>
+<p>It's important to understand how ES module paths are mapped from the file
+system so that you can import modules from elsewhere in your project and its
+associated dependencies.</p>
+<p>ES module paths will be formed from a project's package name followed by a
+direct mapping of file paths from the project root. The file's final extension
+(e.g. <code>js</code> or <code>hbs</code>) will be excluded because all ES modules will of course be
+compiled into JavaScript from their original format.</p>
+<p>For example, the file <code>src/ui/components/date-picker.js</code> in the
+<code>my-calendar</code> app will be exported with the module path
+<code>my-calendar/src/ui/components/date-picker</code>.</p>
+<p>An application and its associated addons and engines will all be merged into the
+same ES module space, as is done today. Any module can import from any other
+module within this space, although cross-package imports should be done with
+care.</p>
+<a class="header" href="0143-module-unification.html#module-naming-and-organization" id="module-naming-and-organization"><h2>Module Naming and Organization</h2></a>
+<p>This section describes the conventions proposed for naming and organizing a
+project's modules within <code>src</code>. These conventions will allow Ember CLI's
+resolver to determine the purpose of each module at run-time. They will also
+enable static analysis of modules to lint against errors and to prepare a
+normalized map for efficient resolutions.</p>
+<p>Every resolvable module must have both a <code>name</code> and a <code>type</code>. The <code>type</code>
+typically corresponds to the base class of the module's default export (e.g.
+<code>route</code>, <code>template</code>, etc.).</p>
+<p>Modules can be grouped together with other modules of related types in
+&quot;collections&quot;. Collections are directories with type-aware resolution rules
+which allow related modules to share a namespace. For example, the <code>models</code>
+collection contains models, adapters, and serializers.</p>
+<p>Collections that are related to each other can be further organized in &quot;group&quot;
+directories. For example, the <code>ui</code> group contains the <code>components</code>, <code>partials</code>,
+and <code>routes</code> collections.</p>
+<p>Ember CLI will have a build step that normalizes modules to a common form and
+builds a mapping between that form and the ES module path described above.
+While building this normalized map, the build must error and provide useful
+messages if any module naming errors are detected. Unregistered collections and
+types should not be allowed. Also, the same normalized module path must not be
+repeated through alternative naming forms.</p>
+<a class="header" href="0143-module-unification.html#module-type" id="module-type"><h3>Module Type</h3></a>
+<p>The type of a module can be determined through the following file naming and
+module export rules:</p>
+<ol>
+<li><code>src/${type}</code> - typed modules named <code>main</code> (explained further below), in
+which default exports match the type specified by the file name.</li>
+<li><code>src/${collection}/${namespace}/${name}/${type}</code> - expanded collection
+modules, in which default exports match the type specified by the file name.</li>
+<li><code>src/${collection}/${namespace}/${name}</code> - in which type can be inferred
+based on the module's exports. Default exports must match the default
+type for the collection. If there is no default export, named exports will
+be scanned for a matching type allowed in the collection.</li>
+</ol>
+<p>Note that template precompilers will need to use default vs. named exports
+appropriately in order to satisfy the expectations of Rules 2 and 3.</p>
+<p>Here are a few example applications of the module type determination rules:</p>
+<pre><code>// Rule 1
+
+src/router (with `export default Ember.Router.extend()`)
+=&gt; name: 'main',
+   type: 'router'
+
+// Rule 2
+
+src/ui/routes/posts/post/route.js (with `export default Ember.Route.extend()`)
+=&gt; collection: 'ui/routes',
+   namespace: 'posts',
+   name: 'post',
+   type: 'route'
+
+src/ui/routes/posts/post/template (with `export default Ember.HTMLBars.template(COMPILED)`)
+=&gt; collection: 'ui/routes',
+   namespace: 'posts',
+   name: 'post',
+   type: 'template'
+
+// Rule 3
+
+src/data/models/author (with `export default DS.Model.extend()`)
+=&gt; collection: 'data/models',
+   name: 'author',
+   type: 'model' (the default type for the models collection)
+
+src/ui/components/titleize (with `export let helper = Ember.Helper.helper(function() { })`)
+=&gt; collection: 'ui/components',
+   name: 'titleize',
+   type: 'helper'
+
+src/ui/components/show-title (with `export let template = Ember.HTMLBars.template(COMPILED)`)
+=&gt; collection: 'ui/components',
+   name: 'show-title',
+   type: 'template'
+</code></pre>
+<a class="header" href="0143-module-unification.html#main-modules" id="main-modules"><h3>Main Modules</h3></a>
+<p>Every project must have a &quot;main&quot; module, named <code>src/main.js</code>, that
+serves as an entry point into the project.</p>
+<p>The main module must export an <code>Application</code>, <code>Engine</code>, or (new) <code>Addon</code> class.
+This class must define a <code>modulePrefix</code>, which must match the node package name
+for the project.</p>
+<p>The main module also declares other properties that help the Ember resolver
+understand relationships between projects. For instance, the main module can
+declare which modules in an addon are available to a consuming app's resolver.</p>
+<p>The main module of an addon can also declare a <code>rootName</code>, which is used by the
+resolver to lookup main modules. Initially, the <code>rootName</code> will be a read-only
+property that equals the <code>modulePrefix</code> with any <code>ember-</code> and  <code>ember-cli-</code>
+prefixes stripped (e.g. <code>ember-power-select</code> becomes <code>power-select</code>). It's
+possible that we may allow overrides / aliases in the future.</p>
+<p>Modules that appear alongside <code>main.js</code> in <code>src</code> are also considered <code>main</code>
+modules for their respective <code>type</code>. For instance, <code>src/router.js</code> is registered
+with a <code>name</code> of <code>main</code> and a <code>type</code> of <code>router</code>.</p>
+<a class="header" href="0143-module-unification.html#module-collections" id="module-collections"><h3>Module Collections</h3></a>
+<p>Top-level namespaces within <code>src</code> serve to group modules into
+type-aware &quot;collections&quot;.</p>
+<p>The following rules apply to module collections and types:</p>
+<ol>
+<li>Each collection can contain one or more types. The types allowed
+in a particular collection MUST be explicitly declared.</li>
+<li>Each type MAY exist in any number of collections.</li>
+<li>Each type MUST have only one &quot;definitive collection&quot;, which is the
+collection the resolver will use for resolutions if a module can't be found
+in the local (i.e. originating) collection.</li>
+<li>Each collection MAY have a single &quot;default type&quot;. If a module does not
+indicate its type through its file name, then its default export should
+align with the default type for its collection.</li>
+<li>Each collection can allow &quot;private collections&quot; to be defined at a namespace.
+Private collections are localized additions to a top-level collection,
+available only from the namespace at which they're defined.</li>
+<li>Top-level collections may be grouped for organization purposes. No
+resolvable modules must be placed in a group directory.</li>
+<li>A collection can appear only once in a project (i.e. it can not be
+contained in multiple group directories, or in a group as well as at the
+top-level).</li>
+</ol>
+<p>The following collections and allowed types (rules 1 &amp; 2) are proposed:</p>
+<ul>
+<li><code>components</code> - COMPONENT, HELPER, template</li>
+<li><code>initializers</code> - INITIALIZER</li>
+<li><code>instance-initializers</code> - INSTANCE-INITIALIZER</li>
+<li><code>models</code> - MODEL, ADAPTER, SERIALIZER</li>
+<li><code>partials</code> - PARTIAL</li>
+<li><code>routes</code> - ROUTE, CONTROLLER, template</li>
+<li><code>services</code> - SERVICE</li>
+<li><code>transforms</code> - TRANSFORM</li>
+<li><code>utils</code> - UTIL</li>
+</ul>
+<blockquote>
+<p>Note: ALL CAPS indicates which collections are definitive (rule 3) for a type.</p>
+</blockquote>
+<p>The following default types are proposed for collections (rule 4):</p>
+<ul>
+<li><code>components</code> - component</li>
+<li><code>initializer</code> - initializer</li>
+<li><code>instance-initializers</code> - instance-initializer</li>
+<li><code>models</code> - model</li>
+<li><code>partials</code> - partial</li>
+<li><code>routes</code> - route</li>
+<li><code>services</code> - service</li>
+<li><code>transforms</code> - transform</li>
+<li><code>utils</code> - util</li>
+</ul>
+<p>The following private collections are allowed within collections (rule 5):</p>
+<ul>
+<li><code>components</code> - utils</li>
+<li><code>models</code> - utils</li>
+<li><code>initializers</code> - utils</li>
+<li><code>instance-initializers</code> - utils</li>
+<li><code>routes</code> - components, utils</li>
+<li><code>services</code> - utils</li>
+<li><code>transforms</code> - utils</li>
+</ul>
+<p>The following groups are proposed for collections (rule 6):</p>
+<ul>
+<li><code>data</code> - models, transforms</li>
+<li><code>init</code> - initializers, instance-initializers</li>
+<li><code>ui</code> - components, partials, routes</li>
+</ul>
+<p>The collection and type system is designed to be extensible, so that addons can
+contribute their own collections and types. The <code>data</code> collection and its
+corresponding types should be defined in ember-data. Liquid-fire might want to
+define an <code>animations</code> collection and a <code>transition</code> type, and expand <code>routes</code>
+to allow <code>animations</code> as a private collection.</p>
+<p>The specific format of collection and type declarations for addons is TBD.</p>
+<a class="header" href="0143-module-unification.html#components-collection" id="components-collection"><h4>&quot;Components&quot; Collection</h4></a>
+<p>This proposal broadens the scope of the term &quot;component&quot; to include all
+template-invocable parts of Ember. This includes today's components and helpers,
+and the future implementation of &quot;glimmer components&quot; (with angle brackets) and
+element modifiers.</p>
+<p>Grouping template-invocable elements together in a single collection recognizes
+that they already coexist in the same namespace. After all, only one helper OR
+component can be invoked as <code>{{foo-bar}}</code>. Using a common collection will not
+only simplify file management and searching, it will also provide implicit
+linting against creating a helper and class-based component of the same name.</p>
+<a class="header" href="0143-module-unification.html#private-collections" id="private-collections"><h4>Private Collections</h4></a>
+<p>You may wish to make a component available in a particular template without
+polluting the top-level <code>components</code> collection with a more local concern.
+Private collections allow you to augment a top-level collection's contents for
+use at a particular namespace.</p>
+<p>Private collections are declared as a directory sharing the name of the
+top-level collection, prefixed with a <code>-</code>. So the top-level <code>routes</code>
+collection could be augmented via a private <code>-components</code> collection.</p>
+<p>Say that you want to define a <code>post-viewer</code> component to be available only from
+within <code>src/ui/routes/posts/post/template.hbs</code>. You could achieve this by
+creating your component module in
+<code>src/ui/routes/posts/post/-components/post-viewer.js</code>.</p>
+<a class="header" href="0143-module-unification.html#non-resolved-files" id="non-resolved-files"><h4>Non-resolved Files</h4></a>
+<p>The rules above apply to modules that are resolved, namely <code>*.js</code> and <code>*.hbs</code>
+files. Other files that are used for documenting code, such as <code>*.md</code> and
+<code>*.html</code> files, can be freely co-located in any directories.</p>
+<p>Conventions will still be used for non-resolved files that have significance
+within an Ember project, including:</p>
+<ul>
+<li><code>src/ui/styles</code> - A project's stylesheets.</li>
+<li><code>src/ui/index.html</code> - A project's html container.</li>
+</ul>
+<a class="header" href="0143-module-unification.html#packages" id="packages"><h3>Packages</h3></a>
+<p>In-repo addons (including engines) will be placed in a new top-level <code>packages</code>
+directory (a sibling of <code>src</code>). We can begin to use the term &quot;packages&quot; instead
+of the rather clumsy &quot;in-repo addons&quot;. This differentiation will emphasize that
+packages are internal and addons are external to a project. Packages should be
+seen as a lightweight way to add new namespacing within a project without the
+overhead of a full addon.</p>
+<p>The <code>packages</code> directory will provide a separate space away from other library
+modules that might be kept in <code>lib</code>, the current directory used for in-repo
+addons. Introducing a new top-level directory will allow a clear migration path
+for in-repo addons, in the same way that there's a clear migration path from
+<code>app</code> to <code>src</code>.</p>
+<p>Inside <code>packages</code>, packages should be grouped by name. Each package can have
+its own <code>index.js</code>, <code>package.json</code>, and <code>src</code> directory.</p>
+<a class="header" href="0143-module-unification.html#ember-resolver-refactor" id="ember-resolver-refactor"><h2>Ember Resolver Refactor</h2></a>
+<p>The Ember resolver must be refactored significantly to be made aware of the
+new <code>src</code> and <code>packages</code> directories and associated conventions.</p>
+<a class="header" href="0143-module-unification.html#module-normalization" id="module-normalization"><h3>Module Normalization</h3></a>
+<p>As discussed above, Ember CLI will perform a normalization process for all the
+modules in a project and its associated projects. The normalization step will
+involve the construction of a map from each module's normalized form to its
+corresponding ES module path. If any conflicts are detected, the process should
+error and notify the developer.</p>
+<p>The Ember resolver will only look up modules in their normalized form, utilizing
+the pre-built normalization map to resolve the actual module path.</p>
+<a class="header" href="0143-module-unification.html#addon-modules" id="addon-modules"><h3>Addon modules</h3></a>
+<p>A resolver will only implicitly consider an addon's top-level modules named
+<code>main</code> (e.g. a <code>main</code> component) to be public and available for resolution. More
+explicit control over an addon's public modules can be declared in the addon's
+<code>main</code> module (details TBD). An addon's public modules will all be resolvable at
+the <code>rootName</code> of the addon (see above).</p>
+<p>Public components and helpers can be invoked in templates using the <code>rootName</code>
+as a namespace. For modules named <code>main</code>, the bare root name will suffice.</p>
+<p>Let's say that the <code>ember-power-select</code> addon has a <code>rootName</code> of <code>power-select</code>
+and a top-level <code>main</code> component declared in <code>src/ui/components/main.js</code>. An
+app could invoke this component in a template as <code>{{power-select::main}}</code> or
+more simply as <code>{{power-select}}</code>.</p>
+<p>Addons should use the same namespacing that will be used by consuming apps when
+invoking their own components and helpers from templates. For instance, if the
+<code>ember-power-select</code> addon has a <code>date-picker</code> component that invokes multiple
+<code>main</code> components, it should also invoke them in a template as
+<code>{{power-select::main}}</code> or more simply as <code>{{power-select}}</code>.</p>
+<a class="header" href="0143-module-unification.html#module-resolutions" id="module-resolutions"><h3>Module Resolutions</h3></a>
+<p>Module resolution rules must account for the following:</p>
+<ul>
+<li>The requested module's <code>type</code>, <code>name</code>, and (potentially) <code>namespace</code>.</li>
+<li>(Optional) A &quot;source&quot; <code>rootName</code>, collection, and namespace from which the
+lookup originates.</li>
+<li>(Optional) An &quot;associated type&quot; for lookups that should start in a collection
+that is not definitive for the requested <code>type</code>.</li>
+</ul>
+<p>Module resolutions occur in the following order:</p>
+<ol>
+<li>Local - If a source module is specified and the requested type is allowed in
+the source module's collection, look in a namespace based on the source
+module's namespace + name.</li>
+<li>Private - If a source module is specified, look in a private collection at
+the source module's namespace, if one exists that is definitive for the
+requested type.</li>
+<li>Associated - If an associated type is specified, look in the definitive
+collection for that associated type. Only resolve if the collection can
+contain the requested type.</li>
+<li>Top-level - In the definitive collection for the requested type, defined at
+its top-level.</li>
+</ol>
+<p>The resolver must maintain mappings of modules at multiple levels to make these
+resolutions efficient. A lookup tree can be pre-built for production builds.</p>
+<a class="header" href="0143-module-unification.html#example-resolutions" id="example-resolutions"><h4>Example Resolutions</h4></a>
+<p>Let's walk through some example resolutions from the above blogging app paired
+with the <code>ember-power-select</code> addon. We'll assume that the package name for
+the app is <code>blogmeister</code>, and the package name for the addon is
+<code>ember-power-select</code>. The addon has a <code>rootName</code> of <code>power-select</code> for cleaner
+references.</p>
+<hr />
+<p>From <code>blogmeister/src/ui/components/list-paginator/template</code>:</p>
+<p><code>{{paginator-control}}</code> resolves to <code>blogmeister/src/ui/components/list-paginator/paginator-control/component</code></p>
+<p><code>{{date-picker}}</code> resolves to <code>blogmeister/src/ui/components/date-picker/component</code></p>
+<p><code>{{power-select}}</code> resolves to <code>ember-power-select/src/ui/components/main/component</code></p>
+<p><code>{{power-select::multiple}}</code> resolves to <code>ember-power-select/src/ui/components/multiple/component</code></p>
+<hr />
+<p>From <code>blogmeister/src/routes/posts/post/template</code>:</p>
+<p><code>{{post-viewer}}</code> resolves to <code>blogmeister/src/ui/routes/posts/post/-components/post-viewer/component</code></p>
+<p><code>{{date-picker}}</code> resolves to <code>blogmeister/src/ui/components/date-picker/component</code></p>
+<p><code>{{power-select}}</code> resolves to <code>ember-power-select/src/ui/components/main/component</code></p>
+<a class="header" href="0143-module-unification.html#other-refactorings" id="other-refactorings"><h2>Other Refactorings</h2></a>
+<a class="header" href="0143-module-unification.html#generators-and-blueprints" id="generators-and-blueprints"><h3>Generators and Blueprints</h3></a>
+<p>Generators and blueprints will need to be made aware of the new module
+conventions.</p>
+<p>Let's take a look at the files that some generators will create (note: tests
+have been left out of these examples for now):</p>
+<p><code>ember g component date-picker</code>:</p>
+<ul>
+<li><code>src/ui/components/date-picker/component.js</code></li>
+<li><code>src/ui/components/date-picker/template.hbs</code></li>
+</ul>
+<p><code>ember g component ui/routes/posts/post-editor</code>:</p>
+<ul>
+<li><code>src/ui/routes/posts/-components/post-editor/component.js</code></li>
+<li><code>src/ui/routes/posts/-components/post-editor/template.hbs</code></li>
+</ul>
+<p><code>ember g helper titleize</code>:</p>
+<ul>
+<li><code>src/ui/components/titleize.js</code></li>
+</ul>
+<a class="header" href="0143-module-unification.html#how-we-teach-this" id="how-we-teach-this"><h1>How We Teach This</h1></a>
+<p>The Ember guides will need to be updated significantly to reflect the new
+conventions.</p>
+<a class="header" href="0143-module-unification.html#teaching-conventions-through-tooling" id="teaching-conventions-through-tooling"><h2>Teaching Conventions through Tooling</h2></a>
+<p>As discussed above, generators and blueprints will be made aware of the new
+module conventions. This will help new projects start on track and stay on
+track as modules are added.</p>
+<p>Developers with existing projects will be able to use Robert Jackson's
+<a href="https://github.com/rwjblue/ember-module-migrator">migration tool</a> to move their
+projects over to use the new conventions. This tool is a WIP and will continue
+to be refined to work well with both the classic and pods structures. It's
+possible these migration capabilities will eventually be rolled into Ember
+Watson.</p>
+<p>Furthermore, the Ember Inspector should be enhanced to understand the new
+conventions and become more type and collection aware.</p>
+<a class="header" href="0143-module-unification.html#new-concepts" id="new-concepts"><h2>New Concepts</h2></a>
+<p>It will be important for both new and experienced Ember developers to
+understand some core concepts that are proposed in this RFC.</p>
+<a class="header" href="0143-module-unification.html#collections-and-types" id="collections-and-types"><h3>Collections and Types</h3></a>
+<p>This proposal's concept of collections and types should feel familiar enough to
+users of both the classic and pods layouts to enable a smooth transition. In
+many ways, this proposal merges the classic and pods layouts into a single
+uniform layout.</p>
+<p>The core driver to collections is to store &quot;like with like&quot;. However, instead of
+the classic layout's narrow definition of &quot;like&quot; to be of a <em>single</em> type, this
+proposal takes the pods approach that <em>multiple</em> types can be related. A good
+test of whether multiple module types should be stored together is whether they
+should be considered to share a common namespace. Routes, controllers, and
+templates are a good example, as are models, adapters, and serializers.</p>
+<p>A related concept to understand about collections is the notion of a default
+type. Every top-level module within a collection can be considered to match its
+default type (unless named exports are used in those modules to represent types
+other than the default). Within a collection's namespaces, every module must be
+either that default type or related to it. It's helpful to consider that every
+namespace within a collection represents a set of named module exports, and that
+the default type represents the default export for that collection.</p>
+<p>Here's an illustration of exports from a collection:</p>
+<pre><code>src
+  data
+    models
+      author.js &lt;- exports an Author `model`, the default type in the `models` collection
+      comment
+        adapter.js     &lt;- exports a Comment `adapter`
+        model.js       &lt;- exports a Comment `model`
+        serializer.js  &lt;- exports a Comment `serializer`
+</code></pre>
+<a class="header" href="0143-module-unification.html#components" id="components"><h4>Components</h4></a>
+<p>The term &quot;component&quot; has been widely adopted across most front-end frameworks
+to describe a broad swath of UI concerns. Using the same term for the collection
+of template-invocable UI elements will lower the learning curve for developers
+who are new to Ember, while allowing for a useful set of specialized terms to
+flourish to describe particular <em>types</em> of components.</p>
+<p>We've already started down the road of component specialization by introducing
+the concept of &quot;routable components&quot;. Once we start actually using &quot;routable
+components&quot; in practice, it will become necessary to refer to plain old
+components as something more specific, like &quot;template components&quot;. And this
+distinction will probably lead to plain old helpers being referred to as
+&quot;template helpers&quot;. Other concepts, such as &quot;Glimmer components&quot; and &quot;template
+component modifiers&quot; will soon be mixed in. We will end up with a multi-faceted
+toolbox available at the template layer which deserves a simple name that
+matches developer expectations. The general term &quot;components&quot; seems a good fit.</p>
+<a class="header" href="0143-module-unification.html#scope" id="scope"><h3>Scope</h3></a>
+<p>Developers should understand the available levels of module scope, as well as
+when each is appropriate to use. Scope should be considered when modules are
+generated, and developers should feel free to move modules if they expand or
+contract in scope.</p>
+<p>The following levels of scope should be understood:</p>
+<ul>
+<li>
+<p>Private - private collections should be used when a component or utility
+function is needed from a single namespace.</p>
+</li>
+<li>
+<p>Project - top-level, project-wide collections should be used for modules that
+are needed throughout a project.</p>
+</li>
+<li>
+<p>Local package - namespaced collections can be useful to group a common set of
+cross-cutting concerns within a project.</p>
+</li>
+<li>
+<p>Local engine - a type of local package that encapsulates a set of
+functionality that benefits from run-time isolation and strict dependency
+sharing.</p>
+</li>
+</ul>
+<a class="header" href="0143-module-unification.html#testing" id="testing"><h3>Testing</h3></a>
+<p>Unit, integration, and some acceptance tests can now be co-located with their
+associated modules. Co-location should be encouraged because it makes test
+modules easier to locate in the file system, and easier to move if a module's
+scope changes.</p>
+<p>Robert Jackson plans to adapt the
+<a href="https://github.com/emberjs/rfcs/pull/119">Grand Testing Unification RFC</a>
+to illustrate test co-location and to introduce module types for tests.</p>
+<a class="header" href="0143-module-unification.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<p>Any change to a pattern as fundamental as file naming will incur some mental
+friction for developers who are accustomed to the current conventions. It is
+hoped that tooling like Robert's migrator and Ember Watson can lessen this
+friction by automating transitions, and that updated guides, generators, and
+blueprints can make these conventions easy to follow.</p>
+<p>Of course, we won't prevent usage of the currently used patterns for some time,
+but they will eventually be deprecated. Some efficiencies, especially in the
+resolver, may not be fully realized until the new patterns are used throughout
+a project.</p>
+<a class="header" href="0143-module-unification.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<a class="header" href="0143-module-unification.html#the-module-normalization-rfc" id="the-module-normalization-rfc"><h2>The Module Normalization RFC</h2></a>
+<p>Perhaps the most prominent alternative that has been explored is the
+<a href="https://github.com/emberjs/rfcs/pull/124">Module Normalization RFC</a>. Module
+Unification shares many aspects with Module Normalization, but with one
+fundamental difference: buckets in Module Normalization are normalized away
+for the resolver, while collections in Module Unification play an important
+role in module resolution.</p>
+<p>The Ember Core Team decided that the sleight of hand required to allow buckets
+to be used for organization only, and not for resolution, could create
+confusion. Essentially, modules could conflict across buckets, because they
+could have matching namespaces, names, and types. This kind of conflict could
+not be allowed, so developers would need to understand too much about the
+resolution strategy to make it ergonomic.</p>
+<a class="header" href="0143-module-unification.html#other-alternatives" id="other-alternatives"><h2>Other Alternatives</h2></a>
+<p><a href="https://gist.github.com/dgeb/396fed953184acb04f4f">A large number of other alternatives have been explored</a>
+before settling on this recommendation. Feel free to explore the history of any
+of the linked gists to understand some of the subtle alternatives.</p>
+<p>Of course, one alternative is to simply not change anything and accept the
+drawbacks discussed in the Motivation section above. However, even if we accept
+inefficiencies in our resolver and confusion over divergent file structuring
+strategies, we still need to solve the &quot;local lookup&quot; problem, which does not
+have a clean solution in today's module system.</p>
+<a class="header" href="0143-module-unification.html#unresolved-questions" id="unresolved-questions"><h1>Unresolved questions</h1></a>
+<a class="header" href="0143-module-unification.html#how-should-tests-be-co-located-in-src" id="how-should-tests-be-co-located-in-src"><h2>How should tests be co-located in <code>src</code>?</h2></a>
+<p>Should tests be allowed within <code>src</code> via <code>*-test</code> types (e.g.
+<code>component-integration-test</code>, <code>component-unit-test</code>, etc.) within respective
+collections?</p>
+<p>If this RFC is approved, then Robert Jackson plans to adapt the
+<a href="https://github.com/emberjs/rfcs/pull/119">Grand Testing Unification RFC</a> to
+propose answers to these questions.</p>
+<a class="header" href="0143-module-unification.html#what-about-routable-components" id="what-about-routable-components"><h2>What about routable components?</h2></a>
+<p>Should routable components have a type that's unique from other components?</p>
+<p>Should they exist alongside <code>route</code> and <code>template</code> types in the <code>routes</code>
+collection?</p>
+<p>It seems plausible that routable components could simply use the <code>component</code>
+type, and that we could lint against allowing template-invocable components
+alongside routes.</p>
+<a class="header" href="0143-module-unification.html#how-should-configuration-declarations-be-made-in-the-main-module" id="how-should-configuration-declarations-be-made-in-the-main-module"><h2>How should configuration declarations be made in the <code>main</code> module?</h2></a>
+<p>For example:</p>
+<ul>
+<li>How should resolvable exports be declared from addons?</li>
+<li>Can apps override the root names of addons? For example, if
+<code>ember-power-select</code> has a root name of <code>power-select</code>, could a consuming app
+override this?</li>
+<li>How do addons and apps declare their collection and type exports? For example,
+how could liquid-fire allow for a <code>transition</code> type and an <code>animations</code>
+collection?</li>
+</ul>
+<a class="header" href="0143-module-unification.html#should-we-allow-collection-groups" id="should-we-allow-collection-groups"><h2>Should we allow collection groups?</h2></a>
+<p>Do the organizational benefits of collection groups outweigh the potential
+confusion over where lines are drawn between a group/collection/namespace
+when viewing a project structure.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0139-isHtmlSafe.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0150-factory-for.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0139-isHtmlSafe.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0150-factory-for.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

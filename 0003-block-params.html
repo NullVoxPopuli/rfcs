@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0003-block-params - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html" class="active"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2014-08-18</li>
+<li>RFC PR: https://github.com/emberjs/rfcs/pull/3</li>
+<li>Issues:
+<ul>
+<li>Ember Stream support: emberjs/ember.js#5522</li>
+<li>Handlebars parser support: wycats/handlebars.js#906</li>
+<li>HTMLBars compiler support: tildeio/htmlbars#147</li>
+</ul>
+</li>
+</ul>
+<a class="header" href="0003-block-params.html#summary" id="summary"><h1>Summary</h1></a>
+<p>Introduce block parameters to the Handlebars language to standardize context-preserving helpers, for example:</p>
+<pre><code class="language-handlebars">{{#each people as |person|}}
+  {{person.name}}
+{{/each}}
+</code></pre>
+<a class="header" href="0003-block-params.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<a class="header" href="0003-block-params.html#the-problem" id="the-problem"><h3>The Problem</h3></a>
+<p>There is no idiomatic way to write a helper that preserves context and yields values to its template. This is particularly painful for components which have strict context-preserving semantics.</p>
+<a class="header" href="0003-block-params.html#current-workarounds" id="current-workarounds"><h3>Current workarounds</h3></a>
+<ul>
+<li>Don't write components that need to yield a value.
+<ul>
+<li><em>Problem:</em> This may not be an option.</li>
+</ul>
+</li>
+<li>Invent a non-standard per-helper syntax (like <code>{{#with foo as bar}}</code> or <code>{{#each item in items}}</code>) that hook into the undocumented <code>keywords</code> to inject variables.
+<ul>
+<li><em>Problems:</em> Custom syntaxes are not in the spirit of the Handlebars language and require the consumer to know the special incantation. Component authors must an non-trivial understanding of how <code>keywords</code> work.</li>
+</ul>
+</li>
+</ul>
+<a class="header" href="0003-block-params.html#new-possibilities" id="new-possibilities"><h3>New possibilities</h3></a>
+<pre><code class="language-handlebars">{{#for-each obj as |key val|}}
+  {{key}}: {{val}}
+{{/for-each}}
+</code></pre>
+<pre><code class="language-handlebars">{{#form-for post as |f|}}
+  {{f.input &quot;title&quot;}}
+  {{f.textarea &quot;body&quot;}}
+  {{f.submit}}
+{{/form-for}}
+</code></pre>
+<a class="header" href="0003-block-params.html#detailed-design" id="detailed-design"><h1>Detailed design</h1></a>
+<ul>
+<li>Phase 1: Add block params to the Handlebars language</li>
+<li>Phase 2: Rewrite Ember's helpers to accept streams</li>
+<li>Phase 3: Add block param support to <code>{{each}}</code> and <code>{{with}}</code></li>
+</ul>
+<a class="header" href="0003-block-params.html#phase-1-add-block-params-to-the-handlebars-language" id="phase-1-add-block-params-to-the-handlebars-language"><h3>Phase 1: Add block params to the Handlebars language</h3></a>
+<p>The proposed syntax is <code>{{#x-foo a b w=x y=z as |param1 param2 ... paramN|}}</code> and is only available for block helpers.</p>
+<p>The names of the block parameters are compiled into the inner template, but are not known to the helper (<code>x-foo</code> in the example above). To call a template and populate its block params we use the arguments option:</p>
+<pre><code class="language-javascript">var template = compile('{{person.name}}', {
+  blockParams: [ 'person' ]
+});
+
+template({}, ..., [ personModel ]);
+</code></pre>
+<p>More commonly, block params will be defined inside of the template.</p>
+<pre><code>{{#with currentPost.author as |a|}}
+  {{a.name}} &lt;em&gt;{{a.email}}&lt;/em&gt;
+{{/with}}
+</code></pre>
+<pre><code class="language-javascript">registerHelper('with', function(object, options) {
+  return options.fn(this, ..., [ object ]);
+});
+</code></pre>
+<p>For compatibility reasons, the <em>number of block params</em> are passed to the helper so that the pre-block-params behaviour of the helper can be preserved. Example:</p>
+<pre><code class="language-javascript">function eachHelper(..., options) {
+  if (options.blockParamsLength &gt; 0) { /* do new behaviour */ }
+  else { /* do old behaviour */ }
+}
+</code></pre>
+<a class="header" href="0003-block-params.html#phase-2-rewrite-embers-helpers-to-accept-streams" id="phase-2-rewrite-embers-helpers-to-accept-streams"><h3>Phase 2: Rewrite Ember's helpers to accept streams</h3></a>
+<p>In the <code>with</code> example above, if the <code>currentPost</code> changes the <code>a</code> block param should update. This means it's not sufficient to pass only the initial value of the author in the arguments. Instead, we pass a stream which emits values whenever the observed property changes.</p>
+<p>In Handlebars, a block param can appear anywhere that an identifier can, for example <code>{{log a.name}}</code>. This means that all helpers would need to be modified to understand streams.</p>
+<a class="header" href="0003-block-params.html#phase-3-add-block-param-support-to-each-and-with" id="phase-3-add-block-param-support-to-each-and-with"><h3>Phase 3: Add block param support to <code>{{each}}</code> and <code>{{with}}</code></h3></a>
+<p>Deprecate context-changing and ad-hoc keyword flavors of <code>{{each}}</code> and <code>{{with}}</code> in favor of block params.</p>
+<a class="header" href="0003-block-params.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<ul>
+<li>Handlebars already has a similar notion of with <code>data</code> which can lead to confusion.</li>
+</ul>
+<a class="header" href="0003-block-params.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<p>To my knowledge, no other designs have been considered. Not implementing this feature would mean that components would continue to be difficult to compose.</p>
+<a class="header" href="0003-block-params.html#unresolved-questions" id="unresolved-questions"><h1>Unresolved questions</h1></a>
+<p>The associated HTML syntax for HTMLBars needs to be finalized.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0001-transform-attribute-meta-parameter.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0010-engines.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0001-transform-attribute-meta-parameter.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0010-engines.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

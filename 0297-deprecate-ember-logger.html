@@ -1,0 +1,319 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0297-deprecate-ember-logger - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html" class="active"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>2018-01-17</li>
+<li>RFC PR: 0297</li>
+<li>Ember Issue: https://github.com/emberjs/ember.js/issues/16231</li>
+</ul>
+<a class="header" href="0297-deprecate-ember-logger.html#deprecation-of-emberlogger" id="deprecation-of-emberlogger"><h1>Deprecation of Ember.Logger</h1></a>
+<a class="header" href="0297-deprecate-ember-logger.html#summary" id="summary"><h2>Summary</h2></a>
+<p>This RFC recommends the deprecation and eventual removal of <code>Ember.Logger</code>.</p>
+<a class="header" href="0297-deprecate-ember-logger.html#motivation" id="motivation"><h2>Motivation</h2></a>
+<p>There are a variety of features of Ember designed to support old browsers,
+features that are no longer needed. <code>Ember.Logger</code> came into being because
+the browser support for the console was inconsistent. In some browsers,
+like Internet Explorer 9, the console only existed when the developer tools
+panel was open, which caused null references and program crashes when run
+with the console closed. <code>Ember.Logger</code> provided methods that would route to
+the console when it was available.</p>
+<p>With Ember 3.x, Ember no longer supports these older browsers, and hence this
+feature no longer serves a purpose. Removing it will make Ember smaller and
+lighter.</p>
+<a class="header" href="0297-deprecate-ember-logger.html#detailed-design" id="detailed-design"><h2>Detailed design</h2></a>
+<p>For the most part, this is a 1:1 substitution of the global <code>console</code> object
+for <code>Ember.Logger</code>.</p>
+<p>Node only added support for <code>console.debug</code> in Node version 9. Where we wish
+to support earlier versions of Node, we will need to use <code>console.log</code>, rather than
+<code>console.debug</code>, as the replacement for <code>Logger.debug</code>. Apps and addons
+which don't care about Node or are specifying Node version 9 as their minimum can
+use <code>console.debug</code>.</p>
+<p>Internet Explorer 11 and Edge both require console methods to be bound to the
+console object when the developer tools are not showing. This diverges from the
+expectations of other browsers. Direct calls to console methods will work correctly,
+but constructs which involve explicitly or implicitly binding the console methods to
+other objects or using them unbound will fail. This is straightforward to work around.</p>
+<p>You can address the issue by binding the method to the console object:</p>
+<pre><code class="language-javascript">// Before - assigning raw method to a variable for later use
+var print = Logger.log; // assigning method to variable
+print('Message');
+
+// After - assigning console-bound method to variable for later use
+var print = console.log.bind(console);
+print('Message');
+</code></pre>
+<p>In some cases, you can use rest parameter syntax to avoid the issue entirely:</p>
+<pre><code class="language-javascript">// Before
+Logger.info.apply(undefined, arguments); // or
+Logger.info.apply(null, arguments); // or
+Logger.info.apply(this, arguments); // or
+
+// After
+console.info(...arguments);
+</code></pre>
+<a class="header" href="0297-deprecate-ember-logger.html#within-the-framework" id="within-the-framework"><h3>Within the framework</h3></a>
+<p>Remove the following direct uses of <code>Ember.Logger</code> from the ember.js and
+ember-data projects:</p>
+<ul>
+<li><code>ember-debug</code>:
+<ul>
+<li>deprecate (<code>ember-debug\lib\deprecate.js</code>) - <code>Logger.warn</code></li>
+<li>debug (<code>ember-debug\lib\index.js</code>) - <code>Logger.info</code></li>
+<li>warn (<code>ember-debug\lib\warn.js</code>) - <code>Logger.warn</code></li>
+</ul>
+</li>
+<li><code>ember-routing</code> (<code>ember-routing\lib\system\router.js</code>):
+<ul>
+<li>transitioned to - <code>Logger.log</code></li>
+<li>preparing to transition to - <code>Logger.log</code></li>
+<li>intermediate-transitioned to - <code>Logger.log</code></li>
+</ul>
+</li>
+<li><code>ember-testing</code>:
+<ul>
+<li>Testing paused (<code>ember-testing\lib\helpers\pause_test.js</code>) - <code>Logger.info</code></li>
+<li>Catch-all handler (<code>ember-testing\lib\test\adapter.js</code>) - <code>Logger.error</code></li>
+</ul>
+</li>
+<li><code>ember-data</code>:
+<ul>
+<li><code>tests\test-helper.js</code>- <code>Logger.log</code></li>
+</ul>
+</li>
+</ul>
+<p>Adjust all test code that redirects logging and sets it back:</p>
+<ul>
+<li><code>ember\tests\routing\basic_test.js</code> (adjust)</li>
+<li><code>ember-application\tests\system\dependency_injection\default_resolver_test.js</code> (adjust)</li>
+<li><code>ember-application\tests\system\logging_test.js</code> (remove?)</li>
+<li><code>ember-glimmer\tests\integration\helpers\log-test.js</code> (remove?)</li>
+</ul>
+<p>Note: None of the uses of <code>Ember.Logger</code> in <code>ember.js</code> or <code>ember-data</code> involve
+<code>Ember.debug</code>, so that issue doesn't affect the Ember.js code directly.</p>
+<p>Add deprecation warnings to the implementation: <code>ember-console\lib\index.js</code>.
+Bear in mind that <code>Ember.deprecate</code> in <code>ember-debug</code> currently calls
+<code>Logger.warn</code>, so the <code>ember-debug</code> code should be changed <em>first</em> or adding
+the deprecation warning will create a deep recursion.</p>
+<p>The <code>Ember.assert</code>, <code>Ember.warn</code>, <code>Ember.info</code>, <code>Ember.debug</code>, and
+<code>Ember.deprecate</code> methods suppress their output on production builds.
+However, they are suppressing them in the <code>ember-debug</code> module, which
+currently consumes <code>Ember.Logger</code>, <em>not</em> by <code>Ember.Logger</code> itself. Hence,
+replacing calls to <code>Ember.Logger</code> with direct calls to the console will not
+affect this behavior.</p>
+<a class="header" href="0297-deprecate-ember-logger.html#add-on-developers" id="add-on-developers"><h3>Add-On Developers</h3></a>
+<p>The following high-impact add-ons (9 or 10 or a * on EmberObserver) use
+<code>Ember.Logger</code> and should probably be given an early heads-up to adjust
+their code to use <code>console</code> before this RFC is implemented. This will limit
+the level of pain that their users experience when the deprecation is released.</p>
+<p>Add-ons that need to also support Ember 2.x will need to make their console
+references conditional on console being &quot;truthy&quot;, of course, to support Internet
+Explorer 9.</p>
+<p>In the order of their number of references to <code>Ember.Logger</code>:</p>
+<ul>
+<li><code>ember-concurrency</code> (15)</li>
+<li><code>ember-cli-deprecation-workflow</code> (9)</li>
+<li><code>ember-stripe-service</code> (9)</li>
+<li><code>semantic-ui-ember</code> (7)</li>
+<li><code>ember-resolver</code> (6)</li>
+<li><code>ember-cli-page-object</code> (4)</li>
+<li><code>ember-cli-sentry</code> (3)</li>
+<li><code>ember-islands</code> (3)</li>
+<li><code>ember-states</code> (3)</li>
+<li><code>ember-cli-pagination</code> (2)</li>
+<li><code>ember-cli-clipboard</code> (1)</li>
+<li><code>ember-cli-fastboot</code> (1)</li>
+<li><code>ember-elsewhere</code> (1)</li>
+<li><code>ember-i18n</code> (1)</li>
+<li><code>ember-simple-auth-token</code> (1)</li>
+<li><code>ember-svg-jar</code> (1)</li>
+<li><code>liquid-fire</code> (1)</li>
+</ul>
+<p>For details, see https://emberobserver.com/code-search?codeQuery=Ember.Logger.</p>
+<a class="header" href="0297-deprecate-ember-logger.html#how-we-teach-this" id="how-we-teach-this"><h2>How we teach this</h2></a>
+<a class="header" href="0297-deprecate-ember-logger.html#communication-of-change" id="communication-of-change"><h3>Communication of change</h3></a>
+<p>We need to inform users that <code>Ember.Logger</code> will be deprecated and in what
+release it will occur.</p>
+<a class="header" href="0297-deprecate-ember-logger.html#official-code-bases-and-documentation" id="official-code-bases-and-documentation"><h3>Official code bases and documentation</h3></a>
+<p>We do not currently actively teach the use of <code>Ember.Logger</code>. We will need to
+remove any passing references to <code>Ember.Logger</code> from the Ember guides
+from the Super Rentals tutorial, and anywhere else it appears on the website.</p>
+<p>Once it is gone from the code, we also need to verify it no longer appears in
+the API listings.</p>
+<p>We must provide an entry in the deprecation guide for this change:</p>
+<ul>
+<li>describing relevant divergences remaining in the handling of the console in
+Internet Explorer 11 and Edge browsers.</li>
+<li>describing the issue with using console.debug on node versions
+earlier than Node 9.</li>
+<li>describing alternative ways of dealing with eslint's <code>no-console</code> messages.</li>
+</ul>
+<a class="header" href="0297-deprecate-ember-logger.html#drawbacks" id="drawbacks"><h2>Drawbacks</h2></a>
+<p>191 add-ons in Ember Inspector are using <code>Ember.Logger</code>. It has been there and
+documented for a long time. So this deprecation will cause some level of change
+on many projects.</p>
+<p>This, of course, can be said for almost any deprecation, and Ember's
+disciplined approach to deprecation has been repeatedly shown to ease things.
+These particular changes are proving easy to locate and replace by hand. Also,
+only twenty of those add-ons have more than six references to <code>Ember.Logger</code>.
+If this is characteristic of the user base, the level of effort to make
+the change, even by hand, should be very small for most users.</p>
+<p>Those using <code>Logger.debug</code> as something different from <code>Logger.log</code> may have
+at least a theoretical concern. Under the covers <code>Logger.debug</code> only calls
+<code>console.debug</code> if it exists, calling <code>console.log</code> otherwise. The only
+platform where the difference between the two is visible in the console is on
+Safari. We can encourage folks with a tangible, practical concern about this to
+speak up during the comment period, but I don't anticipate this will have much
+impact.</p>
+<a class="header" href="0297-deprecate-ember-logger.html#alternatives" id="alternatives"><h2>Alternatives</h2></a>
+<ol>
+<li>
+<p>Leave things as they are, perhaps providing an <code>@ember/console</code> module
+interface.</p>
+</li>
+<li>
+<p>Extract <code>Ember.Logger</code> into its own (tiny) <code>@ember/console</code> package as
+a shim for users.</p>
+</li>
+</ol>
+<a class="header" href="0297-deprecate-ember-logger.html#unresolved-questions" id="unresolved-questions"><h2>Unresolved questions</h2></a>
+<p>None at this point. The answers from prior drafts have been promoted into the text.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0294-optional-jquery.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0311-angle-bracket-invocation.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0294-optional-jquery.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0311-angle-bracket-invocation.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

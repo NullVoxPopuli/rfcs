@@ -1,0 +1,470 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0240-es-classes - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html" class="active"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2017-07-28</li>
+<li>RFC PR: <a href="https://github.com/emberjs/rfcs/pull/240">#240</a></li>
+<li>Ember Issue: (leave this empty)</li>
+</ul>
+<a class="header" href="0240-es-classes.html#summary" id="summary"><h1>Summary</h1></a>
+<p>This RFC aims to solidify the usage of ES2015 Classes as a public API of Ember so
+that users can begin building on them, and projects like <code>ember-decorators</code> can
+continue to push forward with experimental Javascript features. This includes:</p>
+<ul>
+<li>Making the class <code>constructor</code> function a public API</li>
+<li>Modifying some of the internals of <code>Ember.Object</code> to support existing features
+and make the usage of ES Classes cross-compatible with <code>Ember.Object</code></li>
+</ul>
+<p>It does <em>not</em> propose additions in the form of helpers or decorators, which should
+continue to be iterated on in the community as the spec itself is finalized. It also
+does not propose deprecating or removing existing functionality in <code>Ember.Object</code>.</p>
+<a class="header" href="0240-es-classes.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>The Ember Object model has served its purpose well over the years, but now that
+ES Classes are becoming prevalent throughout the wider Javascript community
+it is beginning to show its age. With class properties at stage 3 and decorators at
+stage 2 in the TC39 process, classes are finally at a point where we can start
+integrating them into Ember.</p>
+<p>The <a href="https://github.com/rwjblue/ember-decorators">ember-decorators</a> project has been
+experimenting with using ES Classes and filling out the Ember feature-set,
+allowing us to write Ember classes like so:</p>
+<pre><code class="language-javascript">export default class MyComponent extends Ember.Component {
+  didInsertElement() {
+    // do stuff
+  }
+
+  @computed
+  get foo() {
+    // do stuff
+  }
+
+  @action
+  bar() {
+    // do stuff
+  }
+}
+</code></pre>
+<p>Using classes makes Ember easier to teach and understand by normalizing it with
+standard Javascript coding practices, and allows us to share code and solutions
+with other frameworks and libraries. It also brings with it all the benefits of
+ES Class syntax:</p>
+<ul>
+<li>More aligned with the greater Javascript community</li>
+<li>Ability to share code more easily with other libraries and frameworks</li>
+<li>Easier to statically analyze</li>
+<li>Cleaner and easier to read (subjective)</li>
+</ul>
+<p>The Ember Object model already works extremely well with ES classes, as
+demonstrated above, but there several failure scenarios. Furthermore, because
+they are not officially supported as a public API, there is no guarantee
+that they will continue to work well. Thus, this RFC seeks to solidify the
+behavior of ES Classes so that the community can continue to experiment with
+new Javascript features and build on a stable API.</p>
+<a class="header" href="0240-es-classes.html#detailed-design" id="detailed-design"><h1>Detailed Design</h1></a>
+<p>Many of the standard features of Ember classes work out of the box today, either with
+vanilla ES Classes or through <code>ember-decorators</code>, including:</p>
+<ul>
+<li>Inheritance</li>
+<li>Lifecycle hooks</li>
+<li>Computeds</li>
+<li>Injections</li>
+<li>Actions</li>
+</ul>
+<p>However, the following features either do not exist or do not work as a
+user familiar with <code>Ember.Object</code> would expect:</p>
+<ul>
+<li>Extending from ES Classes using <code>extend</code></li>
+<li>Class properties</li>
+<li>Mixins</li>
+<li>Observers and events</li>
+<li>Merged and concatenated properties</li>
+</ul>
+<p>These features will require changes to <code>Ember.Object</code></p>
+<a class="header" href="0240-es-classes.html#extend" id="extend"><h2>Extend</h2></a>
+<p>Currently, once a class is defined using ES Classes it is not possible for users
+to extend it using the previous CoreObject style of writing and extending classes.
+This can limit the rate of adoption because ES Classes would become a trapdoor -
+once you begin using them, you must continue to use them. It would be a particularly
+thorny issue for addon developers, who may design components which their users
+expect to be able to extend and modify.</p>
+<p>This RFC proposes that <code>extend</code> be fixed on ES Classes to make them fully
+cross-compatible with the existing syntax. There are two general approaches to
+making this work:</p>
+<ol>
+<li>
+<p>Modify CoreObject to use prototypes/ES Classes internally. This would bring
+CoreObject more inline with ES Classes, but would be a significant internal change.</p>
+</li>
+<li>
+<p>Modify CoreObject to have different behavior if it is extending an ES Class
+using <code>extend</code>.</p>
+</li>
+</ol>
+<p>Both approaches should be explored and benchmarked to determine if there are an
+significant advantages to one over the other.</p>
+<a class="header" href="0240-es-classes.html#class-properties" id="class-properties"><h2>Class Properties</h2></a>
+<p>When using <code>Ember.Object.extend</code>, properties that are passed in on the object
+are assigned to the prototype of the class:</p>
+<pre><code class="language-javascript">const Foo = Ember.Object.extend({ bar: 'baz' });
+const foo = Foo.create();
+
+console.log(Foo.prototype.bar) // 'baz'
+foo.hasOwnProperty('bar') // false
+</code></pre>
+<p>This differs from the behavior of ES Class properties, which initialize their
+value on the instance of the class.</p>
+<pre><code class="language-javascript">class Foo {
+  bar = 'baz'
+}
+
+const foo = new Foo();
+
+console.log(Foo.prototype.bar) // undefined
+foo.hasOwnProperty('bar') // true
+</code></pre>
+<p>The above is essentially currently compiled down by Babel to the following:</p>
+<pre><code class="language-javascript">class Foo {
+  constructor() {
+    this.bar = 'baz';
+  }
+}
+</code></pre>
+<p>Property assignments like this are always done at the end of the constructor,
+and given the requirement that <code>super</code> must always be called before properties
+are assigned it is unlikely that this will change as the spec progresses.</p>
+<p>While one might intuitively expect class properties to function the same in
+ES Classes as they do with Ember Objects, this difference in behavior means that
+class properties will always be assigned after properties passed into <code>create</code>
+are initialized on the object, and thus will always win:</p>
+<pre><code class="language-javascript">const Foo = Ember.Object.extend({ testProp: 'default value' });
+
+class Bar extends Ember.Object {
+  testProp = 'default value'
+}
+
+const foo = Foo.create({ testProp: 'new value' });
+const bar = Bar.create({ testProp: 'new value' });
+
+console.log(foo.get('testProp')); // 'new value'
+console.log(bar.get('testProp')); // 'default value'
+</code></pre>
+<p>This behavior makes sense when you consider that it is equivalent to assigning
+values in <code>init</code> rather than on the object when it is defined. Rather than modify
+<code>Ember.Object</code> to treat class properties as default values, this RFC proposes that
+we accept the difference in behavior and utilize the constructor to allow users
+to set default values, as in the following example:</p>
+<pre><code class="language-javascript">class Foo extends Ember.Object {
+  constructor(props) {
+    props.testProp = props.testProp || 'default value';
+
+    super(props);
+  }
+}
+</code></pre>
+<p>This enforces a public API rather than allowing <code>create</code> to override values as
+it pleases, and is more inline with the behavior of components in Glimmer today -
+args that are passed into the class are distinguished from properties that are
+defined on the class.</p>
+<a class="header" href="0240-es-classes.html#mixins" id="mixins"><h2>Mixins</h2></a>
+<p>Mixins are a contentious part of both the Ember Object model and the wider
+Javascript community - some swear by the pattern, and others believe it fundamentally
+flawed. While Ember mixins are at the core of Ember Object, the fact is that
+no standard solution for them has arisen in the wider Javascript community as
+of yet.</p>
+<p>Additionally, while concepts like computed properties, actions, and
+service injection are either unique to Ember or highly dependent on implementation,
+mixins can be implemented in a generic way which could be used across all of
+Javascript, independent of one's framework or library of choice. With that in
+mind, this RFC considers mixins out of scope and suggests that in the future Ember
+users can choose to use a mixin library if it suits their needs.</p>
+<p>It should also be noted that existing classes which have used mixins can still be
+extended using ES Class syntax:</p>
+<pre><code class="language-javascript">const Mix = Ember.Mixin.create({ bar: 'baz' });
+const Foo = Ember.Object.extend(Mix, { /* ... */ });
+
+class Bar extends Foo { /* ... */ }
+
+const bar = Bar.create();
+
+console.log(bar.get('bar')); // 'baz'
+</code></pre>
+<a class="header" href="0240-es-classes.html#observers-and-events" id="observers-and-events"><h2>Observers and Events</h2></a>
+<p>Observers and events both fail to work properly when using ES Class syntax. The root
+of the issue here is how <code>Ember.Object</code> works at a fundamental level, and will require
+some refactoring to fix.</p>
+<p>Currently, each time <code>Ember.Object.extend</code> is used, it stores the list of mixins and
+objects passed in on a list which also contains the superclass's properties and mixins,
+and so on. A class is then returned which has access to a closure variable, <code>wasApplied</code>:</p>
+<pre><code class="language-javascript">makeCtor = function() {
+  wasApplied = false;
+
+  return class {
+    constructor() {
+      if (!wasApplied) {
+        this.proto();
+      }
+    }
+  }
+}
+</code></pre>
+<p>The <code>proto</code> function walks the chain of stored mixins, collapsing them into a single object
+prototype the first time the class is created. It is during this walk that observers and
+events listeners are applied and finalized, as well as merged and concatenated properties
+applied (this will be touched on more in the next section).</p>
+<p>Unfortunately, due to the nature of how observers and event listeners work, they cannot be
+applied at class definition time without a class decorator. For example:</p>
+<pre><code class="language-javascript">const Foo = Ember.Object.extend({
+  fooObserver: Ember.observer('foo', function() { /* ... */m })
+});
+
+class Bar extends Foo {
+  fooObserver() { /* ... */ }
+}
+</code></pre>
+<p>When <code>proto</code> walks the mixin chain for Foo, it will add an observer that triggers the
+<code>fooObserver</code> function whenever <code>foo</code> changes. Bar, however, overloads the <code>fooObserver</code>
+function with a function that is <em>not</em> observed, and thus should not trigger (this is
+analagous to how Ember Object's work today). Currently there is no time at which
+Bar can inspect undecorated properties to determine if the superclass has already defined
+them and if they are observed and thus should have the observer removed.</p>
+<p>To fix this, the <code>wasApplied</code> state should be moved to the ember meta object on the
+class itself, so that both Ember Objects and ES Classes can track if they have had it
+applied. Additional logic will also need to be added to allow the current &quot;squashing&quot;
+behavior of <code>proto</code> to work with Prototypes instead of a list of mixins as well.</p>
+<a class="header" href="0240-es-classes.html#merged-and-concatenated-properties" id="merged-and-concatenated-properties"><h2>Merged and Concatenated Properties</h2></a>
+<p>Ember Objects currently have the ability to define special properties which are
+merged or concatenated with their superclass when extended. This is most commonly
+seen with <code>actions</code> and <code>classNames</code> among others.</p>
+<p>As mentioned in the last section, merged and concatenated properties are also
+combined during the <code>proto</code> &quot;squash&quot; phase, and so it is also broken in ES Classes
+currently. This RFC proposes that their behavior also be fixed as part of the refactors
+to Ember.Object.</p>
+<a class="header" href="0240-es-classes.html#how-we-teach-this" id="how-we-teach-this"><h1>How We Teach This</h1></a>
+<p>The sole purpose of this RFC is to make the behavior of ES Classes within Ember a
+public API so that projects like <code>ember-decorators</code> can continue to build and experiment
+with confidence that the underlying behavior will not change. The Ember Object model
+will remain exactly the same as today, and will continue to be the recommended path
+for Ember users. Thus, we will not need to add new documentation for the time being.</p>
+<a class="header" href="0240-es-classes.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<ul>
+<li>Making <code>constructor</code> a public API means we are solidifying the lifecycle of
+objects, locking us into a particular sequence of events (<code>init</code> occurs within
+the <code>super()</code> portion of the constructor).</li>
+<li>Lack of mixin support may make it difficult for mixin heavy codebases to utilize
+ES Classes.</li>
+<li>ES Class features/usage such as getters and setters may confuse users in general
+(getter functions will <em>appear</em> to work, but without a <code>computed</code> decorator will
+not update, etc.)</li>
+</ul>
+<a class="header" href="0240-es-classes.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<ul>
+<li>Class property initialization can be changed such that properties are initialized
+after the constructor runs entirely, allowing them to be overwritten by values
+passed to <code>create</code></li>
+</ul>
+<a class="header" href="0240-es-classes.html#topics-for-future-rfcs" id="topics-for-future-rfcs"><h1>Topics for Future RFCs</h1></a>
+<p>While working on this RFC, some issues were brought into focus regarding existing
+features in CoreObject that are seen as problematic or unintuitive. In order to
+avoid bikeshedding these have been slated for discussion in future RFCs, but the
+discussion points have been included below.</p>
+<a class="header" href="0240-es-classes.html#merged-and-concatenated-properties-1" id="merged-and-concatenated-properties-1"><h2>Merged and Concatenated Properties</h2></a>
+<p>Merged and concatenated properties are pain points for new Ember developers,
+specifically because they give no lexical hint that they are special in any way.
+Developers must know that these particular properties will be merged with the
+superclass, and there is no way to opt out of this behavior.</p>
+<p>With decorators, this same behavior can be accomplished in a much clearer and
+more straightforward way:</p>
+<pre><code class="language-javascript">class FooComponent extends Ember.Component {
+  @concatenated classNameBindings = ['foo']
+
+  @computed
+  get foo() { /* ... */ }
+
+  @merged actions = {
+    bar() { /* ... */ }
+  }
+}
+</code></pre>
+<p>They could also be accomplished more ergonomically with specialized decorators:</p>
+<pre><code class="language-javascript">class FooComponent extends Ember.Component {
+  @className
+  @computed
+  get foo() { /* ... */ }
+
+  @action
+  bar() { /* ... */ }
+}
+</code></pre>
+<p>This approach has two distinct advantages over the existing behavior:</p>
+<ol>
+<li>It is less magical. The decorators indicate to new users that the properties are
+special in some way, and ultimately they are just plain decorators, which are
+compatible with ES Classes as a whole and can be reused anywhere.</li>
+<li>It provides a way to opt out of the behavior. Currently, there is no easy
+way to prevent properties which were marked to be merged from being merged,
+meaning subclasses are stuck with the values that their superclass provided.</li>
+</ol>
+<a class="header" href="0240-es-classes.html#observers-and-listeners" id="observers-and-listeners"><h2>Observers and Listeners</h2></a>
+<p>Observers and event listeners are a powerful pattern that saw a lot of usage in Ember 1.
+However, it is now widely accepted that they are problematic when overused, and using
+computed properties and lifecycle hooks are better patterns in most cases.</p>
+<p>As such, rather than having events and observers turned on by default it may make
+more sense to have them be opt-in APIs. This could be accomplished by making new
+class decorators like so:</p>
+<pre><code class="language-javascript">@evented
+class Foo extends Ember.Object {
+  @on('init')
+  onInit() {
+    // do something
+  }
+}
+</code></pre>
+<p>Or it could be accomplished with new base classes that include the functionality:</p>
+<pre><code class="language-javascript">class Foo extends EventedObject {
+  @on('init')
+  onInit() {
+    // do something
+  }
+}
+</code></pre>
+<a class="header" href="0240-es-classes.html#unresolved-questions" id="unresolved-questions"><h1>Unresolved questions</h1></a>
+<p>None currently</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0237-deprecation-ember-map.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0252-browser-support-changes.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0237-deprecation-ember-map.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0252-browser-support-changes.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

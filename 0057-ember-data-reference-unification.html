@@ -1,0 +1,416 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0057-ember-data-reference-unification - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html" class="active"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2015-05-20</li>
+<li>RFC PR: https://github.com/emberjs/rfcs/pull/57</li>
+<li>Ember Issue: https://github.com/emberjs/data/pull/3303</li>
+</ul>
+<a class="header" href="0057-ember-data-reference-unification.html#summary" id="summary"><h1>Summary</h1></a>
+<p>This RFC adds a unified way to perform meta-operations on records, has-many relationships and belongs-to relationships:</p>
+<ul>
+<li>get the current local data synchronously without triggering a fetch or producing a promise</li>
+<li>notify the store that a fetch for a given record has begun, and provide a promise for its result</li>
+<li>similarly, notify a record that a fetch for a given relationship has begun, and provide a promise for its result</li>
+<li>retrieve server-provided metadata about a record or relationship</li>
+</ul>
+<a class="header" href="0057-ember-data-reference-unification.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>When we initially designed the Ember Data API for relationships, we focused on consumption and mutation of the relationship data. For example, you can retrieve the value of a <code>belongsTo</code> relationship via <code>get('post')</code>, or adding new records to a has-many relationship via <code>get('comments').pushObject(newComment)</code>.</p>
+<p>The top-level reading operations are designed to be <a href="http://blog.izs.me/post/59142742143/designing-apis-for-asynchrony">zalgo</a>-proof: regardless of whether or not the record or relationship has been loaded already, you get back a promise for the result. Behind the scenes, this will trigger a fetch if needed, or simply return the current value if it has already been fetched. From a programming model perspective, this simplifies your code because you can handle locally-available data and remotely-available data in a single code path.</p>
+<p>However, in sophisticated applications, there is often a need to refer to a record without triggering side effects.</p>
+<p>For example, you may want to initiate the fetch for a record or relationship yourself, and provide Ember Data with a promise representing the result of that fetch. That use-case is supported by the <code>store.push</code> API, but it has a few problems:</p>
+<ul>
+<li>The <code>store.push</code> API supports pushing data once the fetch has completed, but no way of telling
+Ember Data that a fetch has begun. As a result, any calls to <code>store.find</code> in the interim will
+trigger unnecessary fetches.</li>
+<li>The <code>store.push</code> API works only for top-level records with already-known types and IDs. It does
+not support any way of &quot;feeding&quot; the data for a relationship to Ember Data.</li>
+</ul>
+<p>In sum, this makes it difficult to front-load work (especially asynchronous work). Instead, Ember Data is currently optimized for reacting to requests from the application layer, which is sometimes a very awkward way of structuring your code.</p>
+<p>Second, Ember Data was originally designed with APIs that refer to data and operations on data. Over time, we have come to realize that people quite often need to look at metadata about records or relationships, as well as perform meta-operations on them.</p>
+<p>Some examples:</p>
+<ul>
+<li>getting the expected count of a has-many relationship before it has been fetched</li>
+<li>learning whether a relationship is already loaded or not</li>
+<li>examining server-sent metadata</li>
+<li>working with pages of records in a has-many relationship, especially when pages are loaded asynchronously (&quot;pagination&quot;)</li>
+</ul>
+<p>Third, because has-many relationships are represented as a <code>RecordArray</code>, we have been able to kludge around some of these issues by adding meta-operations to the has-many relationship itself. In contrast, belongs-to relationships have remained anemic. For example, there is no way to trigger a reload of a belongs-to relationship, whereas has-many relationships can be reloaded by calling <code>.reload()</code> on the <code>RecordArray</code>.</p>
+<a class="header" href="0057-ember-data-reference-unification.html#detailed-design" id="detailed-design"><h1>Detailed design</h1></a>
+<p>This RFC proposes the addition of three new <strong>public</strong> APIs:</p>
+<ul>
+<li><code>RecordReference</code></li>
+<li><code>HasManyReference</code></li>
+<li><code>BelongsToReference</code></li>
+</ul>
+<a class="header" href="0057-ember-data-reference-unification.html#getting-references" id="getting-references"><h2>Getting References</h2></a>
+<ul>
+<li><code>store.getReference(type, id)</code></li>
+<li><code>record.getReference(name)</code></li>
+</ul>
+<a class="header" href="0057-ember-data-reference-unification.html#references" id="references"><h2>References</h2></a>
+<a class="header" href="0057-ember-data-reference-unification.html#push" id="push"><h3><code>push</code></h3></a>
+<pre><code class="language-js">/**
+  This API allows you to provide a reference with new data. The simplest usage
+  of this API is similar to `store.push`: you provide a normalized hash of data
+  and the object represented by the reference will update.
+
+  If you pass a promise to `push`, Ember Data will not ask the adapter for the
+  data if another attempt to fetch it is made in the interim. When the promise
+  resolves, the underlying object is updated with the new data, and the promise
+  returned by *this function* is resolved with that object.
+
+  For example, `recordReference.push(promise)` will be resolved with a record.
+
+  @method
+  @param {Promise|Object}
+  @returns Promise&lt;T&gt; a promise for the value (record or relationship)
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#pushpayload" id="pushpayload"><h3><code>pushPayload</code></h3></a>
+<pre><code class="language-js">/**
+  This API is similar to `push`, but it invokes the serializer with the
+  resolved data. This makes it possible to share normalization logic
+  across multiple calls to `pushPayload` or between proactive pushes
+  and reactive responses from the adapter.
+
+  @method
+  @param {Promise|Object}
+  @returns Promise&lt;T&gt; a promise for the value (record or relationship)
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#state" id="state"><h3><code>state</code></h3></a>
+<pre><code class="language-js">/**
+  The current state of the entity, based on the semantics of the
+  entity in question. For records, this should expose a subset of
+  the named states in the internal state machine.
+
+  @property
+  @type String
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#value" id="value"><h3><code>value</code></h3></a>
+<pre><code class="language-js">/**
+  If the entity referred to by the reference is already loaded, it
+  is present as `reference.value`. Otherwise, the value of this
+  property is `null`.
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#data" id="data"><h3><code>data</code></h3></a>
+<pre><code class="language-js">/**
+  The value of the (normalized) representation of this entity. For
+  example, `recordReference.data` will return a normalized dictionary
+  of attributes and links.
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#metadata" id="metadata"><h3><code>metadata</code></h3></a>
+<pre><code class="language-js">/**
+  The most recent value of the metadata returned by the server for
+  the value represented by this reference.
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#load" id="load"><h3><code>load</code></h3></a>
+<pre><code class="language-js">/**
+  Triggers a fetch for the backing entity based on its `remoteType`
+  (see `remoteType` definitions per reference type).
+
+  @method
+  @param {Object} an options hash, similar to the one currently
+    passed to `store.find`.
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#unload" id="unload"><h3><code>unload</code></h3></a>
+<pre><code class="language-js">/**
+  Unload the entity referred to by this relationship. After this
+  operation, its `value`, `data` and `metadata` members will return
+  to `null`, and the record itself will be purged from the identity
+  map.
+
+  @method
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#recordreference" id="recordreference"><h2>RecordReference</h2></a>
+<a class="header" href="0057-ember-data-reference-unification.html#remotetype" id="remotetype"><h3><code>remoteType</code></h3></a>
+<pre><code class="language-js">/**
+  How the reference will be looked up with it is loaded:
+
+  * `link`, a URL
+  * `identity`, by the `type` and `id`
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#type" id="type"><h3><code>type</code></h3></a>
+<pre><code class="language-js">/**
+  The type of the record that this reference refers to.
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#id" id="id"><h3><code>id</code></h3></a>
+<pre><code class="language-js">/**
+  The `id` of the record that this reference refers to.
+
+  Together, the `type` and `id` properties form a composite key
+  for the identity map.
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#hasmanyreference" id="hasmanyreference"><h2>HasManyReference</h2></a>
+<a class="header" href="0057-ember-data-reference-unification.html#remotetype-1" id="remotetype-1"><h3><code>remoteType</code></h3></a>
+<pre><code class="language-js">/**
+  How the reference will be looked up when it is fetched:
+
+  * `link`, a URL provided by the server
+  * `ids`, a list of IDs provided by the server
+  * `dynamic`, a dynamic URL will be created based on the identity
+    of the parent.
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#link" id="link"><h3><code>link</code></h3></a>
+<pre><code class="language-js">/**
+  If the `remoteType` is `link`, the URL to use to load the relationship.
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#ids" id="ids"><h3><code>ids</code></h3></a>
+<pre><code class="language-js">/**
+  If the `remoteType` is `ids`, a list of IDs that is used to formulate
+  the query to the server (together with `type`).
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#type-1" id="type-1"><h3><code>type</code></h3></a>
+<pre><code>/**
+  The model type represented by this relationship.
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#parent" id="parent"><h3><code>parent</code></h3></a>
+<pre><code class="language-js">/**
+  A reference to the record that has this `hasMany` on it.
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#inverse" id="inverse"><h3><code>inverse</code></h3></a>
+<pre><code class="language-js">/**
+  If there is an inverse relationship, this property is a reference
+  to it.
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#belongstoreference" id="belongstoreference"><h2>BelongsToReference</h2></a>
+<a class="header" href="0057-ember-data-reference-unification.html#remotetype-2" id="remotetype-2"><h3><code>remoteType</code></h3></a>
+<pre><code class="language-js">/**
+  How the reference will be looked up when it is fetched:
+
+  * `link`, a URL provided by the server
+  * `id`, an ID to use to form the URL
+  * `dynamic`, a dynamic URL will be created based on the identity
+    of the parent.
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#link-1" id="link-1"><h3><code>link</code></h3></a>
+<pre><code class="language-js">/**
+  If the `remoteType` is `link`, the URL to use to load the relationship.
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#ids-1" id="ids-1"><h3><code>ids</code></h3></a>
+<pre><code class="language-js">/**
+  If the `remoteType` is `id`, an ID that is used to formulate
+  the query to the server (together with `type`).
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#type-2" id="type-2"><h3><code>type</code></h3></a>
+<pre><code>/**
+  The model type represented by this relationship.
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#parent-1" id="parent-1"><h3><code>parent</code></h3></a>
+<pre><code class="language-js">/**
+  A reference to the record that has this `belongsTo` on it.
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#inverse-1" id="inverse-1"><h3><code>inverse</code></h3></a>
+<pre><code class="language-js">/**
+  If there is an inverse relationship, this property is a reference
+  to it.
+
+  @property
+*/
+</code></pre>
+<a class="header" href="0057-ember-data-reference-unification.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<p>The main drawback to this proposal is that it adds significant surface area to Ember Data, which could easily be perceived as significant additional complexity. However, we believe that the unification of the various entities in Ember Data, as well as exposing internal tools that were previously only available to the store, will actually reduce the complexity of many common patterns.</p>
+<a class="header" href="0057-ember-data-reference-unification.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<p>The main alternative is to address each use case with a new API:</p>
+<ul>
+<li><code>store.peek(record, id)</code>, <code>record.peek(relationship)</code> to retrieve the current value of the relationship only if it was loaded</li>
+<li>extend <code>store.push</code> and <code>store.pushPayload</code> to take promises</li>
+<li>APIs like <code>record.inverseFor(relationship)</code>, <code>record.typeFor(relationship)</code>, etc.</li>
+<li>APIs like <code>record.idsFor(relationship)</code>, <code>record.metadataFor(relationship)</code>, and <code>store.metadataFor(type, id)</code></li>
+</ul>
+<p>We believe that the cumulative overhead of all of these APIs is far more than the overhead of the reference APIs.</p>
+<a class="header" href="0057-ember-data-reference-unification.html#unresolved-questions" id="unresolved-questions"><h1>Unresolved questions</h1></a>
+<p>Is there a need to represent &quot;prefetch metadata&quot; separately? This is metadata that the app knows about before fetch, and which it would want to persist through an <code>unload()</code> operation (along with identity information like type, id and link).</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0056-improved-release-cycle.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0058-helper-listing.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0056-improved-release-cycle.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0058-helper-listing.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

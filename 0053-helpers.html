@@ -1,0 +1,401 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0053-helpers - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html" class="active"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2015-05-17</li>
+<li>RFC PR: https://github.com/emberjs/rfcs/pull/53</li>
+<li>Ember Issue: https://github.com/emberjs/ember.js/pull/11278</li>
+</ul>
+<a class="header" href="0053-helpers.html#summary" id="summary"><h1>Summary</h1></a>
+<p>Ember.js 1.13 will introduce a new API for helpers. Helpers will come in two
+flavors:</p>
+<p><strong>Helpers</strong> are a class-based way to define HTMLBars subexpressions. Helpers:</p>
+<ul>
+<li>Have a single return value.</li>
+<li>Must have a dash in their name.</li>
+<li>Cannot be used as a block (<code>{{#some-helper}}{{/some-helper}}</code>).</li>
+<li>Can store and read state.</li>
+<li>Have lifecycle hooks analogous to components where appropriate. For
+example, a helper may call <code>recompute</code> at any time to generate a new
+value (this is akin to <code>rerender</code>).</li>
+<li>Are a superset of shorthand helpers, the function-based syntax described
+below. They can do more, but in many cases a shorthand helper is appropriate.</li>
+</ul>
+<p><strong>Shorthand helpers</strong> are a function-based way to define HTMLBars
+subexpressions. Helpers written this way:</p>
+<ul>
+<li>Have all the limitations of regular helpers.</li>
+<li>Have no instance associated with them, cannot store or read state.</li>
+<li>Have no lifecycle hooks. The function is simply re-computed when any input
+changes.</li>
+</ul>
+<p>These improved helpers fill a gap in Ember's current template APIs:</p>
+<table><thead><tr><th>                   </th><th> has positional params </th><th> has layout (shadow DOM) </th><th> can yield template </th><th> has lifecycle, instance </th><th> can control rerender </th></tr></thead><tbody>
+<tr><td> components        </td><td> Yes                   </td><td> Yes                     </td><td> Yes                </td><td> Yes                     </td><td> Yes                  </td></tr>
+<tr><td> helpers           </td><td> Yes                   </td><td> No                      </td><td> No                 </td><td> Yes                     </td><td> Yes                  </td></tr>
+<tr><td> shorthand helpers </td><td> Yes                   </td><td> No                      </td><td> No                 </td><td> No                      </td><td> No                   </td></tr>
+</tbody></table>
+<p>An example helper:</p>
+<pre><code class="language-js">// app/helpers/full-name.js
+import Ember from &quot;ember&quot;;
+
+export default Ember.Helper.extend({
+  nameBuilder: Ember.inject.service(),
+  compute(params) {
+    const builder = this.get('nameBuilder');
+    return builder.fullName(params[0], params[1]);
+  }
+});
+</code></pre>
+<p>An example shorthand helper:</p>
+<pre><code class="language-js">// app/helpers/full-name.js
+import Ember from &quot;ember&quot;;
+
+export default Ember.Helper.helper(function(params, hash) {
+  let fullName = params.join(' ');
+  if (hash.honorific) {
+    fullName = `${hash.honorific} ${fullName}`
+  }
+  return fullName;
+});
+</code></pre>
+<p>Helpers can be used anywhere an HTMLBars subexpression is valid:</p>
+<pre><code class="language-hbs">{{full-name 'Bigtime' 'Beagle'}}
+{{input value=(full-name 'Gyro' 'Gearloose') readonly=true}}
+{{#if (eq (full-name 'Webbigail' 'Vanderquack') selectedFullName))}}
+  You have chosen wisely.
+{{/if}}
+</code></pre>
+<a class="header" href="0053-helpers.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>Ember.js 1.13 make a private API change that removed the ability to access
+application containers. <code>Ember.HTMLBars._registerHelper</code> was previously passed
+the <code>env</code> object, and this was removed as it is an internal implementation
+detail.</p>
+<p>Ember's helper API has not kept pace with improvements possible
+after the introduction of HTMLBars. This has resulted in the community using
+a variety of private APIs, many of which leak information about the outer
+context of a helpers invocation as well as the render layer implementation.</p>
+<p>The current public API is:</p>
+<ul>
+<li><a href="http://emberjs.com/api/classes/Ember.Handlebars.html#method_makeBoundHelper">Ember.Handlebars.makeBoundHelper</a></li>
+</ul>
+<p>This API is sorely lacking in functionality required by addon authors.</p>
+<ul>
+<li>Has no access to other parts of the app, like services</li>
+<li>Leaks a private API for dealing with blocks</li>
+<li>Results in less efficient helpers due to the Handlebars compatibility layer</li>
+<li>Has poor support for hash arguments</li>
+</ul>
+<p>Additionally it remains difficult to write a helper that recomputes due to
+something besides the change of its input.</p>
+<p>Specifically, this RFC addresses many of the concerns in
+<a href="https://github.com/emberjs/ember.js/issues/11080">emberjs/ember.js#11080</a>.
+Libraries such as <a href="https://github.com/yahoo/ember-intl">yahoo/ember-intl</a>,
+<a href="https://github.com/dockyard/ember-cli-i18n">dockyard/ember-cli-i18n</a>, and
+<a href="https://github.com/minutebase/ember-can">minutebase/ember-can</a> will be
+provided a viable public API to couple to.</p>
+<a class="header" href="0053-helpers.html#detailed-design" id="detailed-design"><h1>Detailed design</h1></a>
+<p>Helpers must have a dash in their name. In an Ember-CLI app, they can be named
+according to the <code>app/helpers/full-name.js</code> convention (<code>app/full-name/helper.js</code>
+in pods mode). For a globals app, naming a helper <code>App.FullNameHelper</code> is
+sufficient.</p>
+<a class="header" href="0053-helpers.html#definition-and-lifecycle" id="definition-and-lifecycle"><h3>Definition and lifecycle</h3></a>
+<p>A helper is defined as a class inheriting from <code>Ember.Helper</code>. For
+example:</p>
+<pre><code class="language-js">// app/helpers/hello-world.js
+import Ember from &quot;ember&quot;;
+
+// Usage: {{hello-world}}
+export default Ember.Helper.extend({
+  compute() {
+    return &quot;Hello Helper World&quot;;
+  }
+});
+</code></pre>
+<p>Upon initial render:</p>
+<ul>
+<li>The helper instance is created.</li>
+<li>The <code>compute</code> method is called. The return value is outputted where the
+helper is used. For example in <code>&lt;div class={{some-helper}}&gt;&lt;/div&gt;</code> the return
+value is set to the class.</li>
+</ul>
+<p>The <code>compute</code> function is always called with <code>params</code> (the bare, ordered
+arguments) and <code>hash</code> (the named arguments). For example:</p>
+<pre><code class="language-js">// app/helpers/greet-someone.js
+import Ember from &quot;ember&quot;;
+
+// Usage: {{greet-someone 'bob' greeting='say hello'}}
+export default Ember.Helper.extend({
+  compute(params, hash) {
+    return `Hello ${params[0]}, nice to ${hash.greeting}`;
+  }
+});
+</code></pre>
+<p>Which functions the same as this shorthand:</p>
+<pre><code class="language-js">// app/helpers/greet-someone.js
+import Ember from &quot;ember&quot;;
+
+// Usage: {{greet-someone 'bob' greeting='say hello'}}
+export default Ember.Helper.helper(function(params, hash) {
+  return `Hello ${params[0]}, nice to ${hash.greeting}`;
+});
+</code></pre>
+<p>When the <code>params</code> or <code>hash</code> contents change, the <code>compute</code> method is called
+again. The instance of the helper is preserved across rerenders of the parent.
+A shorthand helper, having no instance, is called every time a bound
+argument changes.</p>
+<p>The <code>init</code> and <code>destroy</code> methods can be subclassed for setup and teardown.</p>
+<a class="header" href="0053-helpers.html#consuming-a-helper" id="consuming-a-helper"><h3>Consuming a helper</h3></a>
+<p>Helpers can be used anywhere an HTMLBars subexpression can be
+used. For example:</p>
+<pre><code class="language-hbs">{{#if (can-access 'admin')}}
+  {{link-to 'login'}}
+{{/if}}
+{{#if (eq (can-access 'admin') false)}}
+  No login for you
+{{/if}}
+&lt;my-login-button isAdmin={{can-access 'admin'}} /&gt;
+Can access? {{can-access 'admin'}}
+</code></pre>
+<p>Passing a helper to a <code>{{</code>- invoked component skips the auto-<code>mut</code> behavior:</p>
+<pre><code class="language-hbs">{{my-login-button isAdmin=(can-access 'admin')}}
+</code></pre>
+<p>Let's step through exactly what happens when using an helper like this:</p>
+<pre><code class="language-hbs">&lt;my-login-button isAdmin={{can-access 'admin'}} /&gt;
+</code></pre>
+<p>Upon initial render:</p>
+<ul>
+<li>The helper <code>can-access</code> is looked up on the container</li>
+<li>The helper is identified as a full helper, not a shorthand helper function</li>
+<li>The helper is initialized (<code>init</code> is called)</li>
+<li>The <code>compute</code> function is called on the helper.</li>
+<li>The return value from <code>compute</code> is passed as an <code>attr</code> to <code>my-login-button</code>.</li>
+<li>The helper instance remains in memory.</li>
+</ul>
+<p>If the parent scope is rerendered:</p>
+<ul>
+<li>The <code>compute</code> function is called again.</li>
+<li>The return value from <code>compute</code> is passed as an <code>attr</code> to <code>my-login-button</code>.</li>
+</ul>
+<p>Upon teardown:</p>
+<ul>
+<li>The helper is destroyed, calling the <code>destroy</code> method.</li>
+</ul>
+<a class="header" href="0053-helpers.html#returning-a-value" id="returning-a-value"><h3>Returning a value</h3></a>
+<p>The return value of helper is passed through to where their subexpression
+is called. For example, given a helper (this one a shorthand helper):</p>
+<pre><code class="language-js">// app/helpers/full-name.js
+import Ember from &quot;ember&quot;;
+
+export default Ember.Helper.helper(function fullName(params, hash) {
+  return params.join(' ');
+}
+</code></pre>
+<p>The following are effectively the same:</p>
+<pre><code class="language-hbs">&lt;div data-name={{full-name &quot;Fenton&quot; &quot;Crackshell&quot;}}&gt;&lt;/div&gt;
+&lt;div data-name={{&quot;Fenton Crackshell&quot;}}&gt;&lt;/div&gt;
+</code></pre>
+<pre><code class="language-hbs">{{my-component name=(full-name &quot;Magica&quot; &quot;De Spell&quot;)}}
+{{my-component name=&quot;Magica De Spell&quot;}}
+</code></pre>
+<pre><code class="language-hbs">&lt;p&gt;{{full-name &quot;Bentina&quot; &quot;Beakley&quot;}}&lt;/p&gt;
+&lt;p&gt;{{&quot;Bentina Beakley&quot;}}&lt;/p&gt;
+</code></pre>
+<p>An exclusion to this pattern is the following form:</p>
+<pre><code class="language-hbs">&lt;div {{full-name &quot;Webbigail&quot; &quot;Vanderquack&quot;}}&gt;&lt;/div&gt;
+</code></pre>
+<p>This is a legacy form of mustache usage. Helpers will throw an exception when
+used in this manner.</p>
+<a class="header" href="0053-helpers.html#consuming-services-and-recompute" id="consuming-services-and-recompute"><h3>Consuming services and recompute</h3></a>
+<p>Helpers are a valid target for service injection. For example:</p>
+<pre><code class="language-js">// app/helpers/current-user-name.js
+import Ember from &quot;ember&quot;;
+
+export default Ember.Helper.extend({
+  // Same API as components:
+  session: Ember.inject.service(),
+  compute() {
+    return this.get('session.currentUser.name');
+  }
+});
+</code></pre>
+<p>However consuming a property from a service does not bind the data being
+displayed to that property. After <code>{{current-user-name}}</code> has been computed
+and rendered, it will never be invalidated.</p>
+<p>For this reason, helpers are granted some control over their
+computation lifecycle. A helper will recompute when:</p>
+<ul>
+<li>A value passed via the template changes (<code>params</code> or <code>hash</code>)</li>
+<li>The <code>recompute</code> method is called</li>
+</ul>
+<p>For example, this helper checks if the current use has access to a
+resource type:</p>
+<pre><code class="language-js">// app/helpers/can-access.js
+import Ember from &quot;ember&quot;;
+
+// Usage {{if (can-access 'admin') 'Welcome, boss' 'Heck no!'}}
+export default Ember.Helper.extend({
+  session: Ember.inject.service(),
+  onCurrentUserChange: Ember.observes('session.currentUser', function() {
+    this.recompute();
+  }),
+  compute(params) {
+    const currentUser = this.get('session.currentUser');
+    return currentUser.can(params[0]);
+  }
+});
+</code></pre>
+<a class="header" href="0053-helpers.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<p>Helpers may superficially appear similar to components, but in
+practice they have none of the special behavior of components such as managing
+DOM. The intent of this RFC is that full class-based helpers remain very close
+to the spirit of a pure function (as in the shorthand). However, despite this
+intent they are a new concept for the framework.</p>
+<a class="header" href="0053-helpers.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<p>A <a href="https://github.com/emberjs/rfcs/pull/52">previous RFC</a> explored creating a new class called Expressions, which would have
+more closely modeled the API of components (using positional params, attrs).
+After discussion and consideration it was clear that a third kind of template
+API would be very challenging to document and teach well.</p>
+<a class="header" href="0053-helpers.html#unresolved-questions" id="unresolved-questions"><h1>Unresolved questions</h1></a>
+<p>Perhaps there should be hooks in place for the lifecycle, instead of relying on
+<code>init</code> and <code>destroy</code>.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0050-improved-actions.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0056-improved-release-cycle.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0050-improved-actions.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0056-improved-release-cycle.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0268-acceptance-testing-refactor - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html" class="active"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2017-11-05</li>
+<li>RFC PR: <a href="https://github.com/emberjs/rfcs/pull/268">emberjs/rfcs#268</a></li>
+<li>Ember Issue: (leave this empty)</li>
+</ul>
+<a class="header" href="0268-acceptance-testing-refactor.html#summary" id="summary"><h1>Summary</h1></a>
+<p>The testing story in Ember today is better than it ever has been. It is now
+possible to test individual component/template combos, register your own mock
+components/services/etc, build complex acceptance tests, and almost anything else
+you would like.</p>
+<p>Unfortunately, there is a massive disparity between different types of tests.
+In acceptance tests, you use well designed global helpers to deal with async
+related interactions; whereas in integration and unit tests you are forced to
+manually deal with this asynchrony.
+<a href="https://github.com/emberjs/rfcs/blob/master/text/0232-simplify-qunit-testing-api.md">emberjs/rfcs#232</a>
+introduced us to QUnit's nested modules API, made integration and unit testing
+modular, and greatly simplified the concepts needed to learn how to write unit
+and integration tests. The goal of this RFC is to leverage what we have learned
+in prior RFCs and apply that knowledge to acceptance testing. Once this RFC has
+been implemented all test types in Ember will have a unified cohesive structure.</p>
+<a class="header" href="0268-acceptance-testing-refactor.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>Usage of rendering tests is becoming more and more common, but these tests
+often include manual event delegation (<code>this.$('.foo').click()</code> for
+example), and assumes most (if not all) interactions are synchronous.  This is
+a major issue due to the fact that the vast majority of interactions will
+actually be asynchronous. There have been a few recent additions to
+<code>@ember/test-helpers</code> that have made dealing with asynchrony better (namely
+<a href="https://github.com/emberjs/rfcs/blob/master/text/0232-simplify-qunit-testing-api.md">emberjs/rfcs#232</a>)
+but forcing users to manually manage all interaction based async is a recipe
+for disaster.</p>
+<p>Acceptance tests allow users to handle asynchrony with ease, but they rely on
+global helpers that automatically wrap a single global promise which makes
+testing of interleaved asynchronous things more difficult. There are a number
+of limitations in acceptance tests as compared to integration tests (cannot
+mock and/or stub services, cannot look up services to setup test context, etc).</p>
+<p>We need a single unified way to teach and understand testing in Ember that
+leverages all the things we learned with the original acceptance testing
+helpers that were introduced in Ember 1.0.0.  Instead of inventing our own
+syntax for dealing with the async (<code>andThen</code>) we should use new language
+features such as <code>async</code> / <code>await</code>.</p>
+<a class="header" href="0268-acceptance-testing-refactor.html#detailed-design" id="detailed-design"><h1>Detailed design</h1></a>
+<p>The goal of this RFC is to introduce new system for acceptance tests that follows in the footsteps of
+<a href="https://github.com/emberjs/rfcs/blob/master/text/0232-simplify-qunit-testing-api.md">emberjs/rfcs#232</a>
+and continues to enhance the system created in that RFC to share the same structure and helper system.</p>
+<p>This new system for acceptance tests will be implemented in the
+<a href="https://github.com/emberjs/ember-test-helpers/">@ember/test-helpers</a> library so
+that we can iterate faster while supporting multiple Ember versions
+independently and easily support multiple testing frameworks build on top of
+the primitives in <code>@ember/test-helpers</code>. Ultimately, the existing <a href="https://github.com/emberjs/ember.js/tree/master/packages/ember-testing">ember-testing</a> system
+will be deprecated but that deprecation will be added well after the new system has been
+released and adopted by the community.</p>
+<p>Lets take a look at a basic example (lifted from <a href="https://guides.emberjs.com/v2.16.0/testing/acceptance/">the guides</a>):</p>
+<pre><code class="language-js">// **** before ****
+import { test } from 'qunit';
+import moduleForAcceptance from '../helpers/module-for-acceptance';
+
+moduleForAcceptance('Acceptance | posts');
+
+test('should add new post', function(assert) {
+  visit('/posts/new');
+  fillIn('input.title', 'My new post');
+  click('button.submit');
+  andThen(() =&gt; assert.equal(find('ul.posts li:first').text(), 'My new post'));
+});
+
+// **** after ****
+import { module, test } from 'qunit';
+import { setupApplicationTest } from 'ember-qunit';
+import { visit, fillIn, click } from '@ember/test-helpers';
+
+module('Acceptance | login', function(hooks) {
+  setupApplicationTest(hooks);
+
+  test('should add new post', async function(assert) {
+    await visit('/posts/new');
+    await fillIn('input.title', 'My new post');
+    await click('button.submit');
+
+    assert.equal(this.element.querySelectorAll('ul.posts li')[0].textContent, 'My new post');
+  });
+});
+</code></pre>
+<p>As you can see, this proposal unifies on Qunit's nested module syntax following
+in emberjs/rfcs#232's footsteps.</p>
+<a class="header" href="0268-acceptance-testing-refactor.html#new-apis-proposed" id="new-apis-proposed"><h2>New APIs Proposed</h2></a>
+<p>The following new methods will be exposed from <code>ember-qunit</code>:</p>
+<pre><code class="language-ts">declare module 'ember-qunit' {
+  // ...snip... 
+  export function setupApplicationTest(hooks: QUnitModuleHooks): void;
+}
+</code></pre>
+<a class="header" href="0268-acceptance-testing-refactor.html#dom-interaction-helpers" id="dom-interaction-helpers"><h3>DOM Interaction Helpers</h3></a>
+<p>New native DOM interaction helpers will be added to both <code>setupRenderingTest</code>
+and (proposed below) <code>setupApplicationTest</code>. The implementation for these
+helpers has been iterated on and is quite stable in the
+<a href="https://github.com/cibernox/ember-native-dom-helpers">ember-native-dom-helpers</a>
+addon.</p>
+<p>The helpers will be migrated to <code>@ember/test-helpers</code> and eventually
+(once &quot;the dust settles&quot;) <code>ember-native-dom-helpers</code> will be able to reexport
+the versions from <code>@ember/test-helpers</code> directly (which means apps that have
+already adopted will have very minimal changes to make).</p>
+<p>The specific DOM helpers to be added to the <code>@ember/test-helpers</code> module are:</p>
+<pre><code class="language-ts">/**
+  Clicks on the specified selector.
+*/
+export function click(selector: string | HTMLElement): Promise&lt;void&gt;;
+
+/**
+  Taps on the specified selector.
+*/
+export function tap(selector: string | HTMLElement): Promise&lt;void&gt;;
+
+/**
+  Triggers a keyboad event on the specified selector.
+*/
+export function triggerKeyEvent(
+  selector: string | HTMLElement,
+  eventType: 'keydown' | 'keypress' | 'keyup',
+  keyCode: string,
+  modifiers?: {
+    ctrlKey: false,
+    altKey: false,
+    shiftKey: false,
+    metaKey: false
+  }
+): Promise&lt;void&gt;;
+
+/**
+  Triggers an event on the specified selector.
+*/
+export function triggerEvent(
+  selector: string | HTMLElement,
+  eventType: string,
+  eventOptions: any
+): Promise&lt;void&gt;;
+
+/**
+  Fill in the specified selector's `value` property with the provided text.
+*/
+export function fillIn(selector: string | HTMLElement, text: string): Promise&lt;void&gt;;
+
+/**
+  Focus the specified selector.
+*/
+export function focus(selector: string | HTMLElement): Promise&lt;void&gt;;
+
+/**
+  Unfocus the specified selector.
+*/
+export function blur(selector: string | HTMLElement): Promise&lt;void&gt;;
+
+/**
+  Returns a promise which resolves when the provided callback returns a truthy value.
+*/
+export function waitUntil&lt;T&gt;(Function: Promise&lt;T&gt;, { timeout = 1000 }): Promise&lt;T&gt;;
+
+/**
+  Returns a promise which resolves when the provided selector (and count) becomes present.
+*/
+export function waitFor(selector: string, { count?: number, timeout = 1000 }): Promise&lt;HTMLElement | HTMLElement[]&gt;;
+</code></pre>
+<a class="header" href="0268-acceptance-testing-refactor.html#setupapplicationtest" id="setupapplicationtest"><h3><code>setupApplicationTest</code></h3></a>
+<p>This function will:</p>
+<ul>
+<li>invoke <code>ember-test-helper</code>s <code>setupContext</code> with the tests context (which does the following):
+<ul>
+<li>create an owner object and set it on the test context (e.g. <code>this.owner</code>)</li>
+<li>setup <code>this.pauseTest</code> and <code>this.resumeTest</code> methods to allow easy pausing/resuming
+of tests</li>
+</ul>
+</li>
+<li>add routing related helpers
+<ul>
+<li>setup importable <code>visit</code> method to visit the given url</li>
+<li>setup importable <code>currentRouteName</code> method which returns the current route name</li>
+<li>setup importable <code>currentURL</code> method which returns the current URL</li>
+</ul>
+</li>
+<li>add DOM interaction helpers (heavily influenced by @cibernox's lovely addon <a href="https://github.com/cibernox/ember-native-dom-helpers">ember-native-dom-helpers</a>)
+<ul>
+<li>setup a getter for <code>this.element</code> which returns the DOM element representing
+the applications root element</li>
+<li>setup importable <code>click</code> helper method</li>
+<li>setup importable <code>tap</code> helper method</li>
+<li>setup importable <code>triggerKeyEvent</code> helper method</li>
+<li>setup importable <code>triggerEvent</code> helper method</li>
+<li>setup importable <code>fillIn</code> helper method</li>
+<li>setup importable <code>focus</code> helper method</li>
+<li>setup importable <code>blur</code> helper method</li>
+<li>setup importable <code>waitUntil</code> helper method</li>
+<li>setup importable <code>waitFor</code> helper method</li>
+</ul>
+</li>
+</ul>
+<a class="header" href="0268-acceptance-testing-refactor.html#setuprenderingtest" id="setuprenderingtest"><h3><code>setupRenderingTest</code></h3></a>
+<p>The <code>setupRenderingTest</code> function proposed in
+<a href="https://github.com/emberjs/rfcs/blob/master/text/0232-simplify-qunit-testing-api.md">emberjs/rfcs#232</a>
+(and implemented in
+<a href="https://github.com/emberjs/ember-qunit">ember-qunit</a>@3.0.0) will be modified to add the same DOM interaction helpers mentioned above:</p>
+<ul>
+<li>setup importable <code>click</code> helper method</li>
+<li>setup importable <code>tap</code> helper method</li>
+<li>setup importable <code>triggerKeyEvent</code> helper method</li>
+<li>setup importable <code>triggerEvent</code> helper method</li>
+<li>setup importable <code>fillIn</code> helper method</li>
+<li>setup importable <code>focus</code> helper method</li>
+<li>setup importable <code>blur</code> helper method</li>
+<li>setup importable <code>waitUntil</code> helper method</li>
+<li>setup importable <code>waitFor</code> helper method</li>
+</ul>
+<p>Once implemented, <code>setupRenderingTest</code> and <code>setupApplicationTest</code> will diverge from each other in very few ways.</p>
+<a class="header" href="0268-acceptance-testing-refactor.html#changes-from-current-system" id="changes-from-current-system"><h2>Changes from Current System</h2></a>
+<p>Here is a brief list of the more important but possibly understated changes
+being proposed here:</p>
+<ul>
+<li>The global test helpers that exist now, will no longer be present (e.g.
+<code>click</code>, <code>visit</code>, etc) and instead will be available on the test context as
+well as importable helpers.</li>
+<li><code>this.owner</code> will now be present and allow (for the first time 🎉) overriding
+items in the container/registry.</li>
+<li>The new system will leverage the <code>Ember.Application</code> /
+<code>Ember.ApplicationInstance</code> split so that we can avoid creating an
+<code>Ember.Application</code> instance per-test, and instead leverage the same system
+that FastBoot itself uses to avoid running initializers for each acceptance
+test.</li>
+<li>Implicit promise chaining will no longer be present. If your test needs to
+wait for a given promise, it should use <code>await</code> (which will wait for the
+system to &quot;settle&quot; in similar semantics to today's <code>wait()</code> helper).</li>
+<li>The test helpers that are included by a new default ember-cli app will be no
+longer needed and will be removed from the new application blueprint. This
+includes:
+<ul>
+<li><code>tests/helpers/resolver.js</code></li>
+<li><code>tests/helpers/start-app.js</code></li>
+<li><code>tests/helpers/destroy-app.js</code></li>
+<li><code>tests/helpers/module-for-acceptance.js</code></li>
+</ul>
+</li>
+</ul>
+<a class="header" href="0268-acceptance-testing-refactor.html#examples" id="examples"><h2>Examples</h2></a>
+<a class="header" href="0268-acceptance-testing-refactor.html#test-helper" id="test-helper"><h3>Test Helper</h3></a>
+<p>Assuming the following input:</p>
+<pre><code class="language-js">import Ember from 'ember';
+
+export function withFeature(app, featureName) {
+  let featuresService = app.__container__.lookup('service:features');
+  featuresService.enable(featureName);
+}
+
+Ember.Test.registerHelper('withFeature', withFeature);
+</code></pre>
+<p>In order for an addon to support both the existing acceptance testing system, and the new system it could replace that helper with the following:</p>
+<pre><code class="language-js">import { registerAsyncHelper } from '@ember/test';
+
+export function enableFeature(owner, featureName) {
+  let featuresService = owner.lookup('service:features');
+  featuresService.enable(featureName);
+}
+
+registerAsyncHelper('withFeature', function(app, featureName) {
+  enableFeature(app.__container__, featureName);
+});
+</code></pre>
+<p>This allows both the prior API (without modification) and the following:</p>
+<pre><code class="language-js">// Option 2:
+import { module, test } from 'qunit';
+import { setupApplicationTest } from 'ember-qunit';
+import { enableFeature } from 'addon-name-here/test-support';
+
+module('asdf', function(hooks) {
+  setupApplicationTest(hooks);
+
+  test('awesome test title here', function(assert) {
+    enableFeature(this.owner, 'feature-name-here');
+
+    // ...snip...
+  });
+});
+</code></pre>
+<a class="header" href="0268-acceptance-testing-refactor.html#registering-factory-overrides" id="registering-factory-overrides"><h3>Registering Factory Overrides</h3></a>
+<p>Overriding a factory is generally done to allow the test to have more control
+over the thing being tested. This is sometimes used to prevent side effects
+that are not related to the test (i.e. to prevent network calls), other times
+it is used to allow the test to inject some known state to make asserting the
+results much easier.</p>
+<p>It is currently possible to register custom factories in integration and unit
+tests, but not in acceptance tests (without using private API's that is).</p>
+<p>As of <a href="https://github.com/emberjs/rfcs/pull/232">emberjs/rfcs#232</a> the
+integration/unit test API for this registration is:</p>
+<pre><code class="language-js">this.owner.register('service:stripe', MockService);
+</code></pre>
+<p>This RFC will allow this invocation syntax to work in all test types
+(acceptance, integration, and unit).</p>
+<a class="header" href="0268-acceptance-testing-refactor.html#migration" id="migration"><h2>Migration</h2></a>
+<p>It is important that both the existing acceptance testing system, and the
+newly proposed system can co-exist together. This means that new tests can be generated
+in the new style while existing tests remain untouched.</p>
+<p>However, it is likely that
+<a href="https://github.com/rwjblue/ember-qunit-codemod">ember-qunit-codemod</a> will be
+able to accurately rewrite acceptance tests into the new format.</p>
+<a class="header" href="0268-acceptance-testing-refactor.html#how-we-teach-this" id="how-we-teach-this"><h1>How We Teach This</h1></a>
+<p>This change requires updates to the API documentation of <code>ember-qunit</code> and the
+main Ember guides' testing section. The changes are largely intended to reduce
+confusion, making it easier to teach and understand testing in Ember.</p>
+<a class="header" href="0268-acceptance-testing-refactor.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<ul>
+<li>This is a relatively large set of changes that are arguably not needed (things mostly work today).</li>
+<li>One of the major hurdles in upgrading larger applications to newer Ember versions, is updating their tests to follow &quot;new&quot; patterns.  This RFC introduces yet another &quot;new&quot; thing (and proposes to deprecate the old thing), and could therefore be considered &quot;just more churn&quot;.</li>
+</ul>
+<a class="header" href="0268-acceptance-testing-refactor.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<ul>
+<li>Do nothing?</li>
+<li>Make <code>ember-native-dom-helpers</code> a default addon (removing the need for DOM interaction helpers proposed here).</li>
+</ul>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0252-browser-support-changes.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0276-named-args.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0252-browser-support-changes.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0276-named-args.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

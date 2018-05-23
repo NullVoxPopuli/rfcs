@@ -1,0 +1,273 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0058-helper-listing - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html" class="active"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2015-05-24</li>
+<li>RFC PR: https://github.com/emberjs/rfcs/pull/58</li>
+<li>Ember Issue: https://github.com/emberjs/ember.js/pull/11393</li>
+</ul>
+<a class="header" href="0058-helper-listing.html#summary" id="summary"><h1>Summary</h1></a>
+<p>This RFC outlines a new strategy for the registration of helpers in Ember 1.13.
+In previous versions of Ember, helper lookup was a two-phase process of:</p>
+<ul>
+<li>Look in a whitelist of registered helpers. If in the whitelist, resolve that
+path in the container.</li>
+<li>If the path has a dash, try to resolve it in the container</li>
+<li>If the container does not have a factory for this path, treat the path as a
+bound value.</li>
+</ul>
+<p>This logic runs for every <code>{{somePath}}</code> in an Ember application.</p>
+<p>This proposal attempts to simplify and unify that logic in a a single pass
+against a whitelist, thus removing the special behavior of dashed paths.
+Additionally, it attempts to design a solution that removes the current
+<code>registerHelper</code> ceremony for undashed helpers.</p>
+<a class="header" href="0058-helper-listing.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>In <a href="https://github.com/emberjs/rfcs/pull/53">RFC #53</a> a new API for helpers is
+outlined. This RFC presumes helpers will continue to have the naming
+requirement of including a dash character.</p>
+<p>The dash requirement for helpers exists for two reasons:</p>
+<ul>
+<li>For every <code>{{path}}</code> in an Ember application, it must be decided if that path
+is a bound value, component, or helper. Component and helper lookup (the
+discovery of a class or template) is lazy in Ember, thus for every <code>{{path}}</code>
+a lookup for that string in the container is required. Container lookups
+(the first time) are fairly slow, and performing this lookup for every
+path may significantly impact initial render time. Thus, helpers are either
+added to a whitelist (with <code>registerHelper</code>) or require a way to differentiate
+themselves from the majority of data-binding cases (the dash).</li>
+<li>In Ember 1.x, components were treated as helpers for certain code paths. This
+made the dash requirement for components a natural extension to helpers.</li>
+</ul>
+<p>The Glimmer engine has removed some of these concerns and limitations.</p>
+<p>Addon authors and app authors have both felt a need for non-dashed helper
+names, for example <code>{{t 'some-string-to-translate'}}</code>. New developers to Ember
+often find the dash requirement arbitrary and the <code>registerHelper</code> work around
+difficult to understand and use.</p>
+<p>For the new helper API to provide feature parity with APIs available to addon
+authors in 1.12, a path to dashless helpers must be present in 1.13.</p>
+<p>Given that a solution exists that addresses the performance concern, dropping
+the dash requirement would resolve a significant amount of developer pain and
+confusion.</p>
+<a class="header" href="0058-helper-listing.html#detailed-design" id="detailed-design"><h1>Detailed design</h1></a>
+<p>At application boot, all known helper items (according to the resolver) are
+iterated and added to a <code>helper-listing</code> service. This service is merely a
+Set object with the names of all helpers.</p>
+<p>When handling a <code>{{path}}</code>, the <code>helper-listing</code> service is consulted for the
+presence of that <code>path</code>. If it is present, the path is looked up
+on the container as a helper and the helper is used. Dashed paths are treated
+no differently than any other path (for helpers).</p>
+<a class="header" href="0058-helper-listing.html#boot-time-discovery" id="boot-time-discovery"><h3>Boot time discovery</h3></a>
+<p>To discover what paths may be helpers in Ember-CLI, the module names are
+iterated. For example:</p>
+<pre><code>not helper: app/components/foo-bar/component
+not helper: app/controllers/foo-bar
+not helper: app/foo-bar/route
+helper &quot;t&quot;: app/t/helper
+helper &quot;t&quot;: app/helpers/t
+helper &quot;foo-bar&quot;: app/helpers/foo-bar
+helper &quot;foo/bar&quot;: app/helpers/foo/bar
+</code></pre>
+<p>In a globals-mode application, The app namespace is iterated:</p>
+<pre><code>not helper: App.FooBarComponent
+not helper: App.FooBarController
+not helper: App.FooBarRoute
+helper &quot;t&quot;: App.THelper
+helper &quot;foo-bar&quot;: App.FooBarHelper &lt;- should dasherize
+</code></pre>
+<p>In both cases <strong>the resolver is responsible for providing a list of modules
+by type</strong>. The proposed API is <code>eachOfType</code>, here with Ember-CLI as an example:</p>
+<pre><code class="language-js">// Given helperListing as a Set:
+resolver.eachOfType(‘helper’, function(parsedName, item) {
+  helperListing.add(parsedName.fullName);
+})
+</code></pre>
+<p>In Ember-CLI, the <code>app/</code> tree of an addon is merged with the app tree of an
+application. This means for a helper like <code>t</code> to be discovered, nothing besides
+adding it to <code>app/helpers/t.js</code> must be done.</p>
+<p>In 1.13, this will impact existing apps by discovering all helpers regardless
+of if <code>registerHelper</code> has been called. This is a small behavior change that
+should match intent, and will not impact sanely written apps.</p>
+<p>Note that only the path of the helper is added to the listing. During discovery,
+the helper is not looked up from the container, instead lookup still occurs
+at render time.</p>
+<p>The helper listing is intended to be a private service in Ember, and will be
+registered at <code>services:-helper-listing</code>. If the discovery semantics described
+here are not sufficient for some edge-cases, wrapping this service in a
+public API on application instances may be required.</p>
+<a class="header" href="0058-helper-listing.html#render-time-lookup-and-use" id="render-time-lookup-and-use"><h3>Render-time lookup and use</h3></a>
+<p>Let us consider how a path is rendered. For example:</p>
+<pre><code class="language-hbs">{{date}}
+</code></pre>
+<ul>
+<li>The <code>service:-helper-listing</code> service is fetched</li>
+<li>The path <code>date</code> is checked for on the listing: <code>helperListing.has(path)</code></li>
+<li>If the path is not in the listing, <code>date</code> is treated like a bound value</li>
+<li>If the path is in the listing, the helper is looked up from Ember's
+container as <code>helper:date</code></li>
+<li>depending on the instance returned from the factory (a helper, shorthand
+helper, or legacy <code>Ember.Handlebars</code> or <code>Ember.HTMLBars._registerHelper</code>
+helper) the proper invocation for that helper is executed</li>
+</ul>
+<p>Every rendered path will hit the <code>helper-listing</code> service, but the check
+against a well-implemented Set should be inexpensive.</p>
+<a class="header" href="0058-helper-listing.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<p>Removing the dash requirement will likely result in a larger number of naming
+conflicts between addons and apps than has existed before now. In general,
+encouraging verbose helper names may mitigate this concern. Long term, there
+have been several discussions to date about how to implement namespaces in
+Ember templates and for Ember engines.</p>
+<p>That the helper listing is eagerly discovered at application boot time may
+impact the design of Ember engines and lazy-loading parts of an app. The
+discovery cache may need to be flushed and re-generated, however this limitation
+already exists for the container lookup itself (which caches failures).</p>
+<p>That the helper listing is not based on the container means helpers registered,
+but not added to the listing because of non-standard naming, may need to
+manually register against the private helper listing API.</p>
+<a class="header" href="0058-helper-listing.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<p>Instead of a new across-the-board solution, Ember could continue to use a
+<code>registerHelper</code> pattern very similar to what exists today. This would
+perpetuate the existing pain, but would perhaps be more similar to what devs
+already know.</p>
+<a class="header" href="0058-helper-listing.html#unresolved-questions" id="unresolved-questions"><h1>Unresolved questions</h1></a>
+<p>The exact timing of helper discovery in Ember-CLI and globals mode has not been
+decided.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0057-ember-data-reference-unification.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0061-ember-data-background-fetch.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0057-ember-data-reference-unification.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0061-ember-data-background-fetch.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

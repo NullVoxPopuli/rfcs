@@ -1,0 +1,313 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0064-contextual-component-lookup - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html" class="active"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2015-06-12</li>
+<li>RFC PR: https://github.com/emberjs/rfcs/pull/64</li>
+<li>Ember Issue: (leave this empty)</li>
+</ul>
+<a class="header" href="0064-contextual-component-lookup.html#summary" id="summary"><h1>Summary</h1></a>
+<p>The goal of this RFC is to allow for better component composition and the
+usage of components for domain specific languages.</p>
+<p>Ember components can be invoked three ways:</p>
+<ul>
+<li><code>{{a-component</code></li>
+<li><code>{{component someBoundComponentName</code></li>
+<li><code>&lt;a-component</code> (coming soon!)</li>
+</ul>
+<p>In all these cases, attrs passed to the component must be set at the place of
+invocation. Only the <code>{{component someBoundComponentName</code> syntax allows for the name
+of the component invoked to be decided elsewhere.</p>
+<p>All component names are resolved to components through one global resolution
+path.</p>
+<p>To improve composition, four changes are proposed:</p>
+<ul>
+<li>The <code>(component</code> helper will be introduced to close over component attrs in
+a yielding context.</li>
+<li>The <code>{{component</code> helper will accept an argument of the object created by
+<code>(component</code> for invocation (as it invokes strings today).</li>
+<li>Property lookups with a value containing a dot will be considered for
+rendering as components. <code>{{form.input}}</code> would be considered, for instance.
+Helper invocations with a dot will also be treated like a component if the
+key has a value of a component, for instance <code>{{form.input value=baz}}</code>.</li>
+<li>A <code>(hash</code> helper will be introduced.</li>
+</ul>
+<a class="header" href="0064-contextual-component-lookup.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>When building a complex UI from several components, it can be difficult to
+share data without breaking encapsulation. For example this template:</p>
+<pre><code class="language-hbs">{{#great-toolbar role=user.role}}
+  {{great-button role=user.role}}
+{{/great-toolbar}}
+</code></pre>
+<p>Causes the user to pass the <code>role</code> data twice for what are obviously related
+components. A component can yield itself down:</p>
+<pre><code class="language-hbs">{{! app/components/great-toolbar/template.hbs }}
+{{yield this}}
+</code></pre>
+<pre><code class="language-hbs">{{#great-toolbar role=user.role as |toolbar|}}
+  {{great-button toolbar=toolbar}}
+{{/great-toolbar}}
+</code></pre>
+<p>And <code>great-button</code> can have knowledge about properties on <code>great-toolbar</code>, but
+this break the isolation of components. Additionally the calling syntax is not
+much better, <code>toolbar</code> must still be passed to each downstream component.</p>
+<p>Often <code>nearestOfType</code> is used as a workaround for these limitations. This API
+is poorly performing, and still results in the downstream child accessing the
+parent component properties directly.</p>
+<p>Consequently there is a demand by several addons for improvement. Our goal
+is a syntax similar to DSLs in Ruby:</p>
+<pre><code class="language-hbs">{{#great-toolbar role=user.role as |toolbar|}}
+  {{toolbar.button}}
+  {{toolbar.button orWith=additionalProperties}}
+{{/great-toolbar}}
+</code></pre>
+<p>As laid out in this proposal, the <code>great-toolbar</code> implementation would look
+like:</p>
+<pre><code class="language-hbs">{{! app/components/great-toolbar/template.hbs }}
+{{yield (hash
+  button=(component 'great-button' role=user.role)
+)}}
+</code></pre>
+<a class="header" href="0064-contextual-component-lookup.html#detailed-design" id="detailed-design"><h1>Detailed design</h1></a>
+<a class="header" href="0064-contextual-component-lookup.html#the-component-helper-and-component-helper" id="the-component-helper-and-component-helper"><h3>The <code>(component</code> helper and <code>{{component</code> helper</h3></a>
+<p>Much like <code>(action</code> creates a closure, it is proposed that the <code>(component</code>
+helper create something similar. For example with actions:</p>
+<pre><code class="language-hbs">{{#with (action &quot;save&quot; model) as |save|}}
+  &lt;button {{action save}}&gt;Save&lt;/button&gt;
+{{/with}}
+</code></pre>
+<p>The returned value of the <code>(action</code> nested helper (a function) closes over the
+action being called (<code>actions.save</code> on the context and the <code>model</code> property).
+The <code>{{action</code> helper can accept this resulting value and invoke the action
+when the user clicks.</p>
+<p>The <code>(component</code> helper will close over a component name. The
+<code>{{component</code> helper will be modified to accept this resulting value and invoke
+the component:</p>
+<pre><code class="language-hbs">{{#with (component &quot;user-profile&quot;) as |uiPane|}}
+  {{component uiPane}}
+{{/with}}
+</code></pre>
+<p>Additionally, a bound value may be passed to the <code>(component</code> helper. For
+example <code>(component someComponentName)</code>.</p>
+<p>Attrs for the final component can also be closed over. Used with yield, this
+allows for the creation of components that have attrs from other scopes. For
+example:</p>
+<pre><code class="language-hbs">{{! app/components/user-profile.hbs }}
+{{yield (component &quot;user-profile&quot; user=user.name age=user.age)}}
+</code></pre>
+<pre><code class="language-hbs">{{#user-profile user=model as |profile|}}
+  {{component profile}}
+{{/user-profile}}
+</code></pre>
+<p>Of course attrs can also be passed at invocation. They smash any conflicting
+attrs that were closed over. For example <code>{{component profile age=lyingUser.age}}</code></p>
+<p>Passing the resulting value from <code>(component</code> into JavaScript is permitted,
+however that object has no public properties or methods. Its only use would
+be to set it on state and reference it in template somewhere.</p>
+<a class="header" href="0064-contextual-component-lookup.html#hash-helper" id="hash-helper"><h3>Hash helper</h3></a>
+<p>Unlike values, components are likely to have specific names that are semantically
+relevent. When yielded to a new scope, allowing the user to change the name
+of the component's variable would quickly lead to confusing addon documentation.
+For example:</p>
+<pre><code class="language-hbs">{{#with (component &quot;user-profile&quot;) as |dropDatabaseUI|}}
+  {{component dropDatabaseUI}}
+{{/with}}
+</code></pre>
+<p>The simplest way to enforce specific names is to make building hashes
+of components (or anything) easy. For example:</p>
+<pre><code class="language-hbs">{{#with (hash profile=(component &quot;user-profile&quot;)) as |userComponents|}}
+  {{component userComponents.profile}}
+{{/with}}
+</code></pre>
+<p>The <code>(hash</code> helper is a generic builder of objects, given hash arguments. It
+would also be useful in the same manner for actions:</p>
+<pre><code class="language-hbs">{{#with (hash save=(action &quot;save&quot; model)) as |userActions|}}
+  &lt;button {{action userActions.save}}&gt;Save&lt;/button&gt;
+{{/with}}
+</code></pre>
+<a class="header" href="0064-contextual-component-lookup.html#component-helper-shorthand" id="component-helper-shorthand"><h3>Component helper shorthand</h3></a>
+<p>To complete building a viable DSL, <code>.</code> invocation for <code>{{</code> components will be
+introduced. For example this <code>{{component</code> invocation:</p>
+<pre><code class="language-hbs">{{#with (hash profile=(component &quot;user-profile&quot;)) as |userComponents|}}
+  {{component userComponents.profile}}
+{{/with}}
+</code></pre>
+<p>Could be converted to drop the explicit <code>component</code> helper call.</p>
+<pre><code class="language-hbs">{{#with (hash profile=(component &quot;user-profile&quot;)) as |userComponents|}}
+  {{userComponents.profile}}
+{{/with}}
+</code></pre>
+<p>A component can be invoked like this only when it was created by the
+<code>(component</code> nested helper form. For example unlike with the <code>{{component</code>
+helper, a string is not acceptable.</p>
+<p>To be a valid invocation, one of two criteria must be met:</p>
+<ul>
+<li>The component can be called as a path. For example <code>{{form.input}}</code> or <code>{{this.input}}</code></li>
+<li>The component can be called as a helper. For example <code>{{form.input value=baz}}</code> or <code>{{this.input value=baz}}</code></li>
+</ul>
+<p>And of course a <code>.</code> must be present in the path.</p>
+<a class="header" href="0064-contextual-component-lookup.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<p>This proposal encourages aggressive use of the <code>(</code> nested helper syntax.
+Encouraging this has been slightly controversial.</p>
+<p>No solution for angle components is presented here. The syntax for <code>.</code>
+notation in angle components is coupled to a decision on the syntax for
+bound, dynamic angle component invocation (a <code>{{component</code> helper for angle
+components basically).</p>
+<p><code>(component 'some-component'</code> may be too verbose. It may make sense to simply
+allow <code>(some-component</code>.</p>
+<p>Other proposals have leaned more heavy on extending factories in JavaScript
+then passing an object created in that space. Some arguments against this:</p>
+<ul>
+<li>Getting the container correct is tricky. Who sets it when?</li>
+<li>Properties on the classes would not be naturally bound, as they are in this proposal.</li>
+<li>As soon as you start setting properties, you likely want a <code>mut</code> helper,
+<code>action</code> helper, etc, in JavaScript space.</li>
+<li>Keeping the component lookup in the template layer allows us to take advantage
+of changes to lookup semantics later, such as local lookup in the pods
+proposal.</li>
+</ul>
+<a class="header" href="0064-contextual-component-lookup.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<p>All pain, no gain. Addons really want this.</p>
+<a class="header" href="0064-contextual-component-lookup.html#unresolved-questions" id="unresolved-questions"><h1>Unresolved questions</h1></a>
+<p>There has been discussion of if a similar mechanism should be available for
+helpers.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0061-ember-data-background-fetch.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0065-deprecation-warning-handlers.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0061-ember-data-background-fetch.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0065-deprecation-warning-handlers.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

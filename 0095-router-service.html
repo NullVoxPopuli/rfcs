@@ -1,0 +1,476 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0095-router-service - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html" class="active"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2015-09-24</li>
+<li>RFC PR: https://github.com/emberjs/rfcs/pull/95</li>
+<li>Ember Issue: https://github.com/emberjs/ember.js/pull/14805</li>
+</ul>
+<a class="header" href="0095-router-service.html#summary" id="summary"><h1>Summary</h1></a>
+<p>This RFC proposes:</p>
+<ul>
+<li>
+<p>creating a public <code>router</code> service that is a superset of today's <code>Ember.Router</code>.</p>
+</li>
+<li>
+<p>codifying and expanding the supported public API for the <code>transition</code> object that is currently passed to <code>Route</code> hooks.</p>
+</li>
+<li>
+<p>introducing the <code>get-route-info</code> template helper</p>
+</li>
+<li>
+<p>introducing the <code>#with-route-info</code> template keyword</p>
+</li>
+<li>
+<p>introducing the <code>readsRouteInfo</code> static property on <code>Component</code> and <code>Helper</code>.</p>
+</li>
+</ul>
+<p>These topics are closely related because they share a unified <code>RouteInfo</code> type, which will be described in detail.</p>
+<a class="header" href="0095-router-service.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>Given the modern Ember concepts of Components and Services, it is clear that routing capability should be exposed as a Service. I hope this is uncontroversial, given that we already implement it as a service internally, and given that usage of these nominally-private APIs is already becoming widespread.</p>
+<p>The immediate benefit of having a <code>RouterService</code> is that you can inject it into components, giving them a friendly way to initiate transitions and ask questions about the current global router state.</p>
+<p>A second benefit is that we have the opportunity to add new capabilities to the <code>RouterService</code> to replace several common patterns in the wild that dive into private internals in order to get things done. There are several places where we leak internals from router.js, and we can plug those leaks.</p>
+<p>A <code>RouterService</code> is great for asking global questions, but some questions are not global and today we incur complexity by treating them as if they are. For example:</p>
+<ul>
+<li>
+<p><code>{{link-to}}</code> can use implicit models from its context, but that breaks when you're trying to animate to or from a state where those models are not present.</p>
+</li>
+<li>
+<p><code>{{link-to}}</code> has a lot of complexity and performance cost that deals with changing its active state, and the precise timing of when that should happen.</p>
+</li>
+<li>
+<p>there is no way to ask the router what it would do to handle a given URL without actually visiting that URL.</p>
+</li>
+</ul>
+<p>All of the above can be addressed by embracing what is already internally true: &quot;the current route&quot; is not a single global, it's a dynamically-scoped variable that can have different values in different parts of the application simultaneously.</p>
+<a class="header" href="0095-router-service.html#detailed-design" id="detailed-design"><h1>Detailed design</h1></a>
+<a class="header" href="0095-router-service.html#routerservice" id="routerservice"><h2>RouterService</h2></a>
+<p>By way of a simple example, the router service behaves like this:</p>
+<pre><code class="language-js">import Component from 'ember-component';
+import service from 'ember-service/inject';
+
+export default Component.extend({
+  router: service(),
+  actions: {
+    goToMars() {
+      this.get('router').transitionTo('planet.mars');
+    }
+  }
+});
+</code></pre>
+<p>Like any Service, it can also be injected into Helpers, Routes, etc.</p>
+<a class="header" href="0095-router-service.html#relationship-between-emberrouter-and-routerservice" id="relationship-between-emberrouter-and-routerservice"><h3>Relationship between EmberRouter and RouterService</h3></a>
+<p>Q: &quot;Why are you calling this thing 'router' when we already have a router? Shouldn't the new thing be called 'routing' or something else?&quot;.</p>
+<p>A: We shouldn't have two things. From the user's perspective, there is just &quot;the router&quot;, and it happens to be available as a service. While we're free to continue implementing it as multiple classes under the hood, the public API should present as a single, coherent concept.</p>
+<p>Terminology:</p>
+<ul>
+<li><code>EmberRouter</code> is the class that we already have today, defined in <code>ember-routing/system/router</code> and available publicly as <code>Ember.Router</code></li>
+<li><code>RouterService</code> is the new class I am proposing.</li>
+</ul>
+<p><code>EmberRouter</code> has the following public API today:</p>
+<ul>
+<li><code>map</code></li>
+<li><code>location</code></li>
+<li><code>rootURL</code></li>
+<li><code>willTransition</code></li>
+<li><code>didTransition</code></li>
+</ul>
+<p>That API will be carried over verbatim to <code>RouterService</code>, and the publicly accessible <code>Ember.Router</code> class will <em>become</em> <code>RouterService</code>. In terms of implementation, I expect the existing <code>EmberRouter</code> class will continue to exist mostly unchanged. But public access to it will be moderated through <code>RouterService</code>.</p>
+<a class="header" href="0095-router-service.html#new-methods-initiating-transitions" id="new-methods-initiating-transitions"><h3>New Methods: Initiating Transitions</h3></a>
+<pre><code class="language-js">transitionTo(routeName, ...models, queryParams)
+replaceWith(routeName, ...models, queryParams)
+</code></pre>
+<p>These two have the same semantics as the existing methods on <code>Ember.Route</code>:</p>
+<a class="header" href="0095-router-service.html#new-method-checking-for-active-route" id="new-method-checking-for-active-route"><h3>New Method: Checking For Active Route</h3></a>
+<ul>
+<li><code>isActive(routeName, ...models, queryParams)</code></li>
+</ul>
+<p>The arguments have the same semantics as <code>transitionTo</code>, the return value is a boolean. This should provide the same logic that determines whether to put an active class on a <code>link-to</code>. Here's an example of how we can implement <code>is-active</code> as a helper, using this method:</p>
+<pre><code class="language-js">import Helper from 'ember-helper';
+import service from 'ember-service/inject';
+import observer from 'ember-metal/observer';
+
+export default Helper.extend({
+  router: service(),
+  compute([routeName, ...models], hash) {
+    let allModels;
+    if (hash.models) {
+      allModels = models.concat(hash.models);
+    } else {
+      allModels = models;
+    }
+    return this.get('router').isActive(routeName, ...allModels, hash.queryParams);
+  },
+  didTransition: observer('router.currentRoute', function() {
+    this.recompute();
+  })
+});
+</code></pre>
+<pre><code class="language-hbs">{{!- Example usage -}}
+&lt;li class={{if (is-active &quot;person.detail&quot; model) 'chosen'}} &gt;
+
+{{!- Example usage with generic routeName and list of models (avoids splat) -}}
+&lt;a class={{if (is-active routeName models=models) 'chosen'}} &gt;
+
+{{!- Note that the complexities of currentWhen can be avoided by composing instead. }}
+&lt;a class={{if (or (is-active 'one') (is-active 'two')) 'active'}} href={{url-for 'two'}} &gt;
+
+</code></pre>
+<a class="header" href="0095-router-service.html#new-method-url-generation" id="new-method-url-generation"><h3>New Method: URL generation</h3></a>
+<p><code>urlFor(routeName, ...models, queryParams)</code></p>
+<p>This takes the same arguments as <code>transitionTo</code>, but instead of initiating the transition it returns the resulting root-relative URL as a string (which will include the application's <code>rootUrl</code>).</p>
+<p>A <code>url-for</code> helper can be implemented almost identically to the <code>is-active</code> example above.</p>
+<a class="header" href="0095-router-service.html#new-method-url-recognition" id="new-method-url-recognition"><h3>New Method: URL recognition</h3></a>
+<p><code>recognize(url)</code></p>
+<p>Takes a string URL and returns a <code>RouteInfo</code> for the leafmost route represented by the URL. Returns <code>null</code> if the URL is not recognized. This method expects to receive the actual URL as seen by the browser <em>including</em> the app's <code>rootURL</code>.</p>
+<p>Example: this feature can replace <a href="https://github.com/intercom/ember-href-to/blob/b8cf0699eec6a65570b05e4fc22b27d8cea49c42/app/instance-initializers/browser/ember-href-to.js#L34">this use of private API in ember-href-to</a>.</p>
+<a class="header" href="0095-router-service.html#new-method-recognize-and-load-models" id="new-method-recognize-and-load-models"><h3>New Method: Recognize and load models</h3></a>
+<p><code>recognizeAndLoad(url)</code></p>
+<p>Takes a string URL and returns a promise that resolves to a <code>RouteInfoWithAttributes</code> for the leafmost route represented by the URL. The promise rejects if the URL is not recognized or an unhandled exception is encountered. This method expects to receive the actual URL as seen by the browser <em>including</em> the app's <code>rootURL</code>.</p>
+<a class="header" href="0095-router-service.html#deprecating-willtransition-and-didtransition" id="deprecating-willtransition-and-didtransition"><h3>Deprecating willTransition and didTransition</h3></a>
+<p>Application-wide transition monitoring events belong on the Router service, not spread throughout the Route classes. That is the reason for the existing <code>willTransition</code> and <code>didTransition</code> hooks/events on the Router. But they are not sufficient to capture all the detail people need. See for example, https://github.com/nickiaconis/rfcs/blob/1bd98ec534441a38f62a48599ffa8a63551b785f/text/0000-transition-hooks-events.md</p>
+<p>In addition, they receive handlerInfos in their arguments, which are an undocumented internal implementation detail of router.js that doesn't belong in Ember's public API. Everything you can do with handlerInfos can be done with the RouteInfo type that is proposed in this RFC, with the benefit of sticking to supported public API.</p>
+<p>So we should deprecate willTransition and didTransition in favor of the following new events.</p>
+<a class="header" href="0095-router-service.html#new-events-routewillchange--routedidchange" id="new-events-routewillchange--routedidchange"><h3>New Events: routeWillChange &amp; routeDidChange</h3></a>
+<p>The <code>routeWillChange</code> event fires whenever a new route is chosen as the desired target of a transition. This includes <code>transitionTo</code>, <code>replaceWith</code>, all redirection for any reason including error handling, and abort. Aborting implies changing the desired target back to where you already were. Once a transition has completed, <code>routeDidChange</code> fires.</p>
+<p>Both events receive a single <code>transition</code> argument as described in the &quot;Transition Object&quot; section below, which explains the meaning of <code>from</code> and <code>to</code> in more detail.</p>
+<p>Redirection example:</p>
+<ol>
+<li>current route is A</li>
+<li>user initiates a transition to B</li>
+<li>routeWillChange fires <code>from</code> A <code>to</code> B.</li>
+<li>B redirects to C</li>
+<li>routeWillChange fires <code>from</code> A <code>to</code> C.</li>
+<li>routeDidChange fires <code>from</code> A <code>to</code> C.</li>
+</ol>
+<p>Abort example:</p>
+<ol>
+<li>current route is A</li>
+<li>user initiates a transition to B</li>
+<li>routeWillChange fires <code>from</code> A <code>to</code> B.</li>
+<li>in response to the previous routeWillChange event, the transition is aborted.</li>
+<li>routeWillChange fires <code>from</code> A <code>to</code> A.</li>
+<li>routeDidChange fires <code>from</code> A <code>to</code> A.</li>
+</ol>
+<p>Error example:</p>
+<ol>
+<li>current route is A</li>
+<li>user initiates a transition to B.index</li>
+<li>routeWillChange fires <code>from</code> A <code>to</code> B.</li>
+<li>B throws an exception, and the router discovers a &quot;B-error&quot; template.</li>
+<li>routeWillChange fires <code>from</code> A <code>to</code> B-error</li>
+<li>routeDidChange fires <code>from</code> A <code>to</code> B-error</li>
+</ol>
+<p>These are events, not extension hooks -- now that we are exposing a Service, it makes more sense to subscribe to its events than extend it.</p>
+<a class="header" href="0095-router-service.html#new-properties" id="new-properties"><h3>New Properties</h3></a>
+<p><code>currentRoute</code>: an observable property. It is guaranteed to change whenever a route transition happens (even when that transition only changes parameters and doesn't change the active route). You should consider its value deeply immutable -- we will replace the whole structure whenever it changes. The value of <code>currentRoute</code> is a <code>RouteInfo</code> representing the current leaf route. <code>RouteInfo</code> is described below.</p>
+<p><code>currentRouteName</code>:  a convenient alias for <code>currentRoute.name</code>.</p>
+<p><code>currentURL</code>: provides the serialized string representing <code>currentRoute</code>.</p>
+<a class="header" href="0095-router-service.html#query-parameter-semantics" id="query-parameter-semantics"><h3>Query Parameter Semantics</h3></a>
+<p>Today, <code>queryParams</code> impose unnecessarily high cost because we cannot generate URLs or determine if a link is active without taking into account the default values of query parameters. Determining their default values is expensive, because it involves instantiating the corresponding controller, even in cases where we will never visit its route.</p>
+<p>Therefore, the <code>queryParams</code> argument to the new <code>urlFor</code>, <code>transitionTo</code>, <code>replaceWith</code>, and <code>isActive</code> methods defined in this document will behave differently.</p>
+<ul>
+<li>
+<p>default values will not be stripped from generated URLs. For example, <code>urlFor('my-route', { sortBy: 'title' })</code> will always include <code>?sortBy=title</code>, whether or not <code>title</code> is the default value of <code>sortBy</code>.</p>
+</li>
+<li>
+<p>to explicitly unset a query parameter, you can pass the symbol <code>Ember.DEFAULT_VALUE</code> as its value. For example, <code>transitionTo('my-route', { sortBy: Ember.DEFAULT_VALUE })</code> will result in a URL that does not contain any <code>?sortBy=</code>.</p>
+</li>
+</ul>
+<p>(Sticky parameters are still allowed, because they only apply when the destination controller has already been instantiated anyway.)</p>
+<a class="header" href="0095-router-service.html#routeinfo-type" id="routeinfo-type"><h2>RouteInfo Type</h2></a>
+<p>A RouteInfo object has the following properties. They are all read-only.</p>
+<ul>
+<li>name: the dot-separated, fully-qualified name of this route, like <code>&quot;people.index&quot;</code>.</li>
+<li>localName: the final part of the <code>name</code>, like <code>&quot;index&quot;</code>.</li>
+<li>params: the values of this route's parameters. Same as the argument to <code>Route</code>'s <code>model</code> hook. Contains only the parameters valid for this route, if any (params for parent or child routes are not merged).</li>
+<li>paramNames: ordered list of the names of the params required for this route. It will contain the same strings as <code>Object.keys(params)</code>, but here the order is significant. This allows users to correctly pass params into routes programmatically.</li>
+<li>queryParams: the values of any queryParams on this route.</li>
+<li>parent: another RouteInfo instance, describing this route's parent route, if any.</li>
+<li>child: another RouteInfo instance, describing this route's active child route, if any.</li>
+</ul>
+<p>Notice that the <code>parent</code> and <code>child</code> properties cause <code>RouteInfos</code> to form a linked list. So even though the <code>currentRoute</code> property on <code>RouterService</code> points at the leafmost route, it can be traversed to discover everything about all active routes. As a convenience, <code>RouteInfo</code> also implements <code>Enumerable</code> over all the reachable <code>RouteInfos</code> from topmost to leafmost. This makes it possible to say things like:</p>
+<pre><code class="language-js">router.currentRoute.find(info =&gt; info.name === 'people').params
+</code></pre>
+<a class="header" href="0095-router-service.html#routeinfowithattributes" id="routeinfowithattributes"><h2>RouteInfoWithAttributes</h2></a>
+<p>This type is almost identical to <code>RouteInfo</code>, except it has one additional property named <code>attributes</code>. The attributes contain the data that was loaded for this route, which is typically just <code>{ model }</code>.</p>
+<a class="header" href="0095-router-service.html#transition-object" id="transition-object"><h2>Transition Object</h2></a>
+<p>A <code>transition</code> argument is passed to <code>Route#beforeModel</code>, <code>Route#model</code>, <code>Route#afterModel</code>, <code>Route#willTransition</code>, and <code>Router#willTransition</code>. Today <code>transition</code>'s public API is only really <code>abort()</code> and <code>retry()</code>.</p>
+<a class="header" href="0095-router-service.html#new-properties-from-and-to" id="new-properties-from-and-to"><h3>New Properties: <code>from</code> and <code>to</code></h3></a>
+<p>I'm proposing we add <code>from</code> and <code>to</code> properties on <code>transition</code> whose values are <code>RouteInfo</code> instances representing the initial and final leafmost routes for this transition. Like all RouteInfos, these are read-only and internally immutable. They are not observable, because a  <code>transition</code> instance is never changed after creation.</p>
+<p>On an initial full-page load, the <code>from</code> property will be <code>null</code>. This creates a public API for distinguishing in-app transitions from full-page reloads.</p>
+<a class="header" href="0095-router-service.html#example-testing-whether-route-will-remain-active" id="example-testing-whether-route-will-remain-active"><h3>Example: testing whether route will remain active</h3></a>
+<p>Here's an example showing how <code>willTransition</code> can figure out if the current route will remain active after the transition:</p>
+<pre><code class="language-js">willTransition(transition) {
+  if (!this.transition.to.find(route =&gt; route.name === this.routeName)) {
+    alert(&quot;Please save or cancel your changes.&quot;);
+    transition.abort();
+  }
+}
+</code></pre>
+<a class="header" href="0095-router-service.html#example-parent-redirecting-to-a-fallback-model" id="example-parent-redirecting-to-a-fallback-model"><h3>Example: parent redirecting to a fallback model</h3></a>
+<p>Here's an example of a parent route that can redirect to a fallback model, without losing its child route:</p>
+<pre><code class="language-js">this.route('person', { path: '/person/:person_id' }, function() {
+  this.route('index');
+  this.route('detail');
+});
+
+//PersonRoute
+const fallbackPersonId = 0;
+model({ personId }, transition) {
+  return this.get('store').find('person', personId).catch(err =&gt; {
+    this.replaceWith(transition.to.name, fallbackPersonId);
+  });
+}
+
+// If personId 5 is invalid, and the user visits /person/5/detail, they will get
+// redirected to /person/0/detail. And /person/5 will get redirected to /person/0.
+</code></pre>
+<a class="header" href="0095-router-service.html#actively-discourage-use-of-private-api" id="actively-discourage-use-of-private-api"><h3>Actively discourage use of private API</h3></a>
+<p>This RFC provides public API for doing the things people have become accustomed to doing via private API. To eliminate confusion over the correct way, we should hide all the private API away behind symbols, and provide deprecation warnings per our usual release policy around breaking &quot;widely-used private APIs&quot;.</p>
+<p>Some of the private APIs we should mark and warn include:</p>
+<ul>
+<li>transition.state</li>
+<li>transition.params</li>
+<li><code>lookup('router:main')</code> (should use <code>service:router</code> instead)</li>
+</ul>
+<a class="header" href="0095-router-service.html#dynamically-scoped-route-info" id="dynamically-scoped-route-info"><h2>Dynamically-Scoped Route Info</h2></a>
+<p>&quot;The current route&quot; is not a global value -- it varies from place to place within an application. Internally, Ember already models route info as a dynamically-scoped variable (currently named <code>outletState</code>). This RFC proposes publicly exposing that value in order to make things like <code>link-to</code> easier to implement directly on public primitives, and in order to enable stable public API for addons usage like <code>{{liquid-outlet}}</code>.</p>
+<p>We propose <code>get-route-info</code> for reading the current route info in handlebars:</p>
+<pre><code class="language-hbs">{{!- retrieve the value of a dynamically scoped variable }}
+{{some-component currentRoute=(get-route-info)}}
+</code></pre>
+<p>We propose <code>readsRouteInfo</code> for defining a component that reads route info:</p>
+<pre><code class="language-js">let MyComponent = Ember.Component.extend({
+  didInsertElement() {
+    // Accessing routInfo here is intended to be indistinguishable
+    // from a normal, explicitly-passed input argument. 
+    doSomethingWith(this.get('routeInfo'));
+  }
+});
+MyComponent.reopenClass({
+  // This is where we declare that we need access to routeInfo
+  readsRouteInfo: true
+});
+</code></pre>
+<p>And <code>readsRouteInfo</code> also works on <code>Helper</code>:</p>
+<pre><code class="language-js">let MyHelper = Ember.Helper.extend({
+  compute(params, hash) {
+    // routeInfo is indistinguishable from a normally-passed hash argument
+    return doSomethingWith(hash.routeInfo);
+  }
+});
+MyHelper.reopenClass({
+  readsRouteInfo: true
+});
+</code></pre>
+<p>We propose the <code>#with-route-info</code> keyword for setting a new route info:</p>
+<pre><code class="language-hbs">{{#with-route-info someValue}}
+  {{!-
+    within this block AND ALL ITS DESCENDANTS until
+    otherwise overridden by another set-route-info statement, 
+    `get-route-info` returns someValue.
+  -}}
+{{/with-route-info}}
+</code></pre>
+<p>Note that there is no <code>set-route-info</code>. You can only introduce new scopes, not mutate your containing scope. There is also no way to set routeInfo directly from Javascript -- your component must use a <code>with-route-info</code> block within its handlebars template.</p>
+<a class="header" href="0095-router-service.html#routeinfos-type-and-examples" id="routeinfos-type-and-examples"><h3>routeInfo's type, and examples</h3></a>
+<p>The value returned from <code>get-route-info</code> and acceptd by <code>with-route-info</code> is always a <code>RouteInfoWithAttributes</code> object. This enables several nice things, which I will illustrate with examples:</p>
+<ol>
+<li>Here is a simplified <code>is-active</code> helper that will always update at the appropriate time to match exactly what is rendered in the current outlet. It will maintain the correct state even during animations. Instead of injecting the router service, it consumes the <code>routeInfo</code> from its containing environment:</li>
+</ol>
+<pre><code class="language-js">Ember.Helper.extend({
+  compute([routeName], { routeInfo }) {
+    return !!routeInfo.find(info =&gt; info.name === routeName);
+  }
+}).reopenClass({
+  readsRouteInfo: true
+});
+</code></pre>
+<p>A more complete version that also matches models and queryParams can be written in the same way.</p>
+<ol start="2">
+<li>
+<p>We can improve <code>link-to</code> so that it always finds implicit model arguments from the local context, rather than trying to locate them on the global router service. This will fix longstanding bugs like https://github.com/ember-animation/liquid-fire/issues/347 and it will make it easier to test components that contain <code>{{link-to}}</code>. This would also open the door to relative link-tos.</p>
+</li>
+<li>
+<p><code>liquid-outlet</code> can be implemented entirely via public API. It would become:</p>
+</li>
+</ol>
+<pre><code class="language-hbs">{{#liquid-bind (get-route-info) as |currentRouteInfo|}}
+  {{#with-route-info currentRouteInfo}}
+    {{outlet}}
+  {{/with-route-info}}
+{{/liquid-bind}}
+</code></pre>
+<ol start="4">
+<li>Prerendering of non-current routes becomes possible. You can use <code>recognizeAndLoad</code> to obtain a <code>RouteInfoWithAttributes</code> and then use <code>{{#with-route-info myRouteInfo}} {{outlet}} {{/with-route-info}}</code> to render it.</li>
+</ol>
+<a class="header" href="0095-router-service.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<p>This RFC deprecates only two public extension hooks API, so the API-churn burden may appear low. However, we know that use of the private APIs we're deliberately disabling is widespread, so users will experience churn. We can provide our usual deprecation cycle to give them early warning, but it still imposes some cost.</p>
+<p>This RFC doesn't attempt to change the existing and fairly rich semantics for initiating transitions. For example, you can pass either models or IDs, and those have subtle semantic differences. I think an ideal rewrite would also change the semantics of the route hooks and transitionTo to simplify that area.</p>
+<a class="header" href="0095-router-service.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<a class="header" href="0095-router-service.html#less-churn" id="less-churn"><h2>Less Churn</h2></a>
+<p>We could adopt some of the existing broadly used APIs as de-facto public. This avoids churn, but imposes a complexity burden on every new learner, who needs to be told &quot;this is a weird API, but it's what we're stuck with&quot;.</p>
+<a class="header" href="0095-router-service.html#semver-lawyering" id="semver-lawyering"><h2>Semver Lawyering</h2></a>
+<p>I'm interpreting router.js's public/private documentation as out-of-scope for Ember's semver. The fact that we pass an instance of router.js's Transition as our <code>transition</code> argument is not documented. An alternative interpretation is that we need to continue supporting those methods marked as public in router.js's docs.</p>
+<a class="header" href="0095-router-service.html#optional-helpers" id="optional-helpers"><h2>Optional Helpers</h2></a>
+<p>I didn't propose shipping <code>is-active</code> and <code>url-for</code> template helpers -- I merely showed that they're easy to build using the router service. But we should arguably just ship them as part of the framework too.</p>
+<a class="header" href="0095-router-service.html#branching-route-hierarchies" id="branching-route-hierarchies"><h2>Branching Route Hierarchies</h2></a>
+<p>I am implicitly assuming we will only ever have linear route hierarchies, where a given route has at most one child. I can imagine eventually wanting a way to support branching route hierarchies, where each branch can transition independently. I'm not trying to account for that future.</p>
+<a class="header" href="0095-router-service.html#routeparentroute" id="routeparentroute"><h2>Route.parentRoute</h2></a>
+<p>This RFC makes it possible for a route to determine its parent's name dynamically via public API, and thus access its parent's model/params/controller:</p>
+<pre><code class="language-js">beforeModel(transition) {
+  const parentInfo = transition.to.find(info =&gt; info.name === this.routeName).parent;
+  const parentModel = this.modelFor(parentInfo.name);
+}
+</code></pre>
+<p>However, this pattern feels awkward, and I think it justifies just adding a public <code>parentRouteName()</code> method to <code>Route</code> that would simplify to:</p>
+<pre><code class="language-js">beforeModel(transition) {
+  const parentModel = this.modelFor(this.parentRouteName());
+}
+</code></pre>
+<p>Possibly we <em>want</em> this to feel awkward because it's a weird thing to do.</p>
+<a class="header" href="0095-router-service.html#naming-of-emberdefault_value-symbol" id="naming-of-emberdefault_value-symbol"><h2>Naming of Ember.DEFAULT_VALUE Symbol</h2></a>
+<p>Should we introduce new API via the <code>Ember</code> global and switch to a module export once all the rest of Ember does, or should we just start with a module export right now? If so, what module?</p>
+<pre><code>import { DEFAULT_VALUE } from 'ember-routing';
+</code></pre>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0091-weakmap.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0101-ember-data-friendly-errors.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0091-weakmap.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0101-ember-data-friendly-errors.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

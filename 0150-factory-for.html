@@ -1,0 +1,542 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0150-factory-for - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html" class="active"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2016-06-11</li>
+<li>RFC PR: <a href="https://github.com/emberjs/rfcs/pull/150">#150</a></li>
+<li>Ember Issue: <a href="https://github.com/emberjs/ember.js/pull/14360">#14360</a></li>
+</ul>
+<a class="header" href="0150-factory-for.html#summary" id="summary"><h1>Summary</h1></a>
+<p>With the goal of making significant performance improvements and of adding
+public API to support use cases long-served by a private API, a new API of
+<code>factoryFor</code> will be added to <code>ApplicationInstance</code> instances.</p>
+<a class="header" href="0150-factory-for.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>Ember's dependency injection container has long supported fetching a factory
+that will be created with any injections present. Using the private API that
+provided this support allows an instance of the factory to be created
+with initial values passed via <code>create</code>. For example:</p>
+<pre><code class="language-js">// app/logger/main.js
+import Ember from 'ember';
+
+export default Ember.Logger.extend({
+  someService: Ember.inject.service()
+});
+</code></pre>
+<pre><code class="language-js">import Ember from 'ember';
+const { Component, getOwner } = Ember;
+
+export default Component.extend(
+  init() {
+    this._super(...arguments);
+    let Factory = getOwner(this)._lookupFactory('logger:main');
+    this.logger = Factory.create({ level: 'low' });
+  }
+});
+</code></pre>
+<p>In this API, the <code>Factory</code> is actually a subclass the original main logger
+class. When <code>_lookupFactory</code> is called, an additional <code>extend</code> takes place
+to add any injections (such as <code>someService</code> above). The class/object setup
+looks like this:</p>
+<ul>
+<li>In the module: <code>MyClass = Ember.Object.extend(</code></li>
+<li>In <code>_lookupFactory</code>: <code>MyFactoryWithInjections = MyClass.extend(</code></li>
+<li>And when used: <code>MyFactoryWithInjections.create(</code></li>
+</ul>
+<p>The second call to <code>extend</code> implements Ember's owner/DI
+framework and permits <code>someService</code> to be resolved later. The &quot;owner&quot; object
+is merged into the new <code>MyFactoryWithInjections</code> class along with any
+registered injections.</p>
+<p>This &quot;double extend&quot; (once at define time, once at <code>_lookupFactory</code> time)
+takes a toll on performance booting an app. This design flaw has motivated
+a desire to keep <code>_lookupFactory</code> private.</p>
+<p>The <code>MyFactoryWithInjections</code> class also features as a cache. Because it is
+attached to the owner/container, it is cleared between test runs or
+application instances. To illustrate, this flow-chart shows how
+<code>MyFactoryWithInjections</code> diverges between tests:</p>
+<pre><code>               +-------------------------------+
+               |                               |
+               |      /app/models/foo.js       |
+               |                               |
+               +-------------------------------+
+                               |
+              first test run   |    nth test run
+              +----------------+---------------+
+              |                                |
+              v                                v
+   +---------------------+          +--------------------+
+   |resolve('model:foo') |   ===    |resolve('model:foo')|
+   +---------------------+          +--------------------+
+              |                                |
+              |                                |
+              v                                v
+
+     extend(injections)               extend(injections)
+
+              |                                |
+              |                                |
+              |                                |
+              v                                v
++--------------------------+     +---------------------------+
+|lookupFactory('model:foo')| !== |lookupFactory('model:foo') |
++--------------------------+     +---------------------------+
+</code></pre>
+<p>Despite the design flaws in this API, it does fill a meaningful role in
+Ember's DI solution. Use of the private API is common. Some examples:</p>
+<ul>
+<li><a href="https://github.com/DockYard/ember-cart">ember-cart</a> uses the functionality to create model objects without
+tying them to the store <a href="https://github.com/DockYard/ember-cart/blob/c01eb22eaf2e97f8c80481c3174d4be917e476a9/tests/dummy/app/controllers/application.js#L16">example a</a>,
+<a href="https://github.com/DockYard/ember-cart/blob/c01eb22eaf2e97f8c80481c3174d4be917e476a9/tests/dummy/app/models/dog.js#L11">example b</a></li>
+<li>Ember-Data's <a href="https://github.com/emberjs/data/blob/54ea432b1cbb0d1231d9a0454b09d3b3a0bc2533/addon/-private/system/store.js#L1868"><code>modelFactoryFor</code></a></li>
+</ul>
+<p>The goal of this RFC is to create a public API for fetching factories with
+better performance characteristics than <code>_lookupFactory</code>.</p>
+<a class="header" href="0150-factory-for.html#detailed-design" id="detailed-design"><h1>Detailed design</h1></a>
+<p>Throughout this document I reference Ember 2.12 as it is the next LTS at writing. This
+proposal may ship for 2.12-LTS or be bumped to the next LTS.</p>
+<p>This feature will be added in these steps.</p>
+<ol>
+<li>In Ember introduce a <code>ApplicationInstance#factoryFor</code> based on
+<code>_lookupFactory</code>. It should be documented that certain behaviors
+inherent to &quot;double extend&quot; are not supported. In development builds
+and supporting browsers, wrap return values in a Proxy. The proxy should
+throw an error when any property besides <code>create</code> or <code>class</code> is accessed.
+<code>class</code> must return the registered factory, not the double extended factory.</li>
+<li>In the same release add a deprecation message to usage of <code>_lookupFactory</code>.
+As this API is intimate it must be maintained through at least one LTS
+release (2.12 at this writing).</li>
+<li>In 2.13 drop <code>_lookupFactory</code> and migrate the <code>factoryFor</code> implementation to avoid
+&quot;double-extend&quot; entirely.</li>
+</ol>
+<p>Additionally, a polyfill will be released for this feature supporting prior
+versions of Ember.</p>
+<a class="header" href="0150-factory-for.html#design-of-applicationinstancefactoryfor" id="design-of-applicationinstancefactoryfor"><h4>Design of <code>ApplicationInstance#factoryFor</code></h4></a>
+<p>A new API will be introduced. This API will return both the original base
+class registered into or resolved by the container, and will also return a function
+to generate a dependency-injected instance. For example:</p>
+<pre><code class="language-js">import Ember from 'ember';
+const { Component, getOwner } = Ember;
+
+export default Component.extend(
+  init() {
+    this._super(...arguments);
+    let factory = getOwner(this).factoryFor('logger:main');
+    this.logger = factory.create({ level: 'low' });
+  }
+});
+</code></pre>
+<p>Unlike <code>_lookupFactory</code>, <code>factoryFor</code> will not return an extended class with
+DI applied. Instead it will return a factory object with two properties:</p>
+<pre><code class="language-js">// factoryFor returns:
+let {
+
+  // a function taking an argument of initial properties passed to the object
+  // and returning an instance
+  create,
+
+  // The class registered into (or resolved by) the container
+  class
+
+} = owner.factoryFor('type:name');
+</code></pre>
+<p>This API should meet two requirements of the use-cases described in
+&quot;Motivation&quot;:</p>
+<ul>
+<li>Because <code>factoryFor</code> only returns a <code>create</code> method and reference to the
+original class, its internal implementation can diverge away from the
+&quot;double extend&quot;. A side-effect of this is that the
+class of an object instantiated via <code>_lookupFactory(name).create()</code>
+and <code>factoryFor(name).create()</code> may not be the same, given the
+same original factory.</li>
+<li>The presence of <code>class</code> will make it easy to identify the base class of the
+factory at runtime.</li>
+</ul>
+<p>For example today's <code>_lookupFactory</code> creates an inheritance structure like
+the following:</p>
+<pre><code>                    Current:
+       +-------------------------------+
+       |                               |
+       |      /app/models/foo.js       |
+       |                               |
+       +-------------------------------+
+                       |
+                       |
+                       |
+                       v
+            +--------------------+
+            |  Class[model/Foo]  |
+            +--------------------+
+                       |
+                       |
+                       |
+       first test run  |   nth test run
+           +-----------+----------+
+           |                      |
+           |                      |
+           |                      |
+           v                      v
++--------------------+ +--------------------+
+|     subclass of    | |     subclass of    |
+|  Class[model/Foo]  | |  Class[model/Foo]  |
++--------------------+ +--------------------+
+</code></pre>
+<p>Between test runs 2 instances of <code>model:foo</code> will have a common
+shared ancestor the grandparent <code>Class[model/Foo]</code>.</p>
+<p>This implementation of <code>factoryFor</code> proposes to remove the intermediate
+subclass and instead have a generic
+factory object which holds the injections and allows for injected instances
+to be created. The resulting object graph would look something like this:</p>
+<pre><code>                  Proposed:
+      +-------------------------------+
+      |                               |
+      |      /app/models/foo.js       |
+      |                               |
+      +-------------------------------+
+                      |
+                      |
+                      |
+                      v
+           +--------------------+
+           |  Class[model/Foo]  |
+           +--------------------+
+                      |
+                      |
+                      |
+      first test run  |   nth test run
+           +----------+-----------+
+           |                      |
+           |                      |
+           |                      |
+           v                      v
++--------------------+ +--------------------+
+|     Factory of     | |     Factory of     |
+|  Class[model/Foo]  | |  Class[model/Foo]  |
++--------------------+ +--------------------+
+</code></pre>
+<p>With <code>factoryFor</code> instances of <code>model:foo</code> will share a common constructor.
+Any state stored on the constructor would of course leak between the tests.</p>
+<p>An example implementation of <code>factoryFor</code> can be reviewed <a href="https://github.com/emberjs/rfcs/issues/125#issuecomment-193827658">on this GitHub
+comment</a>.</p>
+<a class="header" href="0150-factory-for.html#implications-for-ownerregister" id="implications-for-ownerregister"><h5>Implications for <code>owner.register</code></h5></a>
+<p>Currently, factories registered into Ember's DI system are required to
+provide an <code>extend</code> method. Removing support for extend-based DI in <code>_lookupFactory</code>
+will permit factories without <code>extend</code> to be registered. Instead factories
+must only provide a <code>create</code> method. For example:</p>
+<pre><code class="language-js">let factory = {
+  create(options={}) {
+    /* Some implementation of `create` */
+    return Object.create({});
+  }
+};
+owner.register('my-type:a-factory', factory);
+let factoryWithDI = owner.factoryFor('my-type:a-factory');
+
+factoryWithDI.class === factory;
+</code></pre>
+<a class="header" href="0150-factory-for.html#development-mode-proxy" id="development-mode-proxy"><h5>Development-mode Proxy</h5></a>
+<p>Because many developers will simply re-write <code>_lookupFactory</code> to <code>factoryFor</code>,
+it is important to provide some aid and ensure they actually complete the
+migration completely (they they avoid setting state on the factory). A proxy
+wrapping the return value of <code>factoryFor</code> and raising assertions when any
+property besides <code>create</code> or <code>class</code> is accessed will be added in development.</p>
+<p>Additionally, using <code>instanceof</code> on the result of <code>factoryFor</code> should be
+disallowed, causing an exception to be raised.</p>
+<p>A good rule of thumb is that, in development, using anything besides <code>class</code> or
+<code>create</code> on the return value of <code>factoryFor</code> should fail with a helpful message.</p>
+<a class="header" href="0150-factory-for.html#releasing-a-polyfill" id="releasing-a-polyfill"><h5>Releasing a polyfill</h5></a>
+<p>A polyfill addon, similar to <a href="https://github.com/rwjblue/ember-getowner-polyfill">ember-getowner-polyfill</a>
+will be released for this feature. This polyfill will provide the <code>factoryFor</code>
+API going back to at least 2.8, provide the API and silence the deprecation
+in versions before <code>factoryFor</code> is available, and be a no-op in versions where
+<code>factoryFor</code> is available.</p>
+<a class="header" href="0150-factory-for.html#how-we-teach-this" id="how-we-teach-this"><h1>How We Teach This</h1></a>
+<p>This feature should be introduced along side <code>lookup</code> in the
+<a href="https://guides.emberjs.com/v2.6.0/applications/dependency-injection/">relevant guide</a>.
+The return value of <code>factoryFor</code> should be taught as a POJO and not as
+an extended class.</p>
+<a class="header" href="0150-factory-for.html#example-deprecation-guide-migrating-from-_lookupfactory-to-factoryfor" id="example-deprecation-guide-migrating-from-_lookupfactory-to-factoryfor"><h4>Example deprecation guide: Migrating from <code>_lookupFactory</code> to <code>factoryFor</code></h4></a>
+<p>Ember owner objects have long provided an intimate API used to
+fetch a factory with dependency injections. This API, <code>_lookupFactory</code>, is deprecated
+in Ember 2.12 and will be removed in Ember 2.13. To ease the transition to this
+new public API, a polyfill is provided with support back to at least Ember 2.8.</p>
+<p><code>_lookupFactory</code> returned the class of resolved factory extended with
+a mixin containing its injections. For example:</p>
+<pre><code class="language-js">let factory = Ember.Object.extend();
+owner.register('my-type:a-name', factory);
+let klass = owner._lookupFactory('my-type:a-name');
+klass.constructor.superclass === factory; // true
+let instance = klass.create();
+</code></pre>
+<p><code>factoryFor</code> instead returns an object with two properties: <code>create</code> and <code>class</code>.
+For example:</p>
+<pre><code class="language-js">let factory = Ember.Object.extend();
+owner.register('my-type:a-name', factory);
+let klass = owner.factoryFor('my-type:a-name');
+klass.class === factory; // true
+let instance = klass.create();
+</code></pre>
+<p>A common use-case for <code>_lookupFactory</code> was to fetch an factory with
+specific needs in mind:</p>
+<ul>
+<li>The factory needs to be created with initial values (which cannot be
+provided at create-time via <code>lookup</code>.</li>
+<li>The instances of that factory need access to Ember's DI framework (injections,
+registered dependencies).</li>
+</ul>
+<p>For example:</p>
+<pre><code class="language-js">// app/widgets/slow.js
+import Ember from 'ember';
+
+export default Ember.Object.extend({
+  // this instance requires access to Ember's DI framework
+  store: Ember.inject.service(),
+
+  convertToModel() {
+    this.get('store').createRecord('widget', {
+      widgetType: 'slow',
+      name, canWobble
+    });
+  }
+
+});
+</code></pre>
+<pre><code class="language-js">// app/services/widget-manager.js
+import Ember from 'ember';
+
+export default Ember.Service.extend({
+
+  init() {
+    this.set('widgets', []);
+  },
+
+  /*
+   * Create a widget of a type, and add it to the widgets array.
+   */
+  addWidget(type, name, canWobble) {
+    let owner = Ember.getOwner(this);
+    // Use `_lookupFactory` so the `store` is accessible on instances.
+    let WidgetFactory = owner._lookupFactory(`widget:${type}`);
+    let widget = WidgetFactory.create({name, canWobble});
+    this.get('widgets').pushObject(widget);
+    return widget;
+  }
+
+});
+</code></pre>
+<p>For these common cases where only <code>create</code> is called on the factory, migration
+to <code>factoryFor</code> is mechanical. Change <code>_lookupFactory</code> to <code>factoryFor</code> in the
+above examples, and the migration would be complete.</p>
+<a class="header" href="0150-factory-for.html#migration-of-static-method-calls" id="migration-of-static-method-calls"><h5>Migration of static method calls</h5></a>
+<p>Factories may have had static methods or properties that were being accessed
+after resolving a factory with <code>_lookupFactory</code>. For example:</p>
+<pre><code class="language-js">// app/widgets/slow.js
+import Ember from 'ember';
+
+const SlowWidget = Ember.Object.extend();
+SlowWidget.reopenClass({
+  SPEEDS: [
+    'slow',
+    'verySlow'
+  ],
+  hasSpeed(speed) {
+    return this.SPEEDS.contains(speed);
+  }
+});
+
+export default SlowWidget;
+</code></pre>
+<pre><code class="language-js">let factory = owner._lookupFactory('widget:slow');
+factory.SPEEDS.length; // 2
+factory.hasSpeed('slow'); // true
+</code></pre>
+<p>With <code>factoryFor</code>, access to these methods or properties should be done via
+the <code>class</code> property:</p>
+<pre><code class="language-js">let factory = owner.factoryFor('widget:slow');
+let klass = factory.class;
+klass.SPEEDS.length; // 2
+klass.hasSpeed('slow'); // true
+</code></pre>
+<a class="header" href="0150-factory-for.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<p>The main drawback to this solution is the removal of double extend. Double
+extend is a performance troll, however it also means if a single class is registered
+multiple times each <code>_lookupFactory</code> returns a unique factory. It is plausible
+that some use-case relying on this behavior would get trolled in the migration
+to <code>factoryFor</code>, however it is unlikely.</p>
+<p>For example these cases where state is stored on the factory would no
+longer be scope to one instance of the owner (like one test). Instead, setting
+a value on the class would set it on the registered class.</p>
+<p>Some real-world examples of setting state on the factory class:</p>
+<ul>
+<li>ember-model
+<ul>
+<li>https://github.com/ebryn/ember-model/blob/master/packages/ember-model/lib/model.js#L404 and https://github.com/ebryn/ember-model/blob/master/packages/ember-model/lib/model.js#L457
+with <code>factoryFor</code> will increment a shared counter across application and
+container instances.</li>
+<li>https://github.com/ebryn/ember-model/blob/master/packages/ember-model/lib/model.js#L723-L725
+would also set properties on the base <code>Ember.Model</code> factory instead of
+an extension of that class.</li>
+</ul>
+</li>
+<li>ember-data
+<ul>
+<li>If attrs change between test runs (seems very unlikely) then https://github.com/emberjs/data/blob/387630db5e7daec6aac7ef8c6172358a3bd6394c/addon/-private/system/model/attr.js#L57
+would be affected. The CP of <code>attributes</code> will have a value cached on the
+factory, and where with <code>_lookupFactory</code>'s double-extend the cache would be
+on the extended class, in <code>factoryFor</code> that CP cache will be on the
+class registered as a factory.</li>
+</ul>
+</li>
+<li>Any other of the following:
+<ul>
+<li><code>lookupFactory(x).reopen</code> / <code>reopenClass</code> at runtime (or test time to monkey patch code)</li>
+<li><code>lookupFactory(x).something = value</code></li>
+</ul>
+</li>
+</ul>
+<a class="header" href="0150-factory-for.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<p>More aggressive timelines have been considered for this change.</p>
+<p>However we have considered the possibility that removing <code>_lookupFactory</code> in 2.13
+(something LTS technically permits) would be too aggressive for the
+community of addons. Providing a polyfill is part of the strategy to handle
+this change.</p>
+<a class="header" href="0150-factory-for.html#unresolved-questions" id="unresolved-questions"><h1>Unresolved questions</h1></a>
+<p>Are there any use-cases for the double extend not considered?</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0143-module-unification.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0176-javascript-module-api.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0143-module-unification.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0176-javascript-module-api.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

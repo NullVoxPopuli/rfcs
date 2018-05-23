@@ -1,0 +1,242 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0276-named-args - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html" class="active"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2017-12-10</li>
+<li>RFC PR: https://github.com/emberjs/rfcs/pull/276</li>
+<li>Ember Issue: https://github.com/emberjs/ember.js/pull/15968</li>
+</ul>
+<a class="header" href="0276-named-args.html#summary" id="summary"><h1>Summary</h1></a>
+<p>Introduce <code>{{@foo}}</code> in as a dedicated syntax for a component's template to
+refer to named arguments passed in by the caller.</p>
+<p>For example, given the invocation <code>{{hello-world name=&quot;Godfrey&quot;}}</code> and this
+component template in <code>app/templates/components/hello-world.hbs</code>:</p>
+<pre><code class="language-hbs">Hello, {{@name}}
+</code></pre>
+<p>Ember will render &quot;Hello, Godfrey&quot;.</p>
+<a class="header" href="0276-named-args.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>Currently, the way to access named arguments passed in from the caller is to
+reference <code>{{name}}</code> in the template. This works because when Ember creates
+the component instance, it automatically <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign">assigns</a>
+all named arguments as properties on the component instance.</p>
+<p>The first problem with this approach is that the <code>{{name}}</code> syntax is highly
+ambigious, as it could be referring to a local variable (block param), a
+helper or a named argument from the caller (which actually works by accessing
+auto-reflected <code>{{this.name}}</code>) or a property on the component class (such as
+a computed property).</p>
+<p>This can often lead to confusion for readers of the template. Upon encountering
+<code>{{foo}}</code> in a component's template, the reader has to check all of
+these places: first you need to scan the surrounding lines for block
+params with that name; next you check in the helpers folder to see it there
+is a helper with that name (it could also be coming from an addon!); then you
+check if it is an argument provided by the caller; finally, you check the
+component's JavaScript class to look for a (computed) property. If you <em>still</em>
+did not find it, maybe it is a named arguments that is passed only sometimes,
+or perhaps it is just a leftover reference from a previous refactor?</p>
+<p>Providing a dedicated syntax for referring to named arguments will resolve the
+ambiguity and greatly improve clarity, especially in big projects with a lot
+of files (and uses a lot of addons). (The existing <code>{{this.name}}</code> syntax can
+already be used to disambiguate component properties from helpers.)</p>
+<p>As an aside, the ambiguity that causes confusion for human readers is also a
+problem for the compiler. While it is not the main goal of this proposal,
+resolving this ambiguity also helps the rendering system. Currently, the
+&quot;runtime&quot; template compiler has to perform a helper lookup for every <code>{{name}}</code>
+in each template. It will be able to skip this resolution process and perform
+other optimizations (such as reusing the internal <a href="https://github.com/glimmerjs/glimmer-vm/blob/master/guides/04-references.md">reference</a>
+object and caches) with this addition.</p>
+<p>Another problem with the current approach of automatically &quot;reflecting&quot; named
+arguments on the instance is that they can unexpectedly overwrite other
+properties defined on the component's class. It also defeats performance
+optimizations in JavaScript engines as this approach creates many different
+polymorphic &quot;shapes&quot; for instances that otherwise belong to the same
+component class.</p>
+<p>While this proposal does not directly solve this problem (we are not proposing
+that we deprecate or remove the &quot;auto-reflection&quot; on <code>Ember.Component</code>), it
+paves the way for a future world where components can work without them.</p>
+<p>Notably, the current iteration of the <a href="https://glimmerjs.com/guides/templates-and-helpers">Glimmer Components</a>
+have adopted this design for over a year now and the experience has been very
+positive. This would be one of the first pieces (admittedly, only a tiny piece)
+of the Glimmer.js experiment to make its way into Ember. We think this feature
+is small, self-contained but useful enough to be the ideal candidate to kick
+off this process.</p>
+<a class="header" href="0276-named-args.html#detailed-design" id="detailed-design"><h1>Detailed design</h1></a>
+<p>This feature was baked into the Glimmer VM very early on. In fact, the
+only thing that is stopping them from working in Ember is <a href="https://github.com/emberjs/ember.js/blob/87be17d8e69f83b2abed8c0695f8fa5e4bcae473/packages/ember-template-compiler/lib/plugins/assert-reserved-named-arguments.js">an AST transform</a>
+that specifically disallows them. Therefore, &quot;implementing&quot; this feature is
+just a matter of deleting that file.</p>
+<p>Additionally, the legacy <code>{{attrs.foo}}</code> syntax (which more or less tries to
+accomplish the same thing) has actually been <a href="https://github.com/emberjs/ember.js/blob/87be17d8e69f83b2abed8c0695f8fa5e4bcae473/packages/ember-template-compiler/lib/plugins/transform-attrs-into-args.js">implemented using <code>{{@foo}}</code></a>
+under-the-hood since Ember 2.10.</p>
+<a class="header" href="0276-named-args.html#reserved-names" id="reserved-names"><h2>Reserved Names</h2></a>
+<p>We will reserve <code>{{@args}}</code>, <code>{{@arguments}}</code> and anything that does not
+start with a lowercase letter (such as <code>@Foo</code>, <code>@0</code>, <code>@!</code> etc) in the first
+version. This is purely speculative and the goal is to carve out some space
+for future features. If we don't end up needing them, we can always relax
+the restrictions down the road.</p>
+<a class="header" href="0276-named-args.html#how-we-teach-this" id="how-we-teach-this"><h1>How We Teach This</h1></a>
+<p><code>{{@foo}}</code> is the way to access the named arguments passed from the caller.</p>
+<p>Since the <code>{{foo}}</code> syntax still works on <code>Ember.Component</code> (which is the
+only kind of components available today) via the auto-reflection mechanism,
+we are not really in a rush to migrate the community (and the guides, etc)
+to using the new syntax. In the meantime, this could be viewed as a tool to
+improve clarity in templates, similar to how the optional &quot;explicit <code>this</code>&quot;
+syntax (<code>{{this.foo}}</code>).</p>
+<p>While we think writing <code>{{@foo}}</code> would be a best practice for new code
+going forward, the community can migrate at its own pace one component at a
+time.</p>
+<p>We can also encourage the community to supplement this effort by wiring
+linting tools and code mods.</p>
+<a class="header" href="0276-named-args.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<p>This introduces a new piece of syntax that one would need to learn in order to
+understand Ember templates.</p>
+<p>This mostly affects &quot;casual&quot; readers (as this should be very easy for an Ember
+developer to learn, understand and remember after encounting/learning it for
+the first time). However, since these casual readers are also among those
+who are most acutely affected by the ambiguity, we believe this is still a
+net improvement over the status-quo.</p>
+<a class="header" href="0276-named-args.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<p>We have <code>{{attrs.foo}}</code> today. In React, there is <code>this.props.foo</code>.</p>
+<p>Given how common this is, we think it deserves its own dedicated, succinct
+syntax. The other alternatives that involve reflecting them on the component
+instances also would not allow for the internal optimizations in the Glimmer
+VM.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0268-acceptance-testing-refactor.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0278-template-only-components.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0268-acceptance-testing-refactor.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0278-template-only-components.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

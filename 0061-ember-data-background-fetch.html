@@ -1,0 +1,352 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0061-ember-data-background-fetch - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html" class="active"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2015-06-03</li>
+<li>RFC PR: https://github.com/emberjs/rfcs/pull/61</li>
+<li>Ember Issue: This RFC is implemented over many Ember Data PRs</li>
+</ul>
+<a class="header" href="0061-ember-data-background-fetch.html#summary" id="summary"><h1>Summary</h1></a>
+<p>This RFC proposes new methods on the adapter to signal to the Ember Data store when it should re-request a record that is already cached in the store. It also proposes a new adapter options object that can be used by to provide instructions to the adapter from the place where the store's find method is called.</p>
+<a class="header" href="0061-ember-data-background-fetch.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<a class="header" href="0061-ember-data-background-fetch.html#use-cases" id="use-cases"><h2>Use Cases</h2></a>
+<p>When it comes to fetching records, there are several different behaviors
+that users may expect. The behavior that users expect is influenced by
+unique quirks in their data model, pre-existing expectations based on
+traditional development models, and implementation details of their
+adapter.</p>
+<p>Fundamentally, users may expect or want one of the following sets of
+behavior when fetching a model for the <code>model()</code> hook:</p>
+<ul>
+<li>Fetching data from the server the first time a record is requested,
+but using only cached data subsequent times the route is entered.
+(This is the current behavior of <code>find()</code>.)</li>
+<li>Fetching new data every time the route is entered. The route will
+&quot;block&quot; (show a loading spinner) until fresh data is received.</li>
+<li>Using local data if available, but otherwise not triggering any
+fetches if the data is not available. This is useful if records will
+be pushed into the store ahead of time, e.g. by a socket, and
+non-existence in the store means non-existence on the server.</li>
+<li>Immediately returning a model with local data if available, rendering
+the route's template immediately, and updating the record in the
+background. If the record changes after conferring with the server,
+the template is re-rendered.</li>
+</ul>
+<a class="header" href="0061-ember-data-background-fetch.html#discussion" id="discussion"><h2>Discussion</h2></a>
+<a class="header" href="0061-ember-data-background-fetch.html#fetch-only-on-initial-render" id="fetch-only-on-initial-render"><h3>Fetch Only On Initial Render</h3></a>
+<p>In this model, the record data is fetched from the server the first time
+a record with a given ID is requested. Subsequent requests (e.g. leaving
+and re-entering the same route) use locally cached data. This is the
+strategy used by the current <code>find()</code> method.</p>
+<p>The advantage of this model is that it keeps conferring with the server
+to a minimum. Once data is loaded, the client can render new routes with
+the model data that it has cached, without a network roundtrip.</p>
+<p>Additionally, in some data models, records are immutable. For example, on
+Twitter, tweets never change. In an email app, emails cannot change once
+they are sent. Asking the server for the most up-to-date version of an
+immutable record is a waste of resources.</p>
+<p>The downsides of this model are two-fold.</p>
+<p>First, this model is surprising to new developers. When navigating
+between pages, they expect the most up-to-date representation to be
+fetched and displayed every time.</p>
+<p>Second, even for developers who understand what is happening, it is very
+easy for long-lived applications to accumulate stale information,
+particularly if the model they are displaying updates frequently.
+Developers must somehow disambiguate between the first time a model is
+looked up, and allowing it to proceed, and detecting when a cached model
+is being used and updating it manually.</p>
+<a class="header" href="0061-ember-data-background-fetch.html#new-fetch-every-render" id="new-fetch-every-render"><h3>New Fetch Every Render</h3></a>
+<p>The advantages of this model are that it most closely matches the mental
+model for developers coming from server-rendered and jQuery backgrounds.
+In that model, every time a new page is loaded, the most up-to-date
+information is guaranteed to be displayed. Because each page navigation
+triggers a fetch from the database, the only way for information to
+become stale is for the user to stop navigating.</p>
+<p>The downside of this model is that it eliminates many of the advantages
+of client-side routing. In traditional client apps, data is stored
+locally, and navigations use that local data. In this model, every page
+transition is blocked awaiting a network response from the server. It's
+a slight improvement in that the data should be much smaller than a full
+HTML page, but it is often latency and not bandwidth that causes
+slowdowns.</p>
+<a class="header" href="0061-ember-data-background-fetch.html#never-fetch" id="never-fetch"><h3>Never Fetch</h3></a>
+<p>While an edge case, many Ember Data users have requested the ability to
+fetch a record out of the store only if it exists locally.</p>
+<p>One use case is for stores that are optimistically populated via pushed
+data from a socket. In that case, if the record doesn't exist in the
+store, it means that it doesn't exist on the server.</p>
+<p>For obvious reasons, this is an uncommon case for the majority of apps.
+While we should support it, it should not be part of the happy path for
+new developers.</p>
+<a class="header" href="0061-ember-data-background-fetch.html#immediate-render-background-refresh" id="immediate-render-background-refresh"><h3>Immediate Render, Background Refresh</h3></a>
+<p>In this model, the first time a record is requested, it blocks the
+render and shows a loading spinner. On subsequent requests, the locally
+cached data is displayed and the render happens immediately without
+making the user wait.</p>
+<p>However, in the background, the store also kicks off a request to the
+adapter to update the record. When the new data comes in, the record is
+updated, and if there have been changes to the record since the initial
+render, the template is re-rendered with the new information.</p>
+<p>This is the model that I believe strikes the best tradeoff among the
+options available.</p>
+<p>First, it preserves the speed of client-side navigation. Once data for a
+record is cached, transitioning to any route that relies on it is nearly
+instantaneous and has no network bottleneck.</p>
+<p>Second, because it triggers a background update, even users who expect a
+new fetch every time will not be surprised as, ideally after a few
+milliseconds, the new data will arrive and be persisted into the DOM.</p>
+<p>Third, in most applications, models are not changing frequently.  Most
+of the time, the cached version in the Ember Data store will be
+identical to the latest server revision. In those cases, there is no
+point in making users stare at a loading spinner</p>
+<p>Of course, there are several downsides to this model that we should keep
+in mind. For immutable records, fetching a new version in the background
+is wasteful of bandwidth and server capacity and we should allow
+developers to opt out of this behavior.</p>
+<p>A second related case is apps using a socket to subscribe to record
+changes once a record is fetched. In those cases, fetching up-to-date
+information on subsequent requests for the model is wasteful because
+they have guaranteed that they will keep the model up-to-date via change
+events from the server. In this case, we need a way for adapter authors
+to signal that subsequent update requests for a record are a no-op.</p>
+<p>Third, it may be an unpleasant user experience for new information to
+pop in suddenly after the initial render, particularly for records that
+frequently change in dramatic ways. In those instances, we should make
+sure we give developers the tools to build UIs that can indicate to the
+user that the information is being updated, perhaps by greying it out or
+displaying a loading spinner.</p>
+<a class="header" href="0061-ember-data-background-fetch.html#detailed-design" id="detailed-design"><h1>Detailed design</h1></a>
+<a class="header" href="0061-ember-data-background-fetch.html#proposal" id="proposal"><h2>Proposal</h2></a>
+<a class="header" href="0061-ember-data-background-fetch.html#new-adapter-methods" id="new-adapter-methods"><h3>New Adapter Methods.</h3></a>
+<p><code>shouldRefetchRecord</code> is a new method on the adapter that will be called by the store to make initial decision whether to refetch the record form the adapter or return the cached record from the store. This could method could be used to implement caching logic (e.g. only refetch this record after the time specified in its cache expires token) or for improved offline support (e.g. always refetch unless there is no internet connection then use cached record).</p>
+<p>This record would only be called if the record was already found in the store and is in the loaded state.</p>
+<p>This method is only checked by <code>store.findById</code> and <code>store.findAll</code>. Methods with <code>fetch</code> in their name always refetch the record(s) from the adapter.</p>
+<pre><code class="language-js">{
+  /**
+   `shouldRefetchRecord` returns true if the adapter determines the record is
+   stale and should be refetch. It should return false if the record
+   is not stale or some other condition indicates that a fetch should
+   not happen at this time (e.g. loss of internet connection). 
+
+   This method is synchronous.
+
+   @method shouldRefetchRecord
+   @param {DS.Store} store
+   @param {DS.Model} record
+   @param {Object} adapterOptions
+   @return {Boolean}
+   */
+  shouldRefetchRecord: function(store, record, adapterOptions),
+}
+</code></pre>
+<p>The method <code>shouldBackgroundUpdate</code> would be used by the store to make the decision to re-fetch the record after it has already been returned to the user. This would allow realtime adapter to opt out of the background fetch if the adapter is already subscribing to changes on the record.</p>
+<pre><code class="language-js">{
+  /**
+   `shouldBackgroundUpdate` returns true if the store should re fetch a
+   record in the store after returning it to the user to ensure the
+   record has the most up to date data.
+   
+   This method is synchronous.
+
+   @method shouldBackgroundUpdate
+   @param {DS.Store} store
+   @param {DS.Model} record
+   @param {Object} adapterOptions
+   @return {Boolean}
+  */
+  shouldBackgroundUpdate: function(store, record, adapterOptions),
+}
+</code></pre>
+<p>In the next major version of Ember Data the recommend way of finding a record
+will be:</p>
+<pre><code class="language-js">this.store.findById('person', 1);
+</code></pre>
+<p>This will return a promise that:</p>
+<ol>
+<li>Waits to resolve until the data is fetched from the server, on the
+initial request.</li>
+<li>Resolves immediately with the locally cached request for subsequent
+requests, but triggers a request to the server for the updated
+version and updates the record in-place if there are changes.</li>
+</ol>
+<p>In terms of the above methods <code>shouldRefetchRecord</code> will always return <code>false</code> and <code>shouldBackgroundUpdate</code> will always return <code>true</code> in the default <code>RESTAdapter</code>.</p>
+<p>The fundamental guarantee of <code>findById()/findAll()</code> when using the default <code>RESTAdapter</code> is:</p>
+<blockquote>
+<p>Give me the information you have available locally, then give me the
+most up-to-date information as soon as possible.</p>
+</blockquote>
+<p>Currently, the <code>find()</code> method takes an optional third parameters that
+is passed to the adapter. In this API, that data structure is moved to
+a field in the new options hash:</p>
+<pre><code class="language-js">this.store.findById('person', 1, {
+  preload: { comment_id: 1 }
+});
+</code></pre>
+<a class="header" href="0061-ember-data-background-fetch.html#isupdating-flag" id="isupdating-flag"><h3><code>isUpdating</code> Flag</h3></a>
+<p>To assist developers in building UIs that communicate the state of
+models to their users, we should provide a helper that allows developers
+to show UI elements when a model is in the process of being updated via
+<code>fetch()</code>.</p>
+<p>I propose adding an <code>isUpdating</code> flag to models, which can be used to
+conditionally show a spinner:</p>
+<pre><code class="language-handlebars">&lt;h1&gt;{{post.title}}&lt;/h1&gt;
+{{#if isUpdating post}}
+  &lt;small&gt;Updating...&lt;/small&gt;
+{{/if}}
+
+&lt;p&gt;{{post.body}}&lt;/p&gt;
+</code></pre>
+<p>(Currently, only <code>RecordArray</code>s have an <code>isUpdating</code> flag.)</p>
+<p>Models have an <code>isReloading</code> flag. This will be deprecated in favor of the new <code>isUpdating</code> flag.</p>
+<a class="header" href="0061-ember-data-background-fetch.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<p>Why should we <em>not</em> do this?</p>
+<p>After the record has been updated in the background Ember's Data binding will cause any views to automatically update with the latest changes. This can result an a surprising &quot;popping&quot; effect which is especially pronounced when the background fetch resolves quickly (The user sees an initial render with the stale data then a quick re-render with the fresh data).</p>
+<a class="header" href="0061-ember-data-background-fetch.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<p>What other designs have been considered? What is the impact of not doing this?</p>
+<p>One alternate option could be for Ember Data to track an expires token on a model. This would allow Ember
+Data to behave like a caching proxy when fetching. If the record is expired, fetch should block.
+If the record is not expired it would return a resolve the record right away however still issue a
+second request.</p>
+<p>When used with backends that do not return an expires token. Ember Data would assume that the
+record is stale (this could be configured on the adapter).</p>
+<a class="header" href="0061-ember-data-background-fetch.html#unresolved-questions" id="unresolved-questions"><h1>Unresolved questions</h1></a>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0058-helper-listing.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0064-contextual-component-lookup.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0058-helper-listing.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0064-contextual-component-lookup.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

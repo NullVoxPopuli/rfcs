@@ -1,0 +1,341 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0278-template-only-components - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html" class="active"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2017-12-11</li>
+<li>RFC PR: https://github.com/emberjs/rfcs/pull/278</li>
+<li>Ember Issue: https://github.com/emberjs/ember.js/pull/15974</li>
+</ul>
+<a class="header" href="0278-template-only-components.html#summary" id="summary"><h1>Summary</h1></a>
+<p>Introduce a low-level &quot;flag&quot; to remove the automatic wrapper <code>&lt;div&gt;</code> for
+template-only components (templates in the <code>components</code> folder that do not
+have a corresponding <code>.js</code> file).</p>
+<p>In other words, given there is NO <code>app/components/hello-world.js</code> and there
+exists <code>app/templates/components/hello-world.hbs</code> which contains the
+following markup:</p>
+<pre><code class="language-hbs">Hello world!
+</code></pre>
+<p>When this template-only component is invoked as <code>{{hello-world}}</code> with the
+flag unset or disabled (i.e. today's semantics), Ember will render:</p>
+<pre><code class="language-html">&lt;div id=&quot;ember123&quot; class=&quot;ember-view&quot;&gt;Hello world!&lt;/div&gt;
+</code></pre>
+<p>When the flag is enabled, the same invocation will render:</p>
+<pre><code class="language-html">Hello world!
+</code></pre>
+<a class="header" href="0278-template-only-components.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>With today's component system (i.e. <code>Ember.Component</code>), a wrapper element (a
+<code>div</code> by default, along with an ID like <code>ember123</code> and the <code>ember-view</code> class)
+is automatically added for every component.</p>
+<p>Customizing this wrapper element (such as changing the tag name – or removing
+it altogether) requires making changes to the component's JavaScript class,
+such as:</p>
+<pre><code class="language-js">import Component from &quot;@ember/component&quot;;
+
+export Component.extend({
+  tagName: &quot;footer&quot;,
+  classNames: [&quot;legalese&quot;]
+});
+</code></pre>
+<p>While we acknowledge this API is quite cumbersome, it is sufficient to &quot;get
+things done&quot; for regular components, and Glimmer Components will address
+the usability aspect once they land.</p>
+<p>However, this API does not work for template-only components, as they do
+not have a component JavaScript class by definition. Therefore, in practice,
+template-only components always come with a <code>&lt;div&gt;</code> wrapper, along with the
+default <code>id</code> and <code>class</code> attributes, with no obvious ways to customize it.</p>
+<p>This is quite problematic, as it is often desirable to use a template-only
+component to organize content that requires a certain markup structure. The
+most common workaround for this problem is to use a partial instead, which
+comes with <a href="https://github.com/emberjs/rfcs/pull/262">a host of issues</a>. I
+will discuss other workarounds in the section below.</p>
+<p>This RFC proposes to add a global flag to remove this wrapper element around
+template-only components. This will allow the component author to specify the
+wrapper element in the component template, offering direct control over the
+tag name and other attributes. It would also allow the component to have more
+than one top-level element, or none at all.</p>
+<p>In other words, this flag changes template-only components in the app to have
+&quot;Outer HTML&quot; semantics. <em>What you type is what you get.</em></p>
+<p>Notably, <a href="https://glimmerjs.com/guides/templates-and-helpers">Glimmer Components</a>
+have adopted the &quot;Outer HTML&quot; semantics long ago and the experience has been
+very positive. This would be one of the first pieces of the Glimmer.js experiment
+to make its way into Ember. We think this feature is small, self-contained but
+useful enough to be integrated back into Ember at this point.</p>
+<p>If accepted, this RFC will fully subsume the <a href="https://github.com/emberjs/rfcs/pull/262">Non-context-shifting partials</a>
+RFC. We can therefore (at a later time, in a separate RFC) explore deprecating
+partials in favor of wrapper-free template-only components.</p>
+<a class="header" href="0278-template-only-components.html#detailed-design" id="detailed-design"><h1>Detailed design</h1></a>
+<a class="header" href="0278-template-only-components.html#api-surface" id="api-surface"><h2>API Surface</h2></a>
+<p>We should not expose the flag directly as a public API. Instead, we should
+abstract the flag with a &quot;privileged addon&quot; whose only purpose is to enable
+the flag. Applications will enable the flag by installing this addon. This
+will allow for more flexibility in changing the flag's implementation (the
+location, naming, value, or even the existence of it) in the future. From the
+user's perspective, it is the <em>addon</em> that provides this functionality. The
+flag is simply an internal implementation detail.</p>
+<p>We have done this before in other cases (such as the legacy view addon during
+the 2.0 transition period), and it has generally worked well.</p>
+<p>When landing this feature, it will be entirely opt-in for existing apps, but
+the Ember CLI application blueprint should be updated to include the addon by
+default. At a later time, we should provide another addon that <em>disables</em> the
+flag explicitly (installing both addons would be an install-time error). At
+that time, we will issue a deprecation warning if the flag is <em>not set</em>, with
+a message that directs the user to install one of the two addons.</p>
+<a class="header" href="0278-template-only-components.html#single-global-flag" id="single-global-flag"><h2>Single Global &quot;Flag&quot;</h2></a>
+<p>The proposed flag will be truly global in scope. That is, setting this flag
+will change the semantics of all template-only components in the entire app,
+even for components that were included by addons.</p>
+<p>However, we believe this would not affect any addon components in practice,
+as the predominant pattern for addons to expose components currently
+necessitates a JavaScript class. Addon authors would create the component
+(with or without a JavaScript class) in the <code>/addon</code> folder, but exposing
+it for consumption in apps requires creating a corresponding JavaScript class
+in the <code>/app</code> folder to &quot;re-export&quot; the component. Therefore, in practice,
+it is not actually possible for addons to have a truly template-only
+component today (something to address in a future RFC).</p>
+<a class="header" href="0278-template-only-components.html#leakage-of-embercomponent-semantics" id="leakage-of-embercomponent-semantics"><h2>Leakage Of <code>Ember.Component</code> Semantics</h2></a>
+<p>While the primary purpose of this flag is to remove the wrapper element from
+template-only components, there are a few other observable semantics changes
+that comes with it as well.</p>
+<p>Currently, template-only components are &quot;backed&quot; by an instance of <code>Ember.Component</code>.
+That is, Ember will create an instance of <code>Ember.Component</code> and set it as the
+<code>{{this}}</code> context for the template.</p>
+<p>With the flag enabled, there will be <em>no</em> component instance for the template
+and <code>{{this}}</code> will be set to <code>undefined</code> (or <code>null</code>, perhaps). This would
+improve performance for template-only components significantly.</p>
+<p>Since there is no JavaScript file for the component, this is only observable
+in a few limited ways:</p>
+<ol>
+<li>
+<p>The most noticable artifact is the component's arguments will not be
+auto-reflected on the component instance (as there is no component
+instance at all). Therefore, the only way to access the component's
+arguments is to use the <code>{{@foo}}</code> syntax proposed in <a href="https://github.com/emberjs/rfcs/pull/276">RFC #276</a>.</p>
+</li>
+<li>
+<p>Because of the named arguments auto-reflection, it is actually possible
+to configure the <code>tagName</code> and classes on the &quot;hidden&quot; component
+instance on the invocation (e.g. <code>{{foo-bar tagName=&quot;footer&quot; class=&quot;legalese&quot;}}</code>).
+This will obviously stop working, but it is also not necessary anymore
+as the component author can simply include the tag in the template.
+Alternatively, the component author can choose to leave out the tag
+and let the caller wrap it in their template.</p>
+</li>
+<li>
+<p>It is possible (but very rare) to configure global injections on the
+component type. Since no component is being instantiated here, those
+properties will not be accessible in the template.</p>
+<p>More broadly, <code>{{this.foo}}</code> or the shorthand <code>{{foo}}</code> (where it
+would have resolved into a <code>this</code> lookup) will always be <code>undefined</code>
+(or <code>null</code>, perhaps).</p>
+</li>
+</ol>
+<a class="header" href="0278-template-only-components.html#migration-path" id="migration-path"><h2>Migration Path</h2></a>
+<p>Given the subtle semantics differences enumerated above, it is
+not necessarily safe to simply turn on the flag in bigger applications
+as it is quite likely that some of the template-only components might be
+relying on one or more of these features. Further, removing the wrapper
+element might break the layout.</p>
+<p>Therefore, the only safe, mechanical transformation is to generate a
+JavaScript file for each template-only component (turning them into non-
+template only components). We should supplement the change by providing
+a codemod that does this for you.</p>
+<p>While this would mean that apps would not be able to immediately take
+advantage of the feature, it will open the door for new template-only
+components to be written in the new semantics.</p>
+<p>The user can also audit the components we identified and decide to
+delete the JavaScript and migrate them on a case-by-case basis.</p>
+<p>The codemod can also come with a more aggressive (and unsound) mode that
+simply wraps each template in a <code>&lt;div&gt;</code> (to avoid breaking layout in most
+cases). This might be acceptable for smaller apps.</p>
+<p>For what it's worth, the Ember CLI component blueprint always generate a
+JavaScript and a template file, so it might not be that common to find
+existing template-only components in an average app.</p>
+<a class="header" href="0278-template-only-components.html#implementation-plan" id="implementation-plan"><h2>Implementation Plan</h2></a>
+<p>Finally, for the actual implementation, this would be implemented using
+the internal Component Manager API that has already been available for a long
+time (and how Curly Components, outlets etc are implemented internally).</p>
+<p>It should be very straightforward implementation – essentially just a
+Component Manager that requires no capabilities and returns <code>null</code> in
+<code>getSelf</code>.</p>
+<a class="header" href="0278-template-only-components.html#how-we-teach-this" id="how-we-teach-this"><h1>How We Teach This</h1></a>
+<p>Going forward, the &quot;Outer HTML&quot; semantics will be the default for
+template-only components, Glimmer Components and other custom component
+types (when the Component Manager API is available), so over time it
+should feel quite natural. The experience from the Glimmer experiment
+has also proven that this is the more natural programming model for
+components.</p>
+<p>In the mean time, we still have to deal with the consequence that
+existing <code>Ember.Component</code> comes with a wrapper element by default. The
+mental model for users to understand this is that the <code>Ember.Component</code>
+class is what is giving you the wrapper element (therefore, template-only
+components, which is not an <code>Ember.Component</code> does not get one of those).</p>
+<p>This should feel quite natual, as the component class is where you
+configure the wrapper element (and where you would lookup the API
+documentation). You could imagine that the <code>Ember.Component</code> is doing
+something like this under-the-hood as a convenience feature (which turned
+out to be not very convenient after all, but that's a different story):</p>
+<pre><code class="language-js">export const Component = Object.extend({
+  tagName: &quot;div&quot;,
+  classNames: [&quot;ember-view&quot;],
+
+  // This is not real code that exists in the implementation
+  render(buffer, template) {
+    buffer.append(`&lt;${this.tagName} class=&quot;${this.classNames.join(' ')}&quot;&gt;`);
+    buffer.append(template(this));
+    buffer.append(`&lt;/${this.tagName}&gt;`);
+  }
+});
+</code></pre>
+<a class="header" href="0278-template-only-components.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<p>In general, we avoid flags that puts Ember into very different &quot;modes&quot; as
+they causes complication across the whole addon ecosystem. However, as
+mentioned above, we don't believe this would be the case here.</p>
+<a class="header" href="0278-template-only-components.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<p>We could keep the current semantics for template-only components. However,
+this is usually undesirable, and would only grow to feel more unnatural
+as Glimmer Components and friends adopt the &quot;Outer HTML&quot; semantics.</p>
+<p>Alternatively, we can make this opt-in per template using a pragma or magic
+comment. However, this would be needed for a lot of templates and become
+very noisy, and the alternative strategy proposed here (by keeping around
+the <code>Ember.Component</code> JavaScript file as needed) would be able to accomplish
+the same goal with less noise.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0276-named-args.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0280-remove-application-wrapper.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0276-named-args.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0280-remove-application-wrapper.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

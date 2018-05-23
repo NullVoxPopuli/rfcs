@@ -1,0 +1,435 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0311-angle-bracket-invocation - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html" class="active"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2018-03-09</li>
+<li>RFC PR: https://github.com/emberjs/rfcs/pull/311</li>
+<li>Ember Issue: (leave this empty)</li>
+</ul>
+<a class="header" href="0311-angle-bracket-invocation.html#angle-bracket-invocation" id="angle-bracket-invocation"><h1>Angle Bracket Invocation</h1></a>
+<a class="header" href="0311-angle-bracket-invocation.html#summary" id="summary"><h2>Summary</h2></a>
+<p>This RFC introduces an alternative syntax to invoke components in templates.</p>
+<p>Examples using the classic invocation syntax:</p>
+<pre><code class="language-hbs">{{site-header user=this.user class=(if this.user.isAdmin &quot;admin&quot;)}}
+
+{{#super-select selected=this.user.country as |s|}}
+  {{#each this.availableCountries as |country|}}
+    {{#s.option value=country}}{{country.name}}{{/s.option}}
+  {{/each}}
+{{/super-select}}
+</code></pre>
+<p>Examples using the angle bracket invocation syntax:</p>
+<pre><code class="language-hbs">&lt;SiteHeader @user={{this.user}} class={{if this.user.isAdmin &quot;admin&quot;}} /&gt;
+
+&lt;SuperSelect @selected={{this.user.country}} as |Option|&gt;
+  {{#each this.availableCountries as |country|}}
+    &lt;Option @value={{country}}&gt;{{country.name}}&lt;/Option&gt;
+  {{/each}}
+&lt;/SuperSelect&gt;
+</code></pre>
+<a class="header" href="0311-angle-bracket-invocation.html#motivation" id="motivation"><h2>Motivation</h2></a>
+<p>The original <a href="https://github.com/emberjs/rfcs/pull/60">angle bracket components</a>
+RFC focused on capitalizing on the opportunity of switching to the new syntax
+as an opt-in to the &quot;new-world&quot; components programming model.</p>
+<p>Since then, we have switched to a more iterative approach, favoring smaller
+RFCs focusing on one area of improvment at a time. Collectively, these RFCs
+have largely accomplished the goals in the original RFC without the angle
+bracket opt-in.</p>
+<p>Still, separate from other programming model improvements, there is still a
+strong desire from the Ember community for the previously proposed angle
+bracket invocation syntax.</p>
+<p>The main advantage of the angle bracket syntax is clarity. Because component
+invocation are often encapsulating important pieces of UI, a dedicated syntax
+would help visually distinguish them from other handlebars constructs, such as
+control flow and dynamic values. This can be seen in the example shown above –
+the angle bracket syntax made it very easy to see the component invocations as
+well as the <code>{{#each}}</code> loop, especially with syntax highlight:</p>
+<pre><code class="language-hbs">&lt;SuperSelect @selected={{this.user.country}} as |Option|&gt;
+  {{#each this.availableCountries as |country|}}
+    &lt;Option @value={{country}}&gt;{{country.name}}&lt;/Option&gt;
+  {{/each}}
+&lt;/SuperSelect&gt;
+</code></pre>
+<p>This RFC proposes that we adopt the angle bracket invocation syntax to Ember as
+an alternative to the classic (&quot;curlies&quot;) invocation syntax.</p>
+<p>Unlike the original RFC, the angle bracket invocation syntax proposed here is
+purely syntatical and does not affect the semantics. The invocation style is
+largely transparent to the invokee and can be used to invoke both classic
+components as well as <a href="https://github.com/emberjs/rfcs/pull/213">custom components</a>.</p>
+<p>Since the original angle bracket RFC, we have worked on a few experimental
+implementation of the feature, both and in Ember and Glimmer. These experiments
+allowed us to attempt using the feature in real apps, and we have learned some
+valuable insights throught these usage.</p>
+<p>The original RFC proposed using the <code>&lt;foo-bar ...&gt;</code> syntax, which is the same
+syntax used by web components (custom elements). While Ember components and web
+components share a few similarities, in practice, we find that there are enough
+differences that causes the overload to be quite confusing for developers.</p>
+<p>In addition, the code needed to render Ember components is quite different
+from what is needed to render web components. If they share the same syntax,
+the Glimmer template compiler will not be able to differentiate between the two
+at build time, thus requiring a lot of extra runtime code to support the
+&quot;fallback&quot; scenario.</p>
+<p>In conclusion, the ideal syntax should be similar to HTML syntax so it doesn't
+feel out of place, but different enough that developers and the compiler can
+easier tell that they are not just regular HTML elements at a glance.</p>
+<a class="header" href="0311-angle-bracket-invocation.html#detailed-design" id="detailed-design"><h2>Detailed design</h2></a>
+<a class="header" href="0311-angle-bracket-invocation.html#tag-name" id="tag-name"><h3>Tag Name</h3></a>
+<p>The first part of the angle bracket invocation syntax is the tag name. While
+web components use the &quot;dash rule&quot; to distinguish from regular HTML elements,
+we propose to use capital letters to distinguish Ember components from regular
+HTML elements and web components.</p>
+<p>The invocation <code>&lt;FooBar /&gt;</code> is equivalent to <code>{{foo-bar}}</code>. The tag name will
+be normalized using the <code>dasherize</code> function, which is the same rules used by
+existing use cases, such as service injections. This allows existing components
+to be invoked by the new syntax.</p>
+<p>Another benefit of the capital letter rule is that we can now support component
+names with a single word, such as <code>&lt;Button&gt;</code>, <code>&lt;Modal&gt;</code> and <code>&lt;Tab&gt;</code>.</p>
+<blockquote>
+<p>Note: Some day, we may want to explore a file system migration to remove the
+need for the normalization rule (i.e. also use capital case in filenames).
+However, that is out-of-scope for this RFC, as it would require taking into
+consideration existing code (like services), transition paths and codemods.</p>
+</blockquote>
+<a class="header" href="0311-angle-bracket-invocation.html#arguments" id="arguments"><h3>Arguments</h3></a>
+<p>The next part of the invocation is passing arguments to the invoked component.
+We propose to use the <code>@</code> syntax for this purpose. For example, the invocation
+<code>&lt;FooBar @foo=... @bar=... /&gt;</code> is equivilant to <code>{{foo-bar foo=... bar=...}}</code>.
+This matches the <a href="https://github.com/emberjs/rfcs/pull/276">named arguments syntax</a>
+in the component template.</p>
+<p>If the argument value is a constant string, it can appear verbatim after the
+equal sign, i.e. <code>&lt;FooBar @foo=&quot;some constant string&quot; /&gt;</code>. Other values should
+be enclosed in curlies, i.e. <code>&lt;FooBar @foo={{123}} @bar={{this.bar}} /&gt;</code>.
+Helpers can also be used, as in <code>&lt;FooBar @foo={{capitalize this.bar}} /&gt;</code>.</p>
+<a class="header" href="0311-angle-bracket-invocation.html#reserved-names" id="reserved-names"><h4>Reserved Names</h4></a>
+<p><code>@args</code>, <code>@arguments</code> and anything that does not start with a lowercase letter
+(such as <code>@Foo</code>, <code>@0</code>, <code>@!</code> etc) are reserved names and cannot be used. These
+restrictions may be relaxed in the future.</p>
+<a class="header" href="0311-angle-bracket-invocation.html#positional-arguments" id="positional-arguments"><h4>Positional Arguments</h4></a>
+<p>Positional arguments (<code>{{foo-bar &quot;first&quot; &quot;second&quot;}}</code>) are not supported.</p>
+<a class="header" href="0311-angle-bracket-invocation.html#html-attributes" id="html-attributes"><h3>HTML Attributes</h3></a>
+<p>HTML attributes can be passed to the component using the regular HTML syntax.
+For example, <code>&lt;FooBar class=&quot;btn btn-large&quot; role=&quot;button&quot; /&gt;</code>. HTML attributes
+can be interleaved with named arguments (it does not make any difference). This
+is a new feature that is not available in the classic invocation style.</p>
+<p>These attributes can be accessed from the component template with the new
+<code>...attributes</code> syntax, which is available only in element positions, e.g.
+<code>&lt;div ...attributes /&gt;</code>. Using <code>...attributes</code> in any other positions, e.g.
+<code>&lt;div&gt;{{...attributes}}&lt;/div&gt;</code>, would be a syntax error. It can also be used on
+multiple elements in the same template. If attributes are passed but the
+component template does not contain <code>...attributes</code> (i.e. the invoker passed
+some attributes, but the invokee does not take them), it will be a development
+mode error.</p>
+<p>It could be thought of that the attributes in the invocation side is stored in
+an internal block, and <code>...attributes</code> is the syntax for yielding to this
+internal block. Since the <code>yield</code> keyword is not available in element position,
+a dedicated syntax is needed.</p>
+<p>Classic components (<code>Ember.Component</code>) will implicitly have an <code>...attributes</code>
+added to the end of the wrapper element (if <code>tagName</code> is not an empty string),
+after any attributes added by the component itself (using <code>attributeBindings</code>,
+<code>classNames</code> etc). This means that attributes provided by the caller will
+override (replace) those added by the component (except for <code>class</code>, which is
+merged).</p>
+<a class="header" href="0311-angle-bracket-invocation.html#block" id="block"><h3>Block</h3></a>
+<p>A block can be passed to the invokee using the angle bracket invocation syntax.
+For example, the invocation <code>&lt;FooBar&gt;some content&lt;/FooBar&gt;</code> is equivalent to
+<code>{{#foo-bar}}some content{{/foo-bar}}</code>. As with the classic invocation style,
+this block will be accessible using the <code>{{yield}}</code> keyword, or the <code>@main</code>
+named argument per the <a href="https://github.com/emberjs/rfcs/blob/master/text/0226-named-blocks.md">named blocks RFC</a>.</p>
+<p>Block params are supported as well, i.e. <code>&lt;FooBar as |foo bar|&gt;...&lt;/FooBar&gt;</code>.</p>
+<p>There is no dedicated syntax for passing an &quot;else&quot; block directly. If needed,
+that can be passed using the named blocks syntax.</p>
+<a class="header" href="0311-angle-bracket-invocation.html#closing-tag" id="closing-tag"><h3>Closing Tag</h3></a>
+<p>The last piece of the angle bracket invocation syntax is the closing tag, which
+is mandatory. The closing tag should match the tag name portion of the opening
+tag exactly. If no block is passed, the self-closing tag syntax <code>&lt;FooBar /&gt;</code>
+can also be used (in which case <code>{{has-block}}</code> will be false).</p>
+<a class="header" href="0311-angle-bracket-invocation.html#dynamic-invocations" id="dynamic-invocations"><h3>Dynamic Invocations</h3></a>
+<p>In additional to the static invocation described above (where the tag name is a
+statically known component name), it is also possible to use the angle bracket
+invocation syntax for dynamic invocations.</p>
+<p>The most common use case is for invoking &quot;contextual components&quot;, as shown in
+the first example:</p>
+<pre><code class="language-hbs">&lt;SuperSelect @selected={{this.user.country}} as |Option|&gt;
+  {{#each this.availableCountries as |country|}}
+    &lt;Option @value={{country}}&gt;{{country.name}}&lt;/Option&gt;
+  {{/each}}
+&lt;/SuperSelect&gt;
+</code></pre>
+<p>Because <code>Option</code> is the name of a local variable (block param), the <code>&lt;Option&gt;</code>
+invocation will invoke the yielded value instead of looking for a component
+named &quot;option&quot;.</p>
+<p>Similar to curly invocations, most valid Handlebars path expressions are
+invokable in this manner:</p>
+<pre><code class="language-hbs">{{!-- LOCAL VARIABLES --}}
+
+{{#form-for model=user as |f|}}
+  {{f.fieldset}}
+    {{f.input name=&quot;username&quot; type=&quot;text&quot;}}
+    {{f.input name=&quot;password&quot; type=&quot;password&quot; }}
+  {{/f.fieldset}}
+
+  {{!-- is equivilant to --}}
+
+  &lt;f.fieldset&gt;
+    &lt;f.input @name=&quot;username&quot; @type=&quot;text&quot; /&gt;
+    &lt;f.input @name=&quot;password&quot; @type=&quot;text&quot; /&gt;
+  &lt;/f.fieldset&gt;
+{{/form-for}}
+
+{{!-- NAMED BLOCKS OR CURRIED COMPONENTS --}}
+
+{{@content}}
+
+{{!-- is equivilant to --}}
+
+&lt;@content /&gt;
+
+{{!-- THIS LOOKUP --}}
+
+{{#this.container}}
+  {{this.child}}
+{{/this.container}}
+
+&lt;this.container&gt;
+  &lt;this.child /&gt;
+&lt;/this.container&gt;
+</code></pre>
+<blockquote>
+<p>Note: The <a href="https://github.com/emberjs/rfcs/blob/master/text/0226-named-blocks.md">named blocks RFC</a>
+proposed to use the <code>&lt;@foo&gt;...&lt;/@foo&gt;</code> syntax on the invocation side to mean
+providing a block named <code>@foo</code>, which creates a conflict with this proposal.
+<a href="https://github.com/emberjs/rfcs/pull/317">RFC #317</a> propose to change the
+block-passing syntax to <code>&lt;@foo=&gt;...&lt;/@foo&gt;</code> to avoid this conflict.</p>
+</blockquote>
+<p>Notably, based on the rules laied out above, the following is perfectly legal:</p>
+<pre><code class="language-hbs">{{!-- DON'T DO THIS --}}
+
+{{#let (component &quot;my-div&quot;) as |div|}}
+  {{!-- here, &lt;div /&gt; referes to the local variable, not the HTML tag! --}}
+  &lt;div id=&quot;my-div&quot; class=&quot;lol&quot; /&gt;
+{{/let}}
+</code></pre>
+<p>From a programming language's perspective, the semantics here is quite clear. A
+local variable is allowed to override (&quot;shadow&quot;) another varible on the outer
+scope (the &quot;global&quot; scope, in this case), similar to what is possible in
+JavaScript:</p>
+<pre><code class="language-js">let console = {
+  log() {
+    alert(&quot;I win!&quot;);
+  }
+};
+
+console.log(&quot;Hello!&quot;); // shows alert dialog instead of logging to the console
+</code></pre>
+<p>While this is semantically unambigious, it is obviously very confusing to the
+human reader, and we don't recommend anyone actually doing this.</p>
+<p>A previous version of this RFC recommended statically disallowing these cases.
+However, after giving it more thoughts, we realized it should not be the
+programming language's job to dictate what are considered &quot;good&quot; programming
+patterns. By statically disallowing arbitrary expressions, it actually makes it
+more difficult to learn and understand the underlying programming model.</p>
+<p>Instead, we recommend <a href="https://github.com/ember-cli/rfcs/pull/114">including a template linter</a>
+in the default stack and defer to the linter to make such recommendations. At
+minimum, we recommend liniting against invoking local variables with lowercase
+names without a path segment, regarless of whether the name actually collide
+with a known HTML tag – human readers of an Ember template should be able to
+safely assume lowercase tags refer to HTML.</p>
+<p>Eventually, we might want to provide stronger guidance with via the linter. For
+example, we may want to recommend capitalizing invokable local variables, as in
+<code>&lt;F.Input /&gt;</code>. We will let the community experiment and coalesce around these
+conventions before recommending them by default.</p>
+<p>Finally, there are two exceptions to the general rule where certain technically
+valid Handlebars path expressions are not supported for dynamic invocations:</p>
+<ul>
+<li>Implicit <code>this</code> lookups (a.k.a. &quot;property fallback&quot; in <a href="https://github.com/emberjs/rfcs/pull/308">RFC #308</a></li>
+<li>Slash lookups</li>
+</ul>
+<p>First, while <code>{{foo}}</code> or <code>{{Foo}}</code> can normally refer to <code>{{this.foo}}</code> or
+<code>{{this.Foo}}</code> normally, allowing this implicitly lookup will mean <em>any</em> tag
+in the template (i.e. <code>&lt;foo /&gt;</code> or <code>&lt;Foo /&gt;</code>) can possibly refer to a property
+on the current <code>this</code> context.</p>
+<p>This ambiguity is highly undesirable for both human readers and the compiler,
+therefore implicitly <code>this</code> lookup is not allowed in angle bracket invocations.
+This explicit form, <code>&lt;this.foo /&gt;</code> and <code>&lt;this.Foo /&gt;</code> is required.</p>
+<p>This requirement aligns well with <a href="https://github.com/emberjs/rfcs/pull/308">RFC #308</a>
+and the current curly invocation semantics, due to the <a href="https://github.com/emberjs/rfcs/blob/master/text/0064-contextual-component-lookup.md#component-helper-shorthand">&quot;dot rule&quot;</a>
+that requires a dot in the path. Note that this is actually more restrictive
+than the proposed angle bracket invocation semantics, since it is not possible
+to invoke a local variable without a dot:</p>
+<pre><code class="language-hbs">{{#super-select selected={{this.user.country}} as |option|&gt;
+  {{#each this.availableCountries as |country|}}
+    {{!-- this is not legal today, since `option` does not contain a dot --}}
+    {{#option value=country}}{{country.name}}{{/option}}
+  {{/each}}
+{{/super-select}}
+</code></pre>
+<p>We propose to relax that rule to match the proposed angle bracket invocation
+semantics (i.e. allowing local variables without a dot, as well as <code>@names</code>,
+but disallowing implicit <code>this</code> lookup).</p>
+<p>Second, while Handlebars technically allows <code>{{foo/bar}}</code> as an equivilant
+alternative to the <code>{{foo.bar}}</code> path lookup (and therefore <code>foo/bar</code> is
+technically a valid Handlebars path expression), it will not be supported in
+angle bracket invocation. This is both because the <code>/</code> conflicts with the HTML
+closing tag syntax, and the fact that Ember overrides that syntax with a
+different semantic.</p>
+<p>In today's semantics, <code>{{foo/bar}}</code> does not try to lookup <code>this.foo.bar</code> and
+invoke it as a component. Instead, it is used as a filesystem scoping syntax.
+Since this feature will be rendered unnecessary with <a href="https://github.com/emberjs/rfcs/blob/master/text/0143-module-unification.md">Module Unification</a>,
+we recommend apps using &quot;slash components&quot; to migrate to alternatives provided
+by Module Unification (or, alternatively, keep using curly invocations for this
+purpose).</p>
+<a class="header" href="0311-angle-bracket-invocation.html#how-we-teach-this" id="how-we-teach-this"><h2>How we teach this</h2></a>
+<p>Over time, we will switch to teaching angle bracket invocation as the primary
+invocation style for components. The HTML-like syntax should make them feel
+more familiar for new developers.</p>
+<p>Classic invocation is here to stay – the ability to accept positional arguments
+and &quot;else&quot; blocks makes them ideal for control-flow like components such as
+<code>{{liquid-if}}</code>.</p>
+<a class="header" href="0311-angle-bracket-invocation.html#drawbacks" id="drawbacks"><h2>Drawbacks</h2></a>
+<p>Because angle bracket invocation is designed for the future in mind, allowing
+angle bracket invocations on classic components might introduce some temporary
+incoherence (such as the interaction between the attributes passing feature and
+the &quot;inner HTML&quot; semantics). However, in our opinion, the upside of allowing
+incremental migration outweighs the cons.</p>
+<a class="header" href="0311-angle-bracket-invocation.html#alternatives" id="alternatives"><h2>Alternatives</h2></a>
+<p>We could just stick with the classic invocation syntax.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0297-deprecate-ember-logger.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0318-array-helper.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0297-deprecate-ember-logger.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0318-array-helper.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

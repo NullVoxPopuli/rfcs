@@ -1,0 +1,359 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0294-optional-jquery - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html" class="active"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2018-01-11</li>
+<li>RFC PR: github.com/emberjs/rfcs/pull/294</li>
+<li>Ember Issue: (leave this empty)</li>
+</ul>
+<a class="header" href="0294-optional-jquery.html#make-jquery-optional" id="make-jquery-optional"><h1>Make jQuery optional</h1></a>
+<a class="header" href="0294-optional-jquery.html#summary" id="summary"><h2>Summary</h2></a>
+<p>For the past Ember has been relying and depending on jQuery. This RFC proposes making jQuery optional and having a well
+defined way for users to opt-out of bundling jQuery.</p>
+<a class="header" href="0294-optional-jquery.html#motivation" id="motivation"><h2>Motivation</h2></a>
+<a class="header" href="0294-optional-jquery.html#why-we-dont-need-jquery-any-more" id="why-we-dont-need-jquery-any-more"><h3>Why we don't need jQuery any more</h3></a>
+<p>One of the early goals of jQuery was cross-browser normalization, at a time where browser support for web standards was
+incomplete and inconsistent, and Internet Explorer 6 was the dominating browser. It provided a useful and convenient
+API for DOM traversal and manipulation as well as event handling, that hid the various browser differences and bugs from
+the user. For example <code>document.querySelector</code> wasn't a thing at that time, and browsers were using very different event
+models (<a href="https://en.wikipedia.org/wiki/DOM_events#Event_handling_models">DOM Level 0, DOM Level 2 and IE's own proprietary model</a>).</p>
+<p>But this level of browser normalization is not required anymore, as today's browsers all support the basic DOM APIs well
+enough. Even more so that the upcoming Ember 3.0 will drop support for all versions of Internet Explorer except 11.</p>
+<p>Furthermore Ember users will need to directly traverse and modify the DOM or manually attach event listeners in very
+special cases only. Most of these low level interactions are taken care of by Ember's templates and its underlying
+Glimmer rendering engine, as well as action helpers or the component's event handler methods.</p>
+<p>So having jQuery included by default does not provide that much value to users most of the time, and Ember itself is
+expected to be fully functional and tested without jQuery, presumably for the upcoming 3.0 stable release.</p>
+<a class="header" href="0294-optional-jquery.html#what-are-the-drawbacks-of-bundling-jquery" id="what-are-the-drawbacks-of-bundling-jquery"><h3>What are the drawbacks of bundling jQuery</h3></a>
+<p>The major drawback is the increased bundle size, which amounts to <a href="https://mathiasbynens.be/demo/jquery-size">~29KB</a>
+(minified and gzipped). This not only increases the loading time, but also parse and compile times, thus increasing the
+total time to interactive. This is especially true for mobile devices, where slow connectivity and weak CPU performance
+is not uncommon.</p>
+<p>Having jQuery not included will improve the suitability of Ember for mobile applications considerably. Even
+if the raw number is not that huge, it all adds up. And it plays together with other efforts to make leaner Ember builds
+possible, like enabling tree shaking with the new <a href="https://github.com/emberjs/rfcs/blob/master/text/0176-javascript-module-api.md">Module API</a>,
+moving code from core to addons (e.g. the <a href="https://github.com/emberjs/rfcs/blob/master/text/0236-deprecation-ember-string.md"><code>Ember.String</code> deprecation</a>)
+or the <a href="https://github.com/emberjs/rfcs/blob/explode/text/0000-explode.md">&quot;Explode RFC&quot;</a>. In that regard removing the
+dependency on jQuery is a rather low hanging fruit with an high impact.</p>
+<a class="header" href="0294-optional-jquery.html#but-this-is-already-possible-why-this-rfc" id="but-this-is-already-possible-why-this-rfc"><h3>But this is already possible, why this RFC?</h3></a>
+<p>There is indeed a somewhat quirky way to build an <a href="https://github.com/rwjblue/no-jquery-app">app without jQuery</a> even
+today.
+Although this <em>happens</em> to work, it is not sufficient to consider this officially supported for these reasons:</p>
+<ul>
+<li>Ember itself must be fully tested to work without jQuery</li>
+<li>the public APIs that depend on and/or expose jQuery need to have some well defined behavior when jQuery is not
+available</li>
+<li>there should be a way to technically opt-out (other than fiddling with <a href="https://github.com/rwjblue/no-jquery-app/commit/34c40fc2cfc5e2ce0c39e5e906448c46af699d26"><code>vendorFiles</code></a>)
+that is easier to use, understand and maintain</li>
+<li>addons should mostly default to not use jQuery, to make removing jQuery practically possible for their consuming
+apps</li>
+</ul>
+<a class="header" href="0294-optional-jquery.html#detailed-design" id="detailed-design"><h2>Detailed design</h2></a>
+<a class="header" href="0294-optional-jquery.html#remove-internal-jquery-usage" id="remove-internal-jquery-usage"><h3>Remove internal jQuery usage</h3></a>
+<p>As of writing this, there are <a href="https://github.com/emberjs/ember.js/issues/16058">major efforts</a> underway to remove and
+cleanup the Ember codebase and especially its tests from jQuery usage. Having a way to fully test Ember without jQuery
+is a prerequisite to officially support jQuery being optional. When this is done, it will enable a &quot;no jQuery&quot; mode,
+that will make it not use jQuery anymore, but only native DOM APIs.</p>
+<a class="header" href="0294-optional-jquery.html#add-an-opt-out-flag" id="add-an-opt-out-flag"><h3>Add an opt-out flag</h3></a>
+<p>There should be a global flag that will toggle the optional jQuery integration (true by default). When this is disabled,
+it will make Ember CLI's build process <em>not</em> include jQuery into the <code>vendor.js</code> bundle, <em>and</em> it will explicitly put
+Ember itself into its &quot;no jQuery&quot; mode.</p>
+<p>The flag itself will not be made a public API. Rather it will be handled by a privileged addon, that will allow to
+disable the integration flag, thus to opt out from jQuery integration. This approach is in line with
+<a href="https://github.com/emberjs/rfcs/pull/278">RFC 278</a> and <a href="https://github.com/emberjs/rfcs/pull/280">RFC 280</a>, to allow
+for some better implementation flexibility.</p>
+<a class="header" href="0294-optional-jquery.html#introduce-emberjquery-package" id="introduce-emberjquery-package"><h3>Introduce <code>@ember/jquery</code> package</h3></a>
+<p>Currently Ember CLI itself is importing jQuery into the app's <code>vendor.js</code> file. To decouple it from this task, and
+to allow for some better flexibility in the future, the responsibility for importing jQuery is moved to a dedicated
+<code>@ember/jquery</code> addon.</p>
+<p>To not create any breaking changes, Ember CLI will have to check the app's dependencies for the presence of this addon.
+If it is not present, it will continue importing jQuery <em>unless</em> the jQuery integration flag is disabled.
+If it is present, it will stop importing jQuery at all, and delegate this responsibility to the addon.</p>
+<p>To nudge users to install <code>@ember/jquery</code> when they need jQuery, some warning/deprecation messages should be issued when
+the addon is <em>not</em> installed and the integration flag is either not specified or is set to true. To ease
+migration the addon should be placed in the default blueprint (until an eventual more aggressive deprecation of
+jQuery). Only in the case the app is actively opting out of jQuery integration the addon is not needed.</p>
+<p>The addon itself has to make sure the Ember CLI version in use is at least the one that introduced the above mentioned
+logic, to prevent importing jQuery twice.</p>
+<a class="header" href="0294-optional-jquery.html#assertions-for-jquery-based-apis" id="assertions-for-jquery-based-apis"><h3>Assertions for jQuery based APIs</h3></a>
+<p>Apart from testing (see below), Ember features some APIs that directly expose jQuery, which naturally cannot continue
+to work without it. For these APIs some assertions have to be added when running in &quot;no jQuery&quot; mode (and not in
+production), that provide some useful error messages for the developer:</p>
+<ul>
+<li><code>Ember.$()</code>
+should throw an assertion stating that jQuery is not available.</li>
+<li><code>this.$()</code> in components
+should throw an assertion stating that jQuery is not available and that <code>this.element</code> and native DOM APIs should be
+used instead.</li>
+</ul>
+<a class="header" href="0294-optional-jquery.html#introducing-ember-jquery-legacy-and-deprecating-jqueryevent-usage" id="introducing-ember-jquery-legacy-and-deprecating-jqueryevent-usage"><h3>Introducing <code>ember-jquery-legacy</code> and deprecating <code>jQuery.Event</code> usage</h3></a>
+<p>Event handler methods in components will usually receive an instance of <a href="http://api.jquery.com/category/events/event-object/"><code>jquery.Event</code></a> as an argument, which is very
+similar to native event objects, but not exactly the same. To name a few differences, not all properties of the native
+event are mapped to the jQuery event, on the other hand a jquery event has a <code>originalEvent</code> property referencing the
+native event.</p>
+<p>The updated event dispatcher in Ember 3.0 is capable of working without jQuery (similar to what
+<code>ember-native-dom-event-dispatcher</code> provided for Ember 2.x). When jQuery is not available, it will naturally not be
+able to pass a <code>jquery.Event</code> instance but a native event instead. This creates some ambiguity for addons, as they
+cannot know in advance how the consuming app is built (with or without jQuery).</p>
+<p>For code that does not rely on any <code>jQuery.Event</code> specific API, there is no need to change anything as it will continue
+to work with native DOM events.</p>
+<p>But there are cases where jQuery specific properties have to be used (when jQuery events are passed). This is especially
+true for the <code>originalEvent</code> property, for example to access <code>TouchEvent</code> properties that are not exposed on the
+<code>jQuery.Event</code> instance itself. So there has to be a way to make the code work with either jQuery events or native
+events being passed to the event handler (especially important for addons). Moreover this should be done in a way that
+uses native DOM APIs only, to support the migration away from jQuery coupled code.</p>
+<p>To solve this issue another addon <code>ember-jquery-legacy</code> will be introduced, which for now will only expose a single
+<code>normalizeEvent</code> function. This function will accept a native event as well as a jQuery event (possibly distinguishing
+between those two modes at build time, based on the jQuery integration flag), but will always return a native event
+only.</p>
+<p>This will allow addon authors to work with both event types, but start to only use native DOM APIs:</p>
+<pre><code class="language-js">import Component from '@ember/component';
+import { normalizeEvent } from 'ember-jquery-legacy';
+
+export default Component.extend({
+  click(event) {
+    let nativeEvent = normalizeEvent(event);
+    // from here on use only native DOM APIs...
+  }
+})
+</code></pre>
+<p>To encourage addon authors to refactor their jQuery coupled event code, the use of <code>jQuery.Event</code> specific APIs used for
+jQuery events passed to component event handlers should be deprecated and a deprecation message be shown when accessing
+them (e.g. <code>event.originalEvent</code>). Care must be taken though that this warning will not be issued when <code>normalizeEvent</code>
+has to access <code>originalEvent</code>.</p>
+<p>Also for apps that do not want to transition away from jQuery and would be overloaded with unnecessary warnings, the
+deprecations should be silenced when the jQuery integration flag is explicitly set to true (and not just true by
+default). By doing so users effectively state their desire to continue using jQuery, thus any needless churn should
+be avoided for them.</p>
+<a class="header" href="0294-optional-jquery.html#testing" id="testing"><h3>Testing</h3></a>
+<p>Ember's test harness has been based on jQuery for a long time. Most global acceptance test helpers like <code>find</code> or
+<code>click</code> rely on jQuery. For integration tests the direct use of jQuery like <code>this.$('button').click()</code> to trigger
+events or assert the state of the DOM is still the standard, based on <code>this.$()</code> returning a jQuery object representing
+the rendered result of the tests <code>render</code> call.</p>
+<p>To be able to reliably run tests in a jQuery-less world, we need to run our tests without jQuery being included,
+so our test harness has to work without jQuery as well.</p>
+<p>Fortunately this is well underway already. <a href="https://github.com/cibernox/ember-native-dom-helpers">ember-native-dom-helpers</a>
+introduced native DOM test helpers for integration and acceptance tests as an user space addon. The recent acceptance
+testing <a href="https://github.com/emberjs/rfcs/blob/master/text/0268-acceptance-testing-refactor.md">RFC 268</a> provides
+similar test helpers, implemented in the <code>@ember/test-helpers</code> package, and envisages deprecating the global test
+helpers.</p>
+<p>However while the existing jQuery based APIs are still available, when these are used without jQuery they have to throw
+an assertion with some meaningful error message:</p>
+<ul>
+<li>
+<p>global acceptance test helpers that expect jQuery selectors (which are a potentially incompatible superset of standard
+CSS selectors)</p>
+</li>
+<li>
+<p><code>this.$()</code> in component tests, provided currently by <code>@ember/test-helpers</code> in <code>moduleForComponent</code> and
+<code>setupRenderingTest</code></p>
+</li>
+</ul>
+<p>In both cases the error message should state that jQuery is not available and that the native DOM based test helpers
+of the <code>@ember/test-helpers</code> package should be used instead.</p>
+<p>The transitioning to these new test helpers can be eased through a codemod. For <code>ember-native-dom-helpers</code> there already
+exists  <a href="https://github.com/simonihmig/ember-native-dom-helpers-codemod">ember-native-dom-helpers-codemod</a>, which
+could be adapted to the very similar RFC 268 based interaction helpers in <code>@ember/test-helpers</code>.</p>
+<a class="header" href="0294-optional-jquery.html#implementation-outline" id="implementation-outline"><h3>Implementation outline</h3></a>
+<p>The following outlines how a possible implementation of the jQuery integration flag <em>could</em> look like. This
+is just to provide some additional context, but is <em>intentionally not</em> meant to be normative, to allow some flexibility
+for the actual implementation.</p>
+<p>The addon that will handle the flag is expected to be <a href="https://github.com/emberjs/ember-optional-features">ember-optional-features</a>,
+which will read from and write to a <code>config/optional-features.{js,json}</code> file. This will hold the <code>jquery-integration</code>
+flag (amongst others). This flag in turn will be added to the <code>EmberENV</code> hash, which will make Ember go into its
+&quot;no jQuery&quot; mode when set to <code>false</code>.</p>
+<p>Ember CLI and the <code>@ember/jquery</code> addon will also look for <code>jquery-integration</code> in this configuration file, and will
+opt-out of importing jQuery when this file is present and the flag is set to <code>false</code>.</p>
+<a class="header" href="0294-optional-jquery.html#how-we-teach-this" id="how-we-teach-this"><h2>How we teach this</h2></a>
+<a class="header" href="0294-optional-jquery.html#guides" id="guides"><h3>Guides</h3></a>
+<p>The existing &quot;Managing Dependencies&quot; chapters in the Ember Guides as well as on ember-cli.com provide a good place to
+explain users how to set the jQuery integration flag by means of the mentioned <a href="0294-optional-jquery.html#add-an-opt-out-flag">privileged addon</a>
+that handles this flag.</p>
+<p>The section on components should be updated to remove any eventually remaining references to <code>this.$</code>, to not let users
+fall into the trap of creating an implicit dependency on jQuery by &quot;accidental&quot; use of it. These should be changed to
+refer to their native DOM counterparts like <code>this.element</code> or <code>this.element.querySelector()</code>.</p>
+<p>The section on acceptance tests will have been updated as per <a href="https://github.com/emberjs/rfcs/blob/master/text/0268-acceptance-testing-refactor.md">RFC 268</a>
+to use the new <code>@ember/test-helpers</code> based test helpers instead of the jQuery based global helpers.</p>
+<p>The section on component tests should not use <code>this.$()</code> anymore as well, and instead also according to <a href="https://github.com/emberjs/rfcs/blob/master/text/0268-acceptance-testing-refactor.md">RFC 268</a>
+use <code>this.element</code> to refer to the component's root element, and use the new DOM interaction helpers instead of jQuery
+events triggered through <code>this.$()</code>.</p>
+<a class="header" href="0294-optional-jquery.html#deprecation-guide" id="deprecation-guide"><h3>Deprecation guide</h3></a>
+<p>The deprecation warnings introduced for using <code>jQuery.Event</code> specific APIs should explain the use of the
+<code>normalizeEvent</code> helper function to migrate towards native DOM APIs on the one side, and on the other side the effect of
+setting the jQuery integration flag to explicitly opt into jQuery usage thus suppressing the warnings.</p>
+<a class="header" href="0294-optional-jquery.html#addon-migration" id="addon-migration"><h3>Addon migration</h3></a>
+<p>One of the biggest problems to easily opt-out of jQuery is that many addons still depend on it. Many of these usages
+seem to be rather &quot;accidental&quot;, in that the full power of jQuery is not really needed for the given task, and could
+be fairly easily refactored to use only native DOM APIs.</p>
+<p>For this reason this RFC encourages addon authors to not use jQuery anymore and to refactor existing usages whenever
+possible! This certainly does not apply categorically to all addons, e.g. those that wrap jQuery plugins as
+components and as such cannot drop this dependency.</p>
+<a class="header" href="0294-optional-jquery.html#ember-try" id="ember-try"><h4>ember-try</h4></a>
+<p><code>ember-try</code>, which is used to test addons in different scenarios with different dependencies, should provide some means
+to define scenarios without jQuery, based on the jQuery integration flag introduced in this RFC.</p>
+<p>Furthermore the Ember CLI blueprint for addons should be extended to include no-jQuery scenarios by default, to make
+sure addons don't cause errors when jQuery is not present.</p>
+<a class="header" href="0294-optional-jquery.html#emberobservercom" id="emberobservercom"><h4>emberobserver.com</h4></a>
+<p>It would be very helpful to have a clear indication on <a href="https://emberobserver.com/">emberobserver.com</a> which
+addons depend on jQuery and which not. This would benefit users as to know which addons they can use without
+jQuery, but also serve as an incentive for authors to make their addons work without it.</p>
+<p>Given the jQuery integration flag introduced in this RFC, this paves the way to automatically detect addons that are
+basically declaring their independence from jQuery by having this flag set to <code>false</code>  (in their own repository).</p>
+<a class="header" href="0294-optional-jquery.html#drawbacks" id="drawbacks"><h2>Drawbacks</h2></a>
+<a class="header" href="0294-optional-jquery.html#churn" id="churn"><h3>Churn</h3></a>
+<p>A vast amount of addons still depend on jQuery. While as far as this RFC is concerned no jQuery based APIs will be
+deprecated and the default will still be to include jQuery, addons are nevertheless encouraged to remove their
+dependency on jQuery, which will add some considerable churn to the addon ecosystem. As of writing this, there are:</p>
+<ul>
+<li><a href="https://emberobserver.com/code-search?codeQuery=Ember.%24">475 addons</a> using <code>Ember.$</code></li>
+<li><a href="https://emberobserver.com/code-search?codeQuery=this.%24&amp;fileFilter=addon%2Fcomponents">479 addons</a> using <code>this.$</code> in
+components</li>
+<li><a href="https://emberobserver.com/code-search?codeQuery=this.%24&amp;fileFilter=tests">994 addons</a> using <code>this.$</code> in tests</li>
+</ul>
+<p>Among these are still some very essential addons like <code>ember-data</code>, which still relies on <code>$.ajax</code>, see
+<a href="https://github.com/emberjs/data/issues/5320">#5320</a>.</p>
+<p>A good amount of that churn can be mitigated by having a codemod that migrates tests (see &quot;Testing&quot; above).</p>
+<a class="header" href="0294-optional-jquery.html#alternatives" id="alternatives"><h2>Alternatives</h2></a>
+<p>Continue to depend on jQuery.</p>
+<a class="header" href="0294-optional-jquery.html#unresolved-questions" id="unresolved-questions"><h2>Unresolved questions</h2></a>
+<p>None so far.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0286-block-let-template-helper.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0297-deprecate-ember-logger.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0286-block-let-template-helper.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0297-deprecate-ember-logger.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

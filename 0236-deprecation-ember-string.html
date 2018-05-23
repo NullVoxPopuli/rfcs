@@ -1,0 +1,239 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0236-deprecation-ember-string - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html" class="active"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2017-07-14</li>
+<li>RFC PR: https://github.com/emberjs/rfcs/pull/236</li>
+<li>Ember Issue: https://github.com/emberjs/ember.js/issues/15624</li>
+</ul>
+<a class="header" href="0236-deprecation-ember-string.html#summary" id="summary"><h1>Summary</h1></a>
+<p>This RFC proposes to deprecate the prototype extensions done by <code>Ember.String</code>, deprecate the <code>loc</code> method, and moving <code>htmlSafe</code> and <code>isHTMLSafe</code> to <code>@ember/template</code>.</p>
+<a class="header" href="0236-deprecation-ember-string.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>Much of the public API of Ember was designed and published some time ago, when the client-side landscape looked much different. It was a time without many utilities and methods that have been introduced to JavaScript since, without the current rich npm ecosystem, and without ES6 modules. On the Ember side, Ember CLI and the subsequent addons were still to be introduced. Global mode was the way to go, and extending native prototypes like Ember does for <code>String</code>, <code>Array</code> and <code>Function</code> was a common practice.</p>
+<p>With the introduction of <a href="https://github.com/emberjs/rfcs/blob/master/text/0176-javascript-module-api.md">RFC #176</a>, an opportunity to reduce and reorganize the API that is shipped by default with an Ember application appears. A lot of nice-to-have functionality that was added at that time can now be moved to optional packages and addons, where they can be maintained and evolved without being tied to the core of the framework.</p>
+<p>In the specific case of <code>Ember.String</code>, our goal is that users that need these utility functions will include <code>@ember/string</code> in their dependencies, or rely on common utility packages like <a href="https://lodash.com/docs/#camelCase"><code>lodash.camelcase</code></a>.</p>
+<p>To achieve the above goal we will move the <code>isHTMLSafe</code>/<code>htmlSafe</code> pair into a new package, deprecate <code>String.prototype</code> extensions, and deprecate the utility functions under the <code>Ember.String</code> namespace.</p>
+<p>The <a href="https://github.com/emberjs/rfcs/blob/master/text/0176-javascript-module-api.md#organize-by-mental-model">&quot;Organize by Mental Model&quot;</a> section of RFC #176 mentions the concept of chunking. In the current setup, <code>isHTMLSafe</code>/<code>htmlSafe</code> make sense in the <code>Ember.String</code> namespace because they operate on strings, and they are available on the prototype, <code>&quot;myString&quot;.htmlSafe()</code>.
+However, once prototype extensions are removed it becomes clearer that while this pair operates on strings, they don't transform them in the same way as <code>capitalize</code> or <code>dasherize</code>. They are instead a way for the user to communicate to the templating engine that this string should be safe to render. For this reason, moving to <code>@ember/template</code> seems appropriate.</p>
+<p>Extending native prototypes, like we do for <code>String</code> with <code>&quot;myString&quot;.dasherize()</code> and the rest of the API, has been falling out of favour more as time goes by.
+While the tradeoff might have been positive at the beginning, as it allowed users access to a richer API, prototype extensions blur the line between what is the framework and what is the language in a way that is not benefitial in the current module-driven and package-rich ecosystem.</p>
+<p>Relatedly, deprecating <code>Ember.String</code> and requiring <code>@ember/string</code> as a dependency allows Ember to provide a leaner default core to all users, as well as iterate faster on the <code>@ember/string</code> package if desired.
+Doing this will also open a path to extract more packages in the future.</p>
+<a class="header" href="0236-deprecation-ember-string.html#transition-path" id="transition-path"><h1>Transition Path</h1></a>
+<p>It is important to understand that the transition path will be done in the context of the new modules API defined in RFC #176, which is scheduled to land in 2.16.
+As this will likely be first of many packages to be extracted from the Ember source, the transition path arrived on needs to be clear and user-friendly.</p>
+<a class="header" href="0236-deprecation-ember-string.html#what-is-happening-for-framework-developers" id="what-is-happening-for-framework-developers"><h2>What is happening for framework developers?</h2></a>
+<p>The order of operations will be as follows:</p>
+<ol>
+<li>Move <code>htmlSafe</code> and <code>isHTMLSafe</code> to <code>@ember/template</code>
+<ul>
+<li>Update https://github.com/ember-cli/ember-rfc176-data</li>
+</ul>
+</li>
+<li>Create an <code>@ember/string</code> package with the remaining public API</li>
+<li>Create an <code>ember-string-prototype-extensions</code> package that introduces <code>String</code> prototype extensions to aid in transitioning</li>
+<li>Make <code>ember-cli-babel</code> aware of the <code>@ember/string</code> package so it tells <code>babel-plugin-ember-modules-api-polyfill</code> not to convert those imports to the global <code>Ember</code> namespace</li>
+<li>Update usages in Ember and Ember Data codebases so that the projects do not trigger deprecations</li>
+<li>Deprecate <code>Ember.String</code>
+<ul>
+<li>Write deprecation guide which mentions minimum version of <code>ember-cli-babel</code>, and how/when to use <code>@ember/string</code> and <code>ember-string-prototype-extensions</code> packages</li>
+</ul>
+</li>
+<li>Deprecate <code>loc</code> in <code>@ember/string</code></li>
+</ol>
+<a class="header" href="0236-deprecation-ember-string.html#what-is-happening-for-framework-users" id="what-is-happening-for-framework-users"><h2>What is happening for framework users?</h2></a>
+<p>If you are using <code>Ember.String.loc</code>, you will be instructed to move to a dedicated localization solution, as this method will be completely deprecated.</p>
+<p>If you are using <code>Ember.String.htmlSafe</code> or <code>Ember.String.isHTMLSafe</code>, you will be instructed to run the <a href="https://github.com/ember-cli/ember-modules-codemod"><code>ember-modules-codemod</code></a> and it will update to the correct imports from the <code>@ember/template</code> package.</p>
+<p>If you are using one of the other <code>Ember.String</code> methods, like <code>Ember.String.dasherize</code>, you will receive a deprecation warning to inform you that you should run the <a href="https://github.com/ember-cli/ember-modules-codemod"><code>ember-modules-codemod</code></a>, update <code>ember-cli-babel</code> to a specific minor version, and add <code>@ember/string</code> to your application's or addon's dependencies.</p>
+<p>If you are using the <code>String</code> prototype extensions, like <code>'myString'.dasherize()</code>, on top of the previous instructions you will be instructed to install <code>ember-string-prototype-extensions</code> in case updating the code to <code>dasherize('myString')</code> is not trivial.</p>
+<a class="header" href="0236-deprecation-ember-string.html#timeline" id="timeline"><h2>Timeline</h2></a>
+<ul>
+<li>Deprecations are introduced - Ember 2.x
+<ul>
+<li><code>String</code> protoype extensions are deprecated</li>
+<li><code>Ember.String</code> functions are deprecated</li>
+<li><code>loc</code> is completely deprecated</li>
+<li><code>isHTMLSafe</code> and <code>htmlSafe</code> are moved to <code>@ember/template</code></li>
+</ul>
+</li>
+<li>Transition packages are introduced - Ember 2.x
+<ul>
+<li><code>@ember/string</code>, which replaced <code>Ember.String</code></li>
+<li><code>ember-string-prototype-extensions</code>, which brings <code>String</code> prototype extensions back</li>
+</ul>
+</li>
+<li>Deprecations are removed - Ember 3.x, <code>@ember/string</code> 2.x
+<ul>
+<li>New major version of Ember is released</li>
+<li>New major version of <code>@ember/string</code> is released</li>
+</ul>
+</li>
+</ul>
+<a class="header" href="0236-deprecation-ember-string.html#how-we-teach-this" id="how-we-teach-this"><h1>How We Teach This</h1></a>
+<a class="header" href="0236-deprecation-ember-string.html#official-code-bases-and-documentation" id="official-code-bases-and-documentation"><h2>Official code bases and documentation</h2></a>
+<p>The official documentation –website, Guides, API documentation– should be updated not to use <code>String</code> prototype extensions.
+This documentation should already use the new modules API from an effort to update it for Ember 2.16.</p>
+<p>The Guides section on <em>disabling prototype extension</em> will need to be updated when <code>String</code> prototype extensions are removed from Ember.</p>
+<p>Resources owned by the Ember teams, such and Ember and Ember Data code bases, the Super Rentals repository, or the builds app for the website, will be updated accordingly.</p>
+<a class="header" href="0236-deprecation-ember-string.html#emberstringhtmlsafe-and-emberstringishtmlsafe" id="emberstringhtmlsafe-and-emberstringishtmlsafe"><h2><code>Ember.String.htmlSafe</code> and <code>Ember.String.isHTMLSafe</code></h2></a>
+<p>The move of <code>htmlSafe</code> and <code>isHTMLSafe</code> from <code>Ember.String</code> to <code>@ember/template</code> should be documented as part of the <a href="https://github.com/ember-cli/ember-rfc176-data">ember-rfc176-data</a> and related codemods efforts, as that project is the source of truth for the mappings between the <code>Ember</code> global namespace and <code>@ember</code>-scoped modules.</p>
+<a class="header" href="0236-deprecation-ember-string.html#emberstringloc-and-import--loc--from-emberstring-emberstring-to-emberstring-string-prototype-extensions" id="emberstringloc-and-import--loc--from-emberstring-emberstring-to-emberstring-string-prototype-extensions"><h2><code>Ember.String.loc</code> and <code>import { loc } from '@ember/string';</code>, <code>Ember.String</code> to <code>@ember/string</code>, <code>String</code> prototype extensions</h2></a>
+<p>An entry to the <a href="https://emberjs.com/deprecations/">Deprecation Guides</a> will be added outlining the different recommended transition strategies.</p>
+<a class="header" href="0236-deprecation-ember-string.html#emberstringloc-import--loc--from-emberstring" id="emberstringloc-import--loc--from-emberstring"><h3><code>Ember.String.loc</code>, <code>import { loc } from '@ember/string';</code></h3></a>
+<p>As this function is deprecated, users will be recommended to use a <a href="https://emberobserver.com/categories/internationalization">dedicated localization solution</a>.</p>
+<a class="header" href="0236-deprecation-ember-string.html#emberstring-to-emberstring" id="emberstring-to-emberstring"><h3><code>Ember.String</code> to <code>@ember/string</code></h3></a>
+<p>The way that <code>@ember</code>-scoped modules will work in 2.16 is that <code>ember-cli-babel</code> will convert something like <code>import { dasherize } from '@ember/string';</code> to <code>import Ember from 'Ember'; const dasherize = Ember.String.dasherize;</code>.
+What this means is that <code>import { dasherize } from '@ember/string';</code> will trigger a deprecation if you do not have the <code>@ember/string</code> package in your dependencies.</p>
+<p>To address the above deprecation you will need to update <code>ember-cli-babel</code> to a a specific minor version or higher, to make sure it has the logic to detect <code>@ember/string</code>. The specific minor version will be known at the time the deprecation guide is written.
+You will also need to add <code>@ember/string</code> to your application's development dependencies, or your addon's dependencies.</p>
+<a class="header" href="0236-deprecation-ember-string.html#string-prototype-extensions" id="string-prototype-extensions"><h3><code>String</code> prototype extensions</h3></a>
+<p>If you are using <code>'myString'.dasherize()</code> or one of the other functions added to <code>String</code>, you will be instructed to replace that usage with <code>import { dasherize } from '@ember/string'; dasherize('myString')</code>, in addition to the changes on the previous section.</p>
+<p>In case your code base is complicated enough that migrating all these usages at the same time is not convenient, you will be able to add <code>ember-string-prototype-extensions</code> to your dependencies, which will bring back extensions, without deprecations.</p>
+<a class="header" href="0236-deprecation-ember-string.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<p>A lot of addons that deal with names depend on this behaviour, so they will need to install the addon. Also, Ember Data and some external serializers require these functions.</p>
+<p><code>htmlSafe</code> and <code>isHTMLSafe</code> would need to change packages, thus the reason to try and provide an Ember Watson recipe.</p>
+<p>Another side-effect of this change is that certain users might be shipping duplicated code between <code>Ember.String</code> and <code>@ember/string</code>, but it is a necessary stepping stone and might be able to be addressed via svelting.</p>
+<a class="header" href="0236-deprecation-ember-string.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<p>Leave things as they are.</p>
+<a class="header" href="0236-deprecation-ember-string.html#unresolved-questions" id="unresolved-questions"><h1>Unresolved questions</h1></a>
+<p>None.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0232-simplify-qunit-testing-api.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0237-deprecation-ember-map.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0232-simplify-qunit-testing-api.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0237-deprecation-ember-map.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

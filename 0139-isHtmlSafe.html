@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0139-isHtmlSafe - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html" class="active"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2016-04-18</li>
+<li>RFC PR: <a href="https://github.com/emberjs/rfcs/pull/139">#139</a></li>
+<li>Ember Issue: <a href="https://github.com/emberjs/ember.js/pull/13666">emberjs/ember.js#13666</a></li>
+</ul>
+<a class="header" href="0139-isHtmlSafe.html#summary" id="summary"><h1>Summary</h1></a>
+<p>Introduce <code>Ember.String.isHtmlSafe()</code> to provide a reliable way to determine if an object is an &quot;html safe string&quot;, i.e. was it created with <code>Ember.String.htmlSafe()</code>.</p>
+<a class="header" href="0139-isHtmlSafe.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>Using <code>new Ember.Handlebars.SafeString()</code> is slated for deprecation. Many people are currently using the following snippet as
+a mechanism of type checking: <code>value instanceof Ember.Handlebars.SafeString</code>. Providing <code>isHtmlSafe</code> offers a
+cleaner method of detection. Beyond that, the aforementioned test is a bit leaky. It requires the developer to understand
+<code>htmlSafe</code> returns a <code>Ember.Handlerbars.SafeString</code> instance and thus limits Ember's ability to change
+<code>htmlSafe</code> without further breaking it's API.</p>
+<p>Based on our app at Batterii and some research on Github, I see two valid use cases for introducing this API.</p>
+<p>First, and most commonly, is to make it possible to test addon helpers that are expected to return a safe string. I believe this test on ember-i18n says it all: <a href="https://github.com/jamesarosen/ember-i18n/blob/master/tests/unit/utils/i18n/default-compiler-test.js#L56-L59">&quot;returns HTML-safe string&quot;</a>.</p>
+<p>The second use case is to do type checking. In our app, we have an <code>isString</code> utility that is effectively:</p>
+<pre><code class="language-javascript">import Ember from 'ember';
+
+export default function(value) {
+  return typeof value === 'string' || value instanceof Ember.Handlebars.SafeString;
+}
+</code></pre>
+<p>Newer versions of ember-i18n, doing <code>this.get('i18n').t('someTranslatedValue')</code> will return a safe string. Thus our <code>isString</code> utility has to consider that.</p>
+<a class="header" href="0139-isHtmlSafe.html#detailed-design" id="detailed-design"><h1>Detailed design</h1></a>
+<p><code>isHtmlSafe</code> will be added to the <code>Ember.String</code> module. The implementation will basically be:</p>
+<pre><code class="language-javascript">function isHtmlSafe(str) {
+  return str &amp;&amp; typeof str.toHTML === 'function';
+}
+</code></pre>
+<p>It will be used as follows:</p>
+<pre><code class="language-javascript">if (Ember.String.isHtmlSafe(str)) {
+  str = str.toString();
+}
+</code></pre>
+<a class="header" href="0139-isHtmlSafe.html#transition-path" id="transition-path"><h1>Transition Path</h1></a>
+<p>As part of landing <code>isHtmlSafe</code> we will simultaneously re-deprecate <code>Ember.Handlebars.SafeString</code>. This deprecation will
+take care to ensure that <code>str instanceof Ember.Handlebars.SafeString</code> still passes so that we can continue to
+maintain backwards compatibility.</p>
+<p>Additionally, a polyfill will be implemented to help provide forward compatibility for addon maintainers and others
+looking to get a head while still on older versions of Ember. Similar to <a href="https://github.com/rwjblue/ember-getowner-polyfill">ember-getowner-polyfill</a>.</p>
+<a class="header" href="0139-isHtmlSafe.html#how-we-teach-this" id="how-we-teach-this"><h1>How We Teach This</h1></a>
+<p>I think we'll continue to refer to these strings as &quot;html safe strings&quot;. This RFC does not
+introduce any new concepts, rather it builds on an existing concept.</p>
+<p>I don't believe this feature will require guide discussion. I think API Docs will suffice.</p>
+<p>The concept of type checking is a pretty common programming idiom. It should be relatively self
+explanatory.</p>
+<a class="header" href="0139-isHtmlSafe.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<p>The only drawback I see is that it expands the surface of the API and it takes a step
+towards prompting &quot;html safe string&quot; as a thing.</p>
+<a class="header" href="0139-isHtmlSafe.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<p>An alternative would be to expose <code>Ember.Handlerbars.SafeString</code> publicly once again. Users
+could revert back to using <code>instanceof</code> as their type checking mechanism.</p>
+<a class="header" href="0139-isHtmlSafe.html#unresolved-questions" id="unresolved-questions"><h1>Unresolved questions</h1></a>
+<p>There are no unresolved questions at this time.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0136-contains-to-includes.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0143-module-unification.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0136-contains-to-includes.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0143-module-unification.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

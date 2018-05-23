@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0252-browser-support-changes - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html" class="active"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <a class="header" href="0252-browser-support-changes.html#browser-support-changes" id="browser-support-changes"><h1>Browser Support Changes</h1></a>
+<ul>
+<li>Start Date: 2017-09-25</li>
+<li>RFC PR: (leave this empty)</li>
+<li>Ember Issue: (leave this empty)</li>
+</ul>
+<a class="header" href="0252-browser-support-changes.html#summary" id="summary"><h1>Summary</h1></a>
+<p>Solicit feedback on dropping support for IE9, IE10, and PhantomJS.</p>
+<a class="header" href="0252-browser-support-changes.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>As Ember heads towards version 3.0, it is a good time to evaluate our browser support matrix. Ember follows Semantic Versioning, and we consider browser compatibility to be under the umbrella of those guarantees. In other words, we will continue to support whatever browsers we officially support in Ember 3.0 until Ember 4.0.</p>
+<p>We want to make this decision on the basis of the browsers that our community still needs to support, while weighing that against the costs we bear as a community to support older browsers. This RFC will lay out some of those costs, so we can decide what tradeoff is most appropriate.
+Members of the core team maintain many different kinds of apps across many different kinds of companies. Some of us work on applications with small, agile teams, while others work inside of large corporations with many engineers. When this topic came up amongst the team, we discovered that, across all these different companies and Ember apps, we did not generally support IE9, IE10, and PhantomJS.</p>
+<p>Because of this, the core team's impression is that the costs support now far exceed the benefits, and we are considering dropping support for them in Ember 3.0. Before we make the decision, we want to hear from the rest of the community. Supporting IE9, IE10, and PhantomJS incurs significant cost, both in terms of features and maintenance, and we want the community to help us think through the cost-benefit analysis.</p>
+<p>Ember is more than just the framework's code. When people use Ember, they expect to be able to use Ember's tooling, read Ember's documentation, find solutions to problems on Stack Overflow, and read tutorials produced by community members. <strong>All of these, including addons that follow Ember’s lead, are shackled to the limitations of these legacy browsers.</strong> By dropping support for them, people can begin to rely on the improved baseline of features.</p>
+<p>Some of the features (unavailable in IE9, IE10, or PhantomJS) that addons will be able to freely take advantage of include:</p>
+<ul>
+<li>requestAnimationFrame (<a href="http://caniuse.com/#feat=requestanimationframe">caniuse</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">MDN</a>)</li>
+<li>CSS flexbox (<a href="http://caniuse.com/#search=flexbox">caniuse</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes">MDN</a>)</li>
+<li>Websockets (<a href="http://caniuse.com/#feat=websockets">caniuse</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API">MDN</a>)</li>
+<li>let (<a href="http://caniuse.com/#feat=let">caniuse</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let">MDN</a>)</li>
+<li>const (<a href="http://caniuse.com/#feat=const">caniuse</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const">MDN</a>)</li>
+<li>TypedArray (<a href="http://caniuse.com/#feat=typedarrays">caniuse</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray">MDN</a>)</li>
+<li>Geolocation API (<a href="https://caniuse.com/#search=Geolocation">caniuse</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation">MDN</a>)</li>
+<li>Online/offline API (<a href="http://caniuse.com/#feat=online-status">caniuse</a>, <a href="https://developer.mozilla.org/en-US/docs/Online_and_offline_events">MDN</a>)</li>
+<li>XHR advanced features (<a href="https://caniuse.com/#feat=xhr2">caniuse</a>, <a href="https://www.w3.org/TR/2012/WD-XMLHttpRequest-20120117/">specification</a>)</li>
+<li>HTTP2 (<a href="http://caniuse.com/#feat=http2">caniuse</a>, <a href="https://en.wikipedia.org/wiki/HTTP/2">wikipedia</a>)</li>
+<li>Web Workers (<a href="http://caniuse.com/#feat=webworkers">caniuse</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers">MDN</a>)</li>
+<li>IndexedDB (<a href="http://caniuse.com/#feat=indexeddb">caniuse</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API">MDN</a>)</li>
+<li>WebGL (<a href="http://caniuse.com/#feat=webgl">caniuse</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API">MDN</a>)</li>
+<li>File API (<a href="http://caniuse.com/#feat=fileapi">caniuse</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/File">MDN</a>)</li>
+<li>PageTransitionEvent (<a href="http://caniuse.com/#feat=page-transition-events">caniuse</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/PageTransitionEvent">MDN</a>)</li>
+<li>SVG filters (<a href="http://caniuse.com/#feat=svg-filters">caniuse</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/SVG_Filters_Tutorial">MDN</a>)</li>
+<li>MutationObserver (<a href="http://caniuse.com/#feat=mutationobserver">caniuse</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver">MDN</a>)</li>
+</ul>
+<p>Below, we’ve outlined several specific features we’re interested in using to improve the Ember framework itself. We’ve also included some other supporting arguments for this decision.</p>
+<a class="header" href="0252-browser-support-changes.html#vendor-support" id="vendor-support"><h2>Vendor Support</h2></a>
+<p>Microsoft dropped most support and maintenance for IE9 and IE10 on 2016-01-16 (IE9 on Vista SP2 <a href="http://www.allyncs.com/docs/lifecyclesupport.html">expired in April 2017</a>).</p>
+<p>With the advent of headless Chrome and Firefox, PhantomJS is now <a href="https://groups.google.com/forum/#!topic/phantomjs/9aI5d-LDuNE">effectively unmaintained</a>. The default testing boilerplate for Ember CLI-generated applications was changed to headless Chrome in Ember CLI 2.15.</p>
+<a class="header" href="0252-browser-support-changes.html#weakmap-map-set" id="weakmap-map-set"><h2>WeakMap, Map, Set</h2></a>
+<p>From a framework perspective, being able to rely on native <code>WeakMap</code> support will allow us to remove a significant number of fallback paths that are used in browsers without <code>WeakMap</code>. Using <code>WeakMap</code> results in better developer ergonomics as it allows us to remove many of the random properties that we currently have to assign to an object which makes interacting with your objects in the devtools much less noisy. Minimal support for WeakMap was <a href="http://kangax.github.io/compat-table/es6/#test-WeakMap">introduced in IE11</a>.</p>
+<a class="header" href="0252-browser-support-changes.html#better-es-class-support" id="better-es-class-support"><h2>Better ES Class Support</h2></a>
+<p>In order to support static class methods (with inheritance) transpilers (e.g. Babel) need to leverage the <code>Object.setPrototypeOf</code> / <code>Object.getPrototypeOf</code> APIs. Without the ability to rely on <code>Object.setPrototypeOf</code> we will not be able to continue iterating slowly towards leveraging ES classes as a replacement for the custom object model functionality that we have known and loved for so many years. Specifically, there is no replacement / capability to support proper inheritance with <code>.reopenClass</code>. There are several lower-fidelity hacks you might opt into, but none that we think satisfy the needs of the Ember community.</p>
+<p>Generally this means IE11 is the oldest browser we can reliably transpile ES classes for reliably.</p>
+<a class="header" href="0252-browser-support-changes.html#typed-arrays" id="typed-arrays"><h2>Typed Arrays</h2></a>
+<p>Typed arrays are not currently used in Ember, but experimentation is underway deep in the internals of Glimmer VM to be able to further reduce template size <em>and</em> the costs associated with expanding the wire format (currently a JSON structure) into a runnable program. Leveraging typed arrays would allow Ember and Glimmer apps to completely avoid the wire format to opcode compilation that currently happens before initial render. It also significantly reduces the resulting memory footprint for the same runnable program.</p>
+<a class="header" href="0252-browser-support-changes.html#dom-api-improvements" id="dom-api-improvements"><h2>DOM API Improvements</h2></a>
+<p>Although IE9 introduced JavaScript engine with support for much of ES5, it was not until IE10 that the browser began to support much of what developers consider modern web platform APIs. Littered throughout the Ember and Glimmer VM codebase are <a href="https://github.com/glimmerjs/glimmer-vm/blob/1759c16defc546b034b97e37141187652ed93859/packages/%40glimmer/runtime/lib/dom/props.ts#L54">many</a> <a href="https://github.com/glimmerjs/glimmer-vm/blob/9ecc88504c81469ba20dba3ed3f37d373a998355/packages/%40glimmer/test-helpers/lib/helpers.ts#L170">examples</a> <a href="https://github.com/glimmerjs/glimmer-vm/blob/bfed16af6a5ecce4fbe9f27783245fe0f8b03480/build/broccoli/transpile-to-es5.js#L25">of</a> IE9 workarounds (and <a href="https://github.com/glimmerjs/glimmer-vm/blob/1759c16defc546b034b97e37141187652ed93859/packages/%40glimmer/runtime/lib/dom/props.ts#L49">PhantomJS workarounds</a>, in fact). We’ve worked hard to make these fixes free at runtime for modern browsers, but some cost is unavoidable.</p>
+<p>PhantomJS in particular is a weird environment. Users must often fix Phantom-specific browser bugs, which is wasted effort since real users never run your app in Phantom. And &quot;how to debug in Phantom&quot; is an entire extra skill people are forced to learn. Testing your app in PhantomJS is generally a form of “testing theater”, since it fails to execute your code in a realistic environment.</p>
+<a class="header" href="0252-browser-support-changes.html#requestanimationframe" id="requestanimationframe"><h2><code>requestAnimationFrame</code></h2></a>
+<p>IE10 introduced support for <code>requestAnimationFrame</code>, an efficient way to schedule work in the browser environment. We’re interested in using this API to explore incremental rendering strategies, and as a way to improve Ember’s coordination with the browser when native promises are used in application code.</p>
+<a class="header" href="0252-browser-support-changes.html#detailed-design" id="detailed-design"><h1>Detailed Design</h1></a>
+<p>When using Ember applications in IE9, IE10, or PhantomJS, Ember will cause an appropriate deprecation to be issued. The deprecation will be “until 3.0” and will reference an entry in the deprecation guide. The guide entry will describe For example:</p>
+<blockquote>
+<p>Using Ember.js in IE9, IE10, or PhantomJS is deprecated and will be unsupported in Ember.js 3.0. We recommend using Ember’s 2.x LTS releases if your applications must support those browsers.</p>
+<p>PhantomJS is often used for continuous integration testing. We strongly suggest adopting headless Chrome or Firefox to run CI tests.</p>
+</blockquote>
+<a class="header" href="0252-browser-support-changes.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<p>Many users have told us that they chose Ember because of the community's commitment to backwards compatibility. There will always be organizations using Ember that exist on the tail-end of browser adoption patterns. We risk alienating or upsetting those users by dropping support for a browser that, while on the way out, is not yet completely gone.</p>
+<p>However, in many cases, the requirement for supporting these legacy browsers is driven by non-technical management who do not have a strong sense of the experience of using apps in IE9/IE10. In practice, many applications are not rigorously tested in older browsers, and the performance is so bad that applications written using any framework perform poorly. Techniques that framework and application developers use to make Chrome fast quite often have pathological characteristics on browsers with legacy DOM and JavaScript engines.</p>
+<p>Still, some people make it work, and dropping support may prevent those teams from staying with the community as it migrates to Ember 3.0.</p>
+<p>As a mitigation for these concerns, the final release of Ember 2.x will itself be made an LTS release. This will ensure a 2.x platform supporting IE9+ with critical bugfix for roughly 8 months following the 3.0 release and security fixes for roughly 14 months after 3.0 release.</p>
+<a class="header" href="0252-browser-support-changes.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<a class="header" href="0252-browser-support-changes.html#bring-your-own-compatibility" id="bring-your-own-compatibility"><h2>Bring Your Own Compatibility</h2></a>
+<p>Some libraries attempt to thread the needle of compatibility by asking users to bring their own compatibility libraries. They write the internals of their framework as if these older browsers did not exist, and require end users to use polyfills to make the environment look equivalent to newer browsers.</p>
+<p>We have spent considerable effort on first-class support in Ember 2.x, and we feel that users who require IE9 and IE10 support will have a better experience using Ember 2.x. (with the subset of the ecosystem that supports 2.x) than trying to cobble together a solution that works reliably in a version of Ember with second-class, bring-your-own-compatibility support.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0240-es-classes.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0268-acceptance-testing-refactor.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0240-es-classes.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0268-acceptance-testing-refactor.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

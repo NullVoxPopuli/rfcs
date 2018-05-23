@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0056-improved-release-cycle - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html" class="active"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2015-10-02</li>
+<li>RFC PR: https://github.com/emberjs/rfcs/pull/56</li>
+<li>Ember Issue: (leave this empty)</li>
+</ul>
+<a class="header" href="0056-improved-release-cycle.html#refining-the-release-process" id="refining-the-release-process"><h1>Refining the Release Process</h1></a>
+<p>Ember balances a desire for overall stability with a desire for continued improvements using a two-pronged approach:</p>
+<ul>
+<li>General adherence to Semantic Versioning, which means that we don't
+make breaking changes to public, documented APIs except when the
+major version changes.</li>
+<li>A rapid release cycle that allows us to ship additive changes to the
+framework on a regular, digestible basis.</li>
+</ul>
+<p>Since Ember 1.0, we have refined this approach:</p>
+<ul>
+<li>All new public APIs are added using feature flags onto the master
+branch. Feature flagged features are not included in beta or release
+builds until they are &quot;Go&quot;ed by the core team.</li>
+<li>We avoid breaking heavily used but private APIs in minor versions.</li>
+<li>When we feel we must break a private API that is heavily used, we
+use a two-step deprecation approach: deprecate the private API in
+one release and remove it in a subsequent release, once apps and
+add-ons have had an opportunity to upgrade.</li>
+<li>When we plan to make breaking changes in a future major release,
+we first deprecate the changes in a previous minor release.</li>
+<li>We never deprecate features until there is an already-landed
+transition path to a new approach whose feature flag has already
+been &quot;Go&quot;ed.</li>
+</ul>
+<p>And finally:</p>
+<ul>
+<li>A major release does not introduce any new breaking changes that
+were not previously deprecated. Major versions simply remove
+deprecated features that already landed.</li>
+</ul>
+<p>Ember 2.0 is the first major release cycle where we have followed these refinements; this document is an attempt to outline some additional refinements that we might adopt going forward.</p>
+<a class="header" href="0056-improved-release-cycle.html#benefits-of-the-1x-model" id="benefits-of-the-1x-model"><h2>Benefits of the 1.x Model</h2></a>
+<ul>
+<li>New features are added predictably, and it's relatively easy to
+follow the list of new APIs that are under development, and where
+they are in the process.</li>
+<li>There is little pressure for contributors to land a feature
+prematurely, because missing a release deadline isn't
+catastrophic–there will be another train six weeks hence.</li>
+<li>We have a lot of very good automation tools that keep the trains
+running–commits can be (mostly) automatically backported to the
+current beta or release version.</li>
+<li>Upgrading Ember itself from version to version is typically a quick
+process, except when private APIs are in use. We aim for upgrades to
+be possible to slot into existing product sprints, and the nature of
+the process means that we tend to hit this goal for most users.</li>
+<li>Upgrading Ember across a number of versions is typically pretty
+straightforward, at least in theory.</li>
+</ul>
+<p>In total, this process provides a way for us to clearly message medium-term changes in a way that helps you make the changes predictably and as mechanically as possible.</p>
+<p>The process of getting from <em>here</em> to <em>there</em> is a series of incremental releases with deprecations, which gives you a trail of breadcrumbs to follow as things change.</p>
+<a class="header" href="0056-improved-release-cycle.html#problems-with-the-1x-model" id="problems-with-the-1x-model"><h2>Problems with the 1.x Model</h2></a>
+<p>While the approach we're using has provided a lot of benefits, there are a number of areas that could still use improvement:</p>
+<ul>
+<li>While it is in theory possible to upgrade only once every few
+releases, there is no guidance about exactly how to do that, and
+little clarity about how many releases we plan to support with
+security fixes. (Because of the two-step deprecations of heavily
+used  private APIs, it is in practice important to go through each
+intermediate release to clear deprecation warnings before
+proceeding.)</li>
+<li>While SemVer guarantees apply to public APIs, many addons are forced
+to use private APIs as part of experiments. These experiments are a
+crucial part of the evolution of the Ember ecosystem, and the Ember
+1.x series has had a fair bit of churn in these APIs.</li>
+<li>While the SemVer guarantees apply to Ember proper, they do not apply
+to parts of the blessed experience that have not yet reached 1.0.</li>
+<li>While the SemVer guarantees promise that your code will continue
+working, they do not address changes to idiomatic Ember usage, which
+can change over time. In practice, this means that there can be
+churn in the experience of using Ember without actual breakages.</li>
+<li>While deprecations technically don't force you to change anything,
+in practice clearing deprecations is a part of the upgrade process.
+A constant stream of deprecations, like in the lead-up to Ember 2.0,
+can feel almost as bad as breaking changes.</li>
+<li>In the lead-up to Ember 2.0, a desire to remove as much cruft as
+quickly as possible led to a need to land new features with much
+more urgency than usual.</li>
+</ul>
+<p>In total, these problems introduce churn in the experience of using Ember. In practice, things like moving to ES6 modules, moving to Ember CLI, and the changes in Ember Data have made the experience of &quot;keeping up&quot; more frenetic than we would have liked.</p>
+<p>Because Ember releases a new version every six-weeks, it's easy to associate the overall churn with the rapid pace of releases.</p>
+<a class="header" href="0056-improved-release-cycle.html#non-goals-of-the-improvements" id="non-goals-of-the-improvements"><h2>Non-Goals of the Improvements</h2></a>
+<p>The release process does not attempt to change the overall pace of change, but rather to make changes more predictable, easy to track, and easy to upgrade to.</p>
+<p>The six-week cycle can incidentally affect the pace of change, because it means that large changes usually need to be broken up into pieces that can land a bit at a time. However, in practice this speeds up ecosystem-wide adoption of the entire feature, because people do not find themselves stuck behind a big-bang change that they can't schedule the time to upgrade to.</p>
+<p>A recent survey of the Ember ecosystem, which had close to 1,000 respondents, showed that the vast majority of Ember users are using one of the past three versions of Ember.</p>
+<a class="header" href="0056-improved-release-cycle.html#proposal-lts-releases" id="proposal-lts-releases"><h2>Proposal: LTS Releases</h2></a>
+<p>In theory, it's possible to upgrade every few releases, instead of every release. This has a few drawbacks:</p>
+<ul>
+<li>Because of the two-step deprecation process for heavily-used
+private APIs that we want to remove, it is in practice necessary
+to go through all intermediate releases in order to catch possible
+deprecations.</li>
+<li>We currently don't have any official policy about which exact
+releases we backport security patches to, other than a promise
+that we will always backport to the previous released version.</li>
+<li>Since different people upgrade at different rates, it's hard for
+add-ons and other parts of the Ember ecosystem that are not
+bound by the same SemVer guarantees to know which versions to
+continue to support.</li>
+</ul>
+<p><strong>I propose that every 4 releases is considered a &quot;Long-Term-Support (LTS) release&quot; . With the six-week cycle, that means every 24 weeks, or roughly twice per year.</strong></p>
+<p>This means:</p>
+<ul>
+<li>We will only remove heavily used private APIs if they were
+deprecated in a previous LTS release. This means that
+if a feature is deprecated in 2.3, the first LTS release that
+the deprecation will appear in is 2.4, and it can therefore be
+removed in 2.5.</li>
+<li>We will provide release notes for each LTS release that
+roll up the changes for the releases it includes, including new
+deprecations and new features.</li>
+<li>We will use the LTS releases to provide better big-picture
+messaging on the goals of any deprecations and changes to
+idiomatic Ember.</li>
+<li>Security fixes will always be backported to the most recent
+LTS release.</li>
+<li>We will encourage the Ember ecosystem to maintain support for
+the LTS releases, and lead by example with our own
+projects that have not yet reached SemVer stability. Ideally, this
+will give more of a voice to people who are upgrading less
+frequently.</li>
+</ul>
+<p>This means that people who want to stay on the latest and greatest can continue to upgrade every six weeks (with the same SemVer guarantees we've come to expect), and people who want to upgrade less frequently can do so.</p>
+<p>In practice, since these releases still abide by SemVer, upgrading from LTS release to LTS release should not be significantly more work than upgrading along the six-week release cycle.</p>
+<p>Upgrading less frequently will mean, of course, that you would need to wait to take advantage of new features, and experience less gradual changes to idioms. It will also mean that every upgrade will come with a bigger bundle of deprecations to clear.</p>
+<blockquote>
+<p>It is important for us to keep an eye on the situation to see whether less frequent updates result in people getting left behind.</p>
+</blockquote>
+<a class="header" href="0056-improved-release-cycle.html#proposal-svelte-releases-and-major-releases" id="proposal-svelte-releases-and-major-releases"><h2>Proposal: Svelte Releases and Major Releases</h2></a>
+<p>Another problem worth addressing is that, as Ember gradually deprecates old idioms to make way for new ones, SemVer guarantees require that we continue shipping deprecated features until the next major release.</p>
+<p>This has two related problems:</p>
+<ol>
+<li>Ember users who are not using deprecated features need to continue
+shipping deprecated code, which increases both code bloat and
+an opportunity to accidentally slip back into older idioms.</li>
+<li>Ember itself needs to continue maintaining support for
+deprecated features in its internals, which, over time, results
+in cruft that impacts our ability to improve Ember.</li>
+</ol>
+<p>However, we also need to be cognizant of the fact that changes to Ember idioms take time to be reflected in online materials, so it's important for snippets copy-and-pasted from tutorials to continue to produce deprecation notices for some time.</p>
+<p>In general, this is the question of how to &quot;garbage collect&quot; cruft in the framework gradually and with minimal impact.</p>
+<p>Leading up to the 2.0 release, we thought we would address this issue with periodic &quot;cruft removal&quot; major releases. Every so often, we would issue a major release with the primary purpose of clearing out accumulated cruft. Minor releases could create deprecations, but not purge their associated code.</p>
+<p>Unfortunately, because of the fact that <strong>Ember does not generally deprecate features without a clear transition to something else</strong>, this meant that the 2.0 release became a critical release for adding new features as well. In the run-up to 2.0, we felt a higher degree of urgency to add new features in the programming model to replace ones we expected to want to remove early in the 2.x series.</p>
+<p>The goal of the train release model is to eliminate big-bang releases and the attendant stress on releasing particular features by a given date, and the 2.0 release has been far too disruptive to that goal.</p>
+<p>In the 2.x cycle, I propose a few enhancements:</p>
+<ol>
+<li>Ember itself will more clearly mark deprecated features in a
+similar way that it marks new features, including with the
+release it was deprecated in.</li>
+<li>Ember CLI will support &quot;svelte builds&quot;, which strip out
+deprecated features.</li>
+<li>In development mode, Ember CLI will convert deprecated features
+into errors, to ensure that people running svelte builds can still
+get clear messages when using code that was designed for earlier
+builds, including addons.</li>
+<li>We will still use major releases to remove built up cruft,
+especially deeply intertwined cruft, but the svelte releases
+should take the pressure off of the major release timeline.</li>
+</ol>
+<p><strong>The 1.x release cycle helped us establish an orderly process for adding features; this proposal establishes a more orderly process for removing them.</strong></p>
+<a class="header" href="0056-improved-release-cycle.html#proposal-plugin-apis" id="proposal-plugin-apis"><h2>Proposal: Plugin APIs</h2></a>
+<p>Since the release of Ember 1.0, we have worked on refining the public APIs while maintaining stability. However, those public APIs do not cover all possible use-cases, and add-ons have cropped up to fill the gaps.</p>
+<p>Unfortunately, this has placed a heavy compatibility burden on add-on authors who want to maintain stability in their public APIs even as versions of Ember have changed the private APIs they rely on.</p>
+<p>In practice, the costs of the six-week release cycle weigh most heavily on add-on authors, who are often forced into using private APIs, but still want to keep their add-ons working with every release.</p>
+<p>The canary and beta cycles help to ensure that popular add-ons work by the time the release version comes out, but only because add-on authors keep a close eye on the beta releases and absorb the churn on behalf of their users.</p>
+<p><strong>I propose that as of Ember 2.0, any use of a private API in a plugin is considered a bug in Ember to be fixed.</strong></p>
+<p>That doesn't mean that add-on authors should never use private APIs: to the contrary, use of private APIs when no other choice is available helps us discover what APIs are missing.</p>
+<p>But a major goal of the 2.x series of Ember should be to identify ways to extend the stability promises that Ember offers to application authors to add-on authors.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0053-helpers.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0057-ember-data-reference-unification.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0053-helpers.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0057-ember-data-reference-unification.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

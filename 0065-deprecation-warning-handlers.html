@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0065-deprecation-warning-handlers - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html" class="active"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2015-06-30</li>
+<li>RFC PR: https://github.com/emberjs/rfcs/pull/65</li>
+<li>Ember Issue: (leave this empty)</li>
+</ul>
+<a class="header" href="0065-deprecation-warning-handlers.html#summary" id="summary"><h1>Summary</h1></a>
+<p>Deprecations and warnings in Ember.js should have configurable runtime handlers.
+This allows default behavior (logging, raise when <code>RAISE_ON_DEPRECATION</code> is true)
+to be overridden by an enviornment (Ember's tests), addon, or other tool
+(like the Ember Inspector).</p>
+<p>Ember-Data and the Ember Inspector have both requested a public
+API for changing how deprecation and warning messages are handled. The requirements
+for these and other requests are complex enough that deferring the message
+behavior into a runtime hook is the suggested path.</p>
+<a class="header" href="0065-deprecation-warning-handlers.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p><code>Ember.deprecate</code> and <code>Ember.warn</code> usually log messages. With <code>ENV.RAISE_ON_DEPRECATION</code>
+all deprecations will throw an exception. In some scenarios, this
+is less than ideal:</p>
+<ul>
+<li>Ember itself needs a way to silence some deprecations before their usage
+is completely removed from tests. For example, many view APIs in Ember 1.13.</li>
+<li>The Ember inspector desires to raise on specific deprecations, or silence
+specific deprecations.</li>
+<li>Ember-Data also desires to silence some deprecations in tests</li>
+</ul>
+<p>In <a href="https://github.com/emberjs/ember.js/pull/11419">PR #1141</a>
+a private log level API has been introduced, which allows finer grained control
+if specific deprecations should be logged, throwing an error or be silenced
+completely. For example:</p>
+<pre><code class="language-js">Ember.Debug._addDeprecationLevel('my-feature', Ember.Debug._deprecationLevels.LOG);
+// ...
+Ember.deprecate(&quot;x is deprecated, use Y instead&quot;, false, { id: 'my-feature' });
+</code></pre>
+<p>Initially a public version of this API was discussed, but it quickly became
+clear that a runtime hook provided more flexibility without incurring the
+cost of a complex log-level API.</p>
+<p>Note that &quot;runtime&quot; refers to Ember itself. A custom handler could be injected
+into Ember-CLI's template compilation code. &quot;runtime&quot; in this context still
+refers to handling deprecations raised during compilation.</p>
+<a class="header" href="0065-deprecation-warning-handlers.html#detailed-design" id="detailed-design"><h1>Detailed design</h1></a>
+<p>A handler for deprecations can be registered. This handler will be called
+with relevent information about a deprecation, including guarantees about
+the presence of these items:</p>
+<ul>
+<li>The deprecation message</li>
+<li>The version number where this deprecation (and feature) will be removed</li>
+<li>The &quot;id&quot; of this deprecation, a stable identifier independent of the message</li>
+</ul>
+<p>Additionally, an application instance may be passed with the options. An example
+handler would look like:</p>
+<pre><code class="language-js">import { registerHandler } from &quot;ember-debug/deprecations&quot;;
+
+registerHandler(function deprecationHandler(message, options) {
+  // * message is the deprecation message
+  // * options.until is the version this deprecation will be removed at
+  // * options.id is the canonical id for this deprecation
+  if (options.until === &quot;2.4.0&quot;) {
+    throw new Error(message);
+  } else {
+    console.log(message);
+  }
+});
+</code></pre>
+<p>Warnings are similar, but will not recieve an <code>until</code> value:</p>
+<pre><code class="language-js">import { registerHandler } from &quot;ember-debug/warnings&quot;;
+
+registerHandler(function warningHandler(message, options) {
+  // * message is the warning message
+  // * options.id is the canonical id for this warning
+  if (options.id !== 'view.rerender-on-set') {
+    console.log(message);
+  }
+});
+</code></pre>
+<a class="header" href="0065-deprecation-warning-handlers.html#chained-handlers" id="chained-handlers"><h5>chained handlers</h5></a>
+<p>Since several handlers may be registered, a method of deferring to a previously
+registered handler must be allowed. A third option is passed to handlers, the
+function <code>next</code> which represents the previously registered handler.</p>
+<p>For example:</p>
+<pre><code class="language-js">import { registerHandler } from &quot;ember-debug/deprecations&quot;;
+
+registerHandler(function firstDeprecationHandler(message, options, next) {
+  console.warn(message);
+});
+
+registerHandler(function secondDeprecationHandler(message, options, next) {
+  if (options.until === &quot;2.4.0&quot;) {
+    throw new Error(message);
+  }
+  next(...arguments);
+});
+</code></pre>
+<p>The first registed handler will receive Ember's default behavior as <code>next</code>.</p>
+<a class="header" href="0065-deprecation-warning-handlers.html#new-assertions-for-deprecate-and-warn" id="new-assertions-for-deprecate-and-warn"><h5>new assertions for deprecate and warn</h5></a>
+<p>Ember's APIs for deprecation and warning do not currently require any information
+beyond a message. It is proposed that deprecations be <strong>required</strong> to pass
+the following information:</p>
+<ul>
+<li>Message</li>
+<li>Test</li>
+<li>Canonical id (with a format of <code>package-name.some-id</code>)</li>
+<li>Release when this deprecation will be stripped</li>
+</ul>
+<p>For example:</p>
+<pre><code>import Ember from &quot;ember&quot;;
+
+Ember.deprecate(&quot;Some message&quot;, false, {
+  id: 'ember-routing.query-params',
+  until: '3.0.0'
+});
+</code></pre>
+<p>If this information is not present and assertion will be made.</p>
+<p>Warnings likewise will be required to pass a canonical id:</p>
+<pre><code>import Ember from &quot;ember&quot;;
+
+Ember.warn(&quot;Some warning&quot;, {id: 'ember-debug.something'});
+</code></pre>
+<a class="header" href="0065-deprecation-warning-handlers.html#default-handlers" id="default-handlers"><h5>default handlers</h5></a>
+<p>The default handler for deprecation should be quite simple, and mirrors current
+behavior:</p>
+<pre><code class="language-js">function defaultDeprecationHandler(message, options) {
+  if (Ember.ENV.RAISE_ON_DEPRECATION) {
+   throw new Error(format(message, options));
+  } else {
+   console.log(format(message, options));
+  }
+}
+</code></pre>
+<p>The default handler for warnings would be simple <code>console.log</code>.</p>
+<a class="header" href="0065-deprecation-warning-handlers.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<p>By not providing a robust log-level API, we are punting complexity to the
+consumer of this API. For a low-level tooling API such as this one, it seems
+and appropriate tradeoff.</p>
+<a class="header" href="0065-deprecation-warning-handlers.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<p>Each app can stub out <code>deprecate</code> and <code>warn</code>.</p>
+<a class="header" href="0065-deprecation-warning-handlers.html#unresolved-questions" id="unresolved-questions"><h1>Unresolved questions</h1></a>
+<p><code>RAISE_ON_DEPRECATION</code> could be considered deprecated with this new API.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0064-contextual-component-lookup.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0091-weakmap.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0064-contextual-component-lookup.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0091-weakmap.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

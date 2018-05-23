@@ -1,0 +1,334 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0229-deprecate-testing-restricted-resolver - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html" class="active"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2017-06-11</li>
+<li>RFC PR: <a href="https://github.com/emberjs/rfcs/pull/229">emberjs/rfcs#229</a></li>
+<li>Ember Issue: (leave this empty)</li>
+</ul>
+<a class="header" href="0229-deprecate-testing-restricted-resolver.html#summary" id="summary"><h1>Summary</h1></a>
+<p>In order to largely reduce the brittleness of tests, this RFC proposes to
+remove the concept of artificially restricting the resolver used under
+testing.</p>
+<a class="header" href="0229-deprecate-testing-restricted-resolver.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>Disabling the resolver while running tests leads to extremely brittle tests.</p>
+<p>It is not possible for collaborators to be added to the object (or one
+of its dependencies) under test, without modifying the test itself (even if
+exactly the same API is exposed).</p>
+<p>The ability to restrict the resolver is <strong>not</strong> actually a feature of Ember's
+container/registry/resolver system, and has posed as significant maintenance
+challenge throughout the lifetime of ember-test-helpers.</p>
+<p>Removing this system of restriction will make choosing what kind of test to
+be used easier, simplify many of the blueprints, and enable much simpler refactoring
+of an applications components/controllers/routes/etc to use collaborating utilties
+and services.</p>
+<a class="header" href="0229-deprecate-testing-restricted-resolver.html#transition-path" id="transition-path"><h1>Transition Path</h1></a>
+<a class="header" href="0229-deprecate-testing-restricted-resolver.html#deprecate-functionality" id="deprecate-functionality"><h2>Deprecate Functionality</h2></a>
+<p>Issue a deprecation if <code>integration: true</code> is not included in the specified
+options for the APIs listed below. This specifically includes specifying
+<code>unit: true</code>, <code>needs: []</code>, or specifying none of the &quot;test type options&quot;
+(<code>unit</code>, <code>needs</code>, or <code>integration</code> options) to the following <code>ember-qunit</code>
+and <code>ember-mocha</code> API's:</p>
+<ul>
+<li><code>ember-qunit</code>
+<ul>
+<li><code>moduleFor</code></li>
+<li><code>moduleForComponent</code></li>
+<li><code>moduleForModel</code></li>
+</ul>
+</li>
+<li><code>ember-mocha</code>
+<ul>
+<li><code>setupTest</code></li>
+<li><code>setupComponentTest</code></li>
+<li><code>setupModelTest</code></li>
+</ul>
+</li>
+</ul>
+<a class="header" href="0229-deprecate-testing-restricted-resolver.html#non-component-test-apis" id="non-component-test-apis"><h3>Non Component Test APIs</h3></a>
+<p>The migration path for <code>moduleFor</code>, <code>moduleForModel</code>, <code>setupTest</code>, and
+<code>setupModelTest</code> is very simple:</p>
+<pre><code class="language-js">// ember-qunit
+
+// before
+moduleFor('service:session');
+
+moduleFor('service:session', {
+  unit: true
+});
+
+moduleFor('service:session', {
+  needs: ['type:thing']
+});
+
+// after
+moduleFor('service:session', {
+  integration: true
+});
+</code></pre>
+<pre><code class="language-js">// ember-mocha
+
+// before
+describe('Session Service', function() {
+  setupTest('service:session');
+  
+  // ...snip...
+});
+
+describe('Session Service', function() {
+  setupTest('service:session', { unit: true });
+  
+  // ...snip...
+});
+
+describe('Session Service', function() {
+  setupTest('service:session', { needs: [] });
+  
+  // ...snip...
+});
+
+// after
+
+describe('Session Service', function() {
+  setupTest('service:session', { integration: true });
+  
+  // ...snip...
+});
+</code></pre>
+<p>The main change is adding <code>integration: true</code> to options (and removing <code>unit</code> or <code>needs</code>
+if present).</p>
+<a class="header" href="0229-deprecate-testing-restricted-resolver.html#component-test-apis" id="component-test-apis"><h3>Component Test APIs</h3></a>
+<p>Implicitly relying on &quot;unit test mode&quot; has been deprecated for quite some time
+(<a href="https://github.com/emberjs/ember-test-helpers/pull/38">introduced 2015-04-07</a>),
+so all consumers of <code>moduleForComponent</code> and <code>setupComponentTest</code> are specifying
+one of the &quot;test type options&quot; (<code>unit</code>, <code>needs</code>, or <code>integration</code>).</p>
+<p>This RFC proposes to deprecate completely using <code>unit</code> or <code>needs</code> options with
+<code>moduleForComponent</code> and <code>setupComponentTest</code>. The vast majority of component tests
+should be testing via <code>moduleForComponent</code> / <code>setupComponentTest</code> with the <code>integration: true</code>
+option set, but on some rare occaisions it is easier to use the &quot;unit test&quot; style is
+desired (e.g. non-rendering test) these tests should be migrated to using <code>moduleFor</code>
+/ <code>setupTest</code> directly.</p>
+<pre><code class="language-js">// ember-qunit
+
+// before
+moduleForComponent('display-page', {
+  unit: true
+});
+
+moduleForComponent('display-page', {
+  needs: ['type:thing']
+});
+
+// after
+
+moduleFor('component:display-page', {
+  integration: true
+});
+</code></pre>
+<pre><code class="language-js">// ember-mocha
+describe('DisplayPageComponent', function() {
+  setupComponentTest('display-page', { unit: true });
+  
+  // ...snip...
+});
+
+describe('DisplayPageComponent', function() {
+  setupComponentTest('display-page', { needs: [] });
+  
+  // ...snip...
+});
+
+// after
+
+describe('DisplayPageComponent', function() {
+  setupTest('component:display-page', { integration: true });
+  
+  // ...snip...
+});
+</code></pre>
+<a class="header" href="0229-deprecate-testing-restricted-resolver.html#ecosystem-updates" id="ecosystem-updates"><h2>Ecosystem Updates</h2></a>
+<p>The blueprints in all official projects (and any provided by popular
+addons) will need to be updated to avoid triggering a deprecation.</p>
+<p>This includes:</p>
+<ul>
+<li><code>ember-source</code></li>
+<li><code>ember-data</code></li>
+<li><code>ember-cli-legacy-blueprints</code></li>
+<li>Others?</li>
+</ul>
+<a class="header" href="0229-deprecate-testing-restricted-resolver.html#remove-deprecated-unit--needs-options" id="remove-deprecated-unit--needs-options"><h2>Remove Deprecated <code>unit</code> / <code>needs</code> Options</h2></a>
+<p>Once the changes from this RFC are made, we will be able to remove
+support for the <code>unit</code> and <code>needs</code> options from <code>ember-test-helpers</code>,
+<code>ember-qunit</code>, and <code>ember-mocha</code>. This would be a &quot;semver major&quot;
+version bump for all of the related libraries to properly signal that
+functionality was removed.</p>
+<p>Once the underlying libraries have done a major version bump, we will
+introduce a deprecation for using the <code>integration</code> option. This
+deprecation would be issued once for the entire test suite (not once
+per test module which has <code>integration</code> passed in). We will also update
+the blueprints to remove the extraneous <code>integration</code> option.</p>
+<a class="header" href="0229-deprecate-testing-restricted-resolver.html#how-we-teach-this" id="how-we-teach-this"><h1>How We Teach This</h1></a>
+<p>This RFC would require an audit of the main Ember.js guides to ensure
+that all usages of the APIs in question continue to be non-deprecated
+valid usages.</p>
+<a class="header" href="0229-deprecate-testing-restricted-resolver.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<a class="header" href="0229-deprecate-testing-restricted-resolver.html#churn" id="churn"><h2>Churn</h2></a>
+<p>One drawback to this deprecation proposal is the churn associated with
+modifying the options passed for each test. This can almost certainly
+be mitigated by providing a codemod to enable automated updating.</p>
+<p>There are additional changes being entertained that would require changes
+for the default testing blueprints, we should ensure that these RFCs do not
+conflict or cause undue churn/pain.</p>
+<a class="header" href="0229-deprecate-testing-restricted-resolver.html#integration-true-confusion" id="integration-true-confusion"><h2><code>integration: true</code> Confusion</h2></a>
+<p>Prior to this deprecation we had essentially 4 options for testing components:</p>
+<ul>
+<li><code>moduleFor(..., { unit: true })</code></li>
+<li><code>moduleFor(..., { integration: true })</code></li>
+<li><code>moduleForComponent(..., { unit: true })</code></li>
+<li><code>moduleForComponent(..., { integatrion: true })</code></li>
+</ul>
+<p>With this RFC the option <code>integration</code> no longer provides value (we aren't talking
+about &quot;unit&quot; vs &quot;integration&quot; tests), and may be seen as confusing.</p>
+<p>I believe that this concern is mitigated by the ultimate removal of the <code>integration</code>
+(it is only required in order to allow us a path forward that is compatible with
+todays ember-qunit/ember-mocha versions).</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0226-named-blocks.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0232-simplify-qunit-testing-api.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0226-named-blocks.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0232-simplify-qunit-testing-api.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

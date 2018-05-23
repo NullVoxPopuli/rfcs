@@ -1,0 +1,483 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0050-improved-actions - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html" class="active"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2014-05-06</li>
+<li>RFC PR: https://github.com/emberjs/rfcs/pull/50</li>
+<li>Ember Issue: (leave this empty)</li>
+</ul>
+<a class="header" href="0050-improved-actions.html#summary" id="summary"><h1>Summary</h1></a>
+<p>The <code>{{action</code> helper should be improved to allow for the creation of
+closed over functions that can be passed between components and passed
+the action handlers.</p>
+<p>See <a href="http://emberjs.jsbin.com/rwjblue/466/edit?html,js,output">this example JSBin from @rwjblue</a>
+for a demonstration of some of these ideas.</p>
+<a class="header" href="0050-improved-actions.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>Block params allow data to be passed from one component to a downstream
+component, however there is currently no way to pass a callback to a downstream
+component.</p>
+<a class="header" href="0050-improved-actions.html#detailed-design" id="detailed-design"><h1>Detailed design</h1></a>
+<p>First, the existing uses of <code>{{action</code> will be maintained. An action can be attached to an
+element by using the helper in element space:</p>
+<pre><code class="language-hbs">{{! app/index/template.hbs }}
+{{! submit action will hit immediate parent }}
+&lt;button {{action &quot;submit&quot;}}&gt;Save&lt;/button&gt;
+</code></pre>
+<p>An action can be passed to a component as a string:</p>
+<pre><code class="language-hbs">{{! app/index/template.hbs }}
+{{my-button on-click=&quot;submit&quot;}}
+</code></pre>
+<pre><code class="language-js">// app/components/my-button/component.js
+export default Ember.Component.extend({
+  click: function(){
+    this.sendAction('on-click');
+  }
+});
+</code></pre>
+<p>Or a default action can be passed:</p>
+<pre><code class="language-hbs">{{! app/index/template.hbs }}
+{{my-button action=&quot;submit&quot;}}
+</code></pre>
+<pre><code class="language-js">// app/components/my-button/component.js
+export default Ember.Component.extend({
+  click: function(){
+    this.sendAction();
+  }
+});
+</code></pre>
+<p>In all these cases, <code>submit</code> is called on the parent context relative to the scope <code>action</code> is
+attached in. The value <code>&quot;submit&quot;</code> is attached to the component in the last two as
+<code>this.attrs.on-click</code> or <code>this.attrs.action</code>, although it is not directly used.</p>
+<a class="header" href="0050-improved-actions.html#creating-closure-actions" id="creating-closure-actions"><h3>Creating closure actions</h3></a>
+<p>Closure actions are created in a template and may be used in all places a string
+action name can be used. For example, this current functionality:</p>
+<pre><code class="language-hbs">&lt;button {{action &quot;submit&quot; on=&quot;click&quot;}}&gt;Save&lt;/button&gt;
+</code></pre>
+<p>Would be written using a closure action as:</p>
+<pre><code class="language-hbs">&lt;button {{action (action &quot;submit&quot;) on=&quot;click&quot;}}&gt;Save&lt;/button&gt;
+</code></pre>
+<p>The functionality is exactly the same as the string-based action example.
+How does that happen?</p>
+<ul>
+<li><code>(action &quot;submit&quot;)</code> reads the <code>submit</code> function off the current scope's
+<code>actions.submit</code> property.</li>
+<li>It then creates a closure to call that function.</li>
+<li><code>{{action</code> receives that function as a param. It registers a listener (in
+this case on click) and when fired calls the closure function.</li>
+</ul>
+<p>Consider usage on the calling side. With the current string-based actions:</p>
+<pre><code class="language-hbs">{{my-component action=&quot;submit&quot;}}
+</code></pre>
+<pre><code class="language-js">export default Ember.Component.extend({
+  click: function(){
+    this.sendAction(); // submit action, legacy
+    // this.attrs.action is a string
+    this.attrs.action; // =&gt; &quot;submit&quot;
+  }
+});
+</code></pre>
+<p>With closure actions, the action is available to call directly. The <code>(action</code> helper
+wraps the action in the current context and returns a function:</p>
+<pre><code class="language-hbs">{{my-component action=(action &quot;submit&quot;)}}
+</code></pre>
+<pre><code class="language-js">export default Ember.Component.extend({
+  click: function(){
+    this.sendAction(); // submit action, legacy
+    // this.attrs.action is a function
+    this.attrs.action(); // submit action, new style
+  }
+});
+</code></pre>
+<p>A more complete example follows, with a controller for context:</p>
+<pre><code class="language-js">// app/index/controller.js
+export default Ember.Controller.extend({
+  actions: {
+    submit: function(){
+      // some submission task
+    }
+  }
+});
+</code></pre>
+<pre><code class="language-hbs">{{! app/index/template.hbs }}
+{{my-button save=(action 'submit')}}
+</code></pre>
+<pre><code class="language-js">// app/components/my-button/component.js
+export default Ember.Component.extend({
+  click: function(){
+    this.attrs.save();
+    // for backwards compat, you may also this.sendAction('save');
+  }
+});
+</code></pre>
+<a class="header" href="0050-improved-actions.html#hole-punching-with-a-closure-based-action" id="hole-punching-with-a-closure-based-action"><h3>Hole punching with a closure-based action</h3></a>
+<p>The current system of action bubbling falls down quickly when you want to pass a message through multiple
+levels of components. A closure based action system helps address this.</p>
+<p>Instead of relying on bubbling, a closure action wraps an action from the current context's
+<code>actions</code> hash in a function that will call it on that context. For example:</p>
+<pre><code class="language-hbs">{{! app/index/template.hbs }}
+{{my-form submit=(action 'submit')}}
+</code></pre>
+<pre><code class="language-hbs">{{! app/components/my-form/template.hbs }}
+{{my-button on-click=attrs.submit}}
+</code></pre>
+<pre><code class="language-hbs">{{! app/components/my-button/template.hbs }}
+&lt;button&gt;&lt;/button&gt;
+</code></pre>
+<pre><code class="language-js">// app/components/my-button/component.js
+export default Ember.Component.extend({
+  click: function(){
+    this.attrs['on-click']();
+    // for backwards compat, you may also this.sendAction();
+  }
+});
+</code></pre>
+<p>A closure action can also be called by an action handler:</p>
+<pre><code class="language-hbs">{{! app/index/template.hbs }}
+{{my-form submit=(action 'submit')}}
+</code></pre>
+<pre><code class="language-hbs">{{! app/components/my-form/template.hbs }}
+{{my-button on-click=submit}}
+</code></pre>
+<pre><code class="language-hbs">{{! app/components/my-button/template.hbs }}
+&lt;button {{action on-click}}&gt;&lt;/button&gt;
+</code></pre>
+<p>Lastly, closure actions allow for yielding an action to a block. For example:</p>
+<pre><code class="language-hbs">{{! app/index/template.hbs }}
+{{my-form save=(action 'submit') as |submit reset|}}
+  &lt;button {{action submit}}&gt;Save&lt;/button&gt;
+  {{! ^ goes to my-form's save attr property, which
+        is the submit action on the outer scope }}
+  &lt;button {{action reset}}&gt;Reset&lt;/button&gt;
+  {{! ^ goes to my-form }}
+  &lt;button {{action &quot;cancel&quot;}}&gt;Cancel&lt;/button&gt;
+  {{! ^ goes to outer scope }}
+{{/my-form}}
+</code></pre>
+<pre><code class="language-hbs">{{! app/components/my-form/template.hbs }}
+{{yield attrs.save (action 'reset')}}
+</code></pre>
+<pre><code class="language-js">// app/components/my-form/component.js
+export default Ember.Component.extend({
+  actions: {
+    reset: function(){
+      // rollback
+    }
+  }
+});
+</code></pre>
+<a class="header" href="0050-improved-actions.html#currying-arguments-with-a-closure-based-action" id="currying-arguments-with-a-closure-based-action"><h3>Currying arguments with a closure-based action</h3></a>
+<p>With string-based actions, an argument can be passed to the called function. For
+example:</p>
+<pre><code class="language-hbs">&lt;button {{action &quot;save&quot; model}}&gt;&lt;/button&gt;
+</code></pre>
+<pre><code class="language-js">export default Ember.Component.extend({
+  actions: {
+    save: function(model) {
+      model.save();
+    }
+  }
+});
+</code></pre>
+<p>Closure actions allow for another opportunity to curry arguments. Arguments
+set by an element action helper simply add to the end of the arguments list:</p>
+<pre><code class="language-hbs">{{! app/index/template.hbs }}
+{{my-component save=(action &quot;save&quot; model)}}
+</code></pre>
+<pre><code class="language-hbs">{{! app/components/my-component/template.hbs }}
+&lt;button {{action attrs.save prefs}}&gt;&lt;/button&gt;
+</code></pre>
+<pre><code class="language-js">// app/index/controller.js
+export default Ember.Controller.extend({
+  actions: {
+    save: function(model, prefs) {
+      model.set('prefs', prefs);
+      model.save();
+    }
+  }
+});
+</code></pre>
+<p>Multiple arguments can be curried or set at any level. If an action is called ala
+<code>this.attrs.save(additionalPrefs)</code>, that final argument is added
+to the end of the arguments list.</p>
+<a class="header" href="0050-improved-actions.html#re-targeting-the-scope-of-a-closure-action" id="re-targeting-the-scope-of-a-closure-action"><h3>Re-targeting the scope of a closure action</h3></a>
+<p>The <code>target</code> option may be provided to specify what scope the closure is called
+with. For example:</p>
+<pre><code class="language-hbs">{{! app/index/template.hbs }}
+&lt;my-component on-click={{action &quot;save&quot; model target=someComponentInstance}}&gt;&lt;/my-component&gt;
+</code></pre>
+<p>Much like with the <code>{{action</code> helper, passing both a
+target and a bound argument will throw.</p>
+<p>The default target for a closure is always the current scope.</p>
+<ul>
+<li>When routable components land, the current component will be the default target.</li>
+<li>If a controller is the current scope, that controller will also be a default target.</li>
+<li>A route will <em>never</em> be a closure action target. String actions will continue
+to have their current behavior of bubbling to the route.</li>
+</ul>
+<p>A later proposal will determine how actions on a route are passed to a routable
+component.</p>
+<a class="header" href="0050-improved-actions.html#return-values-of-a-closure-action" id="return-values-of-a-closure-action"><h3>Return values of a closure action</h3></a>
+<p>Closure actions return the returned value of their called function. For example:</p>
+<pre><code class="language-js">// app/index/controller.js
+export default Ember.Controller.extend({
+  actions: {
+    submit: function(){
+      return 'great success';
+    }
+  }
+});
+</code></pre>
+<pre><code class="language-hbs">{{! app/index/template.hbs }}
+{{my-button save=(action 'submit')}}
+</code></pre>
+<pre><code class="language-js">// app/components/my-button/component.js
+export default Ember.Component.extend({
+  click: function(){
+    var result = this.attrs.save();
+    // for backwards compat, you may also this.sendAction('save') but
+    // in that case you do not have access to the return value.
+    result; // =&gt; 'great success'
+  }
+});
+</code></pre>
+<a class="header" href="0050-improved-actions.html#actionable-object-with-invoke" id="actionable-object-with-invoke"><h3>Actionable object with INVOKE</h3></a>
+<p><code>{{mut</code> is a new helper in Ember.js. It is not yet widely used in Ember apps, but its
+interaction with the action helper is important to align early on.</p>
+<p>Mut objects represent a modifiable value. For example with tag-based components:</p>
+<pre><code class="language-hbs">{{! app/index/template.hbs }}
+&lt;my-form name={{mut model.name}}&gt;&lt;/my-component&gt;
+</code></pre>
+<p>This will cause a mutable property to be added to <code>attrs</code>. To update the name,
+<code>this.attrs.name.update(newName)</code> can be called. The value can be read (in
+JavaScript) as <code>this.attrs.name.value</code>.</p>
+<p>Often, a mutable value will be set as the result of an action. Mutable values
+can be called actionable. For example:</p>
+<pre><code class="language-hbs">{{! app/index/template.hbs }}
+&lt;my-form submit={{action (mut model.name)}}&gt;&lt;/my-component&gt;
+</code></pre>
+<pre><code class="language-js">// app/components/my-form/component.js
+export default Ember.Component.extend({
+  click() {
+    const value = this.get('newValue');
+    this.attrs.submit(value);
+  }
+});
+</code></pre>
+<p>What is happening here?</p>
+<ul>
+<li><code>(mut model.name)</code> creates a mutable object for the <code>model.name</code> value.</li>
+<li><code>{{action (mut model.name)}}</code> tests the passed object for a property with the
+key <code>INVOKE</code> (an internal symbol). This value is a function that updates the mutable value.</li>
+<li>Action wraps the calling of the <code>INVOKE</code> property in a function like any
+other action, and passes it to the <code>attrs</code>.</li>
+</ul>
+<p>Thus, when the action is called the argument is passed to <code>INVOKE</code> which uses
+it to update the mutable value. This is a simple way to enable the &quot;actions up&quot;
+part of component-driven app architecture without ceremony around changing state.</p>
+<a class="header" href="0050-improved-actions.html#plucking-a-property-from-the-first-argument-with-value" id="plucking-a-property-from-the-first-argument-with-value"><h3>Plucking a property from the first argument with value</h3></a>
+<p>A component (or when Ember supports this better, an element) may emit an event
+object and pass it to an action. In this case the value will need to be read off
+the event before it can be passed to the action function. For example:</p>
+<pre><code class="language-hbs">{{input input=(action 'setName')}}
+</code></pre>
+<pre><code class="language-js">export default Ember.Component.extend({
+  actions: {
+    setName(event) {
+      this.get('model').set('name', event.target.value);
+    }
+  }
+});
+</code></pre>
+<p>The action serves only to read the value off of the event. Here the <code>value</code>
+option can be used as sugar to accomplish the same task:</p>
+<pre><code class="language-hbs">{{input input=(action (mut model.name) value=&quot;target.value&quot;)}}
+</code></pre>
+<p>The <code>value</code> path is read off of whatever the first argument to the actions is.</p>
+<ul>
+<li><code>(mut model.name)</code> becomes a function, our action</li>
+<li>When the <code>input</code> event fires, the function is called with the event as the
+first argument.</li>
+<li>The first argument is re-written to the value of <code>event.target.value</code></li>
+<li>The function wrapping the <code>mut</code> is set</li>
+<li>The <code>mut</code> is updated.</li>
+</ul>
+<p>This option is designed to align with future plans for <code>on-some-event</code> handlers
+for html elements.</p>
+<a class="header" href="0050-improved-actions.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<p>Currently <code>{{action</code> is only used in an element space:</p>
+<pre><code class="language-hbs">&lt;button {{action &quot;booyah&quot;}}&gt;Fire&lt;/button&gt;
+</code></pre>
+<p>The closure usage is a new, perhaps <code>action</code> is not the right word. However the two
+behaviors are pretty similar in their conceptual behavior.</p>
+<ul>
+<li><code>{{action</code> in element space attaches an event listener that fires a bubbling
+action.</li>
+<li><code>(action</code> closes over an action from the current scope so it can be attached
+via <code>{{action</code> or passed around and called later.</li>
+</ul>
+<p>This confusion should go away as we move to an <code>on-click</code> event listener pattern,
+ala <code>&lt;button on-click={{someClosureAction}}&gt;</code>.</p>
+<p>Additionally, there may be developers who still have <code>{{action someActionName}}</code> instead
+of the quoted version. This is long deprecated, but these apps may see some
+unexpected behavior.</p>
+<p>Also additionally, some emergent behaviors exist that may not be desired as real APIs. For example,
+an action being a function means it can be passed directly to event handlers:</p>
+<pre><code class="language-hbs">{{my-component mouseEnter=(action 'didEnter')}}
+</code></pre>
+<p>The actual API we plan for 2.0 (ideally) is:</p>
+<pre><code class="language-hbs">{{my-component on-mouse-enter=(action 'didEnter')}}
+</code></pre>
+<p>These behaviors should not be documented, and we should make clear that they rely on behavior that
+will be deprecated. A mitigating move is to <em>not</em> proxy actions through to
+<code>get</code> on a component, and only allow them to be accessed on <code>attrs</code>.</p>
+<p>Lastly, default actions may look a bit confusing:</p>
+<pre><code class="language-hbs">{{my-button action=(action 'action')}}
+{{! ^ this is valid }}
+</code></pre>
+<p>But the quoted string syntax is not being removed.</p>
+<a class="header" href="0050-improved-actions.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<p>There is maybe a thing called <code>ref</code> that solves this same problem. There has also
+been discussion of accessing properties on <code>outlet</code> across all child components
+and their layouts, which would allow easy targetting of the top level component.</p>
+<a class="header" href="0050-improved-actions.html#unresolved-questions" id="unresolved-questions"><h1>Unresolved questions</h1></a>
+<p>Interaction with <code>ref</code> or <code>outlet.</code> if any..</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0046-registry-reform.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0053-helpers.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0046-registry-reform.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0053-helpers.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

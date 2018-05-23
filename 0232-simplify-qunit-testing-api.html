@@ -1,0 +1,537 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0232-simplify-qunit-testing-api - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html" class="active"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>Start Date: 2017-06-13</li>
+<li>RFC PR: <a href="https://github.com/emberjs/rfcs/pull/232">emberjs/rfcs#232</a></li>
+<li>Ember Issue: (leave this empty)</li>
+</ul>
+<a class="header" href="0232-simplify-qunit-testing-api.html#summary" id="summary"><h1>Summary</h1></a>
+<p>In order to embrace newer features being added by QUnit (our chosen default
+testing framework), we need to reduce the brittle coupling between <code>ember-qunit</code>
+and QUnit itself.</p>
+<p>This RFC proposes a new testing syntax, that will expose QUnit API directly while
+also making tests much easier to understand.</p>
+<a class="header" href="0232-simplify-qunit-testing-api.html#motivation" id="motivation"><h1>Motivation</h1></a>
+<p>QUnit feature development has been accelerating since the ramp up to QUnit 2.0.
+A number of new features have been added that make testing our applications
+much easier, but the current structure of <code>ember-qunit</code> impedes our ability
+to take advantage of some of these features.</p>
+<p>Developers are often confused by our <code>moduleFor*</code> APIs, questions like these
+are very common:</p>
+<ul>
+<li>What &quot;magic&quot; is <code>ember-qunit</code> doing?</li>
+<li>Where are the lines between QUnit and ember-qunit?</li>
+<li>How can I use QUnit for plain JS objects?</li>
+</ul>
+<p>The way that <code>ember-qunit</code> wraps QUnit functionality makes the division
+of responsiblity much harder to understand, and leads folks to believe that there
+is much more going on in <code>ember-qunit</code> than there is. It should be much clearer
+what <code>ember-qunit</code> is responsible for and what we rely on QUnit for.</p>
+<p>This RFC also aims to remove a number of custom testing only APIs that exist today
+(largely because the container/registry system was completely private when the
+current tools were authored). Instead of things like <code>this.subject</code>, <code>this.register</code>,
+<code>this.inject</code>, or <code>this.lookup</code> we can rely on the standard way of performing these
+functions in Ember via the owner API.</p>
+<p>When this RFC has been implemented and rolled out, these questions should all be
+addressed and our testing system will both: embrace QUnit much more <strong>and</strong>
+be much more framework agnostic, all the while dropping custom testing only APIs
+in favor of public APIs that work across tests and app code.</p>
+<p>Sounds like a neat trick, huh?</p>
+<a class="header" href="0232-simplify-qunit-testing-api.html#detailed-design" id="detailed-design"><h1>Detailed design</h1></a>
+<p>The primary change being proposed in this RFC is to migrate to using the QUnit
+nested module syntax, and update our custom setup/teardown into a more functional
+API.</p>
+<p>Lets look at a basic example:</p>
+<pre><code class="language-js">// **** before ****
+
+import { moduleForComponent, test } from 'ember-qunit';
+import hbs from 'htmlbars-inline-precompile';
+
+moduleForComponent('x-foo', {
+  integration: true
+});
+
+test('renders', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs`{{pretty-color name=&quot;red&quot;}}`);
+
+  assert.equal(this.$('.color-name').text(), 'red');
+});
+
+// **** after ****
+
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import hbs from 'htmlbars-inline-precompile';
+
+module('x-foo', function(hooks) {
+  setupRenderingTest(hooks);
+
+  test('renders', async function(assert) {
+    assert.expect(1);
+
+    await this.render(hbs`{{pretty-color name=&quot;red&quot;}}`);
+
+    assert.equal(this.$('.color-name').text(), 'red');
+  });
+});
+</code></pre>
+<p>As you can see, this proposal leverages QUnit's nested module API in a way that
+makes it much clearer what is going on. It is quite obvious what QUnit is doing
+(acting like a general testing framework) and what <code>ember-qunit</code> is doing
+(setting up rendering functionality).</p>
+<p>This API was heavily influenced by the work that
+<a href="https://github.com/Turbo87">Tobias Bieniek</a> did in
+<a href="https://github.com/emberjs/ember-mocha/pull/84">emberjs/ember-mocha#84</a>.</p>
+<a class="header" href="0232-simplify-qunit-testing-api.html#qunit-nested-modules-api" id="qunit-nested-modules-api"><h2>QUnit Nested Modules API</h2></a>
+<p>Even though it is not a proposal of this RFC, the QUnit nested module
+syntax may seem foreign to some folks so lets briefly review.</p>
+<p>With nested modules, a normal 1.x QUnit module setup changes from:</p>
+<pre><code class="language-js">QUnit.module('some description', {
+  before() {},
+  beforeEach() {},
+  afterEach() {},
+  after() {}
+});
+
+QUnit.test('it blends', function(assert) {
+  assert.ok(true, 'of course!');
+});
+</code></pre>
+<p>Into:</p>
+<pre><code class="language-js">QUnit.module('some description', function(hooks) {
+
+  hooks.before(() =&gt; {});
+  hooks.beforeEach(() =&gt; {});
+  hooks.afterEach(() =&gt; {});
+  hooks.after(() =&gt; {});
+
+  QUnit.test('it blends', function(assert) {
+    assert.ok(true, 'of course!');
+  });
+});
+</code></pre>
+<p>This makes it much simpler to support multiple <code>before</code>, <code>beforeEach</code>, <code>afterEach</code>,
+and <code>after</code> callbacks, and it also allows for arbitrary nesting of modules.</p>
+<p>You can read more about QUnit nested modules
+<a href="http://api.qunitjs.com/QUnit/module#nested-module-nested-hooks-">here</a>. The new APIs
+proposed in this RFC expect to be leveraging nested modules.</p>
+<a class="header" href="0232-simplify-qunit-testing-api.html#new-apis" id="new-apis"><h2>New APIs</h2></a>
+<p>The following new methods will be exposed from <code>ember-qunit</code>:</p>
+<pre><code class="language-ts">interface QUnitModuleHooks {
+  before(callback: Function): void;
+  beforeEach(callback: Function): void;
+  afterEach(callback: Function): void;
+  after(callback: Function): void;
+}
+
+declare module 'ember-qunit' {
+  // ...snip... 
+  export function setupTest(hooks: QUnitModuleHooks): void;
+  export function setupRenderingTest(hooks: QUnitModuleHooks): void;
+}
+</code></pre>
+<a class="header" href="0232-simplify-qunit-testing-api.html#setuptest" id="setuptest"><h3><code>setupTest</code></h3></a>
+<p>This function will:</p>
+<ul>
+<li>invoke <code>ember-test-helper</code>s <code>setContext</code> with the tests context</li>
+<li>create an owner object and set it on the test context (e.g. <code>this.owner</code>)</li>
+<li>setup <code>this.set</code>, <code>this.setProperties</code>, <code>this.get</code>, and <code>this.getProperties</code> to
+the test context</li>
+<li>setup <code>this.pauseTest</code> and <code>this.resumeTest</code> methods to allow easy pausing/resuming
+of tests</li>
+</ul>
+<a class="header" href="0232-simplify-qunit-testing-api.html#setuprenderingtest" id="setuprenderingtest"><h3><code>setupRenderingTest</code></h3></a>
+<p>This function will:</p>
+<ul>
+<li>run the <code>setupTest</code> implementation</li>
+<li>setup <code>this.$</code> method to run jQuery selectors rooted to the testing container</li>
+<li>setup a getter for <code>this.element</code> which returns the DOM element representing
+the element that was rendered via <code>this.render</code></li>
+<li>setup Ember's renderer and create a <code>this.render</code> method which accepts a
+compiled template to render and returns a promise which resolves once rendering
+is completed</li>
+<li>setup <code>this.clearRender</code> method which clears any previously rendered DOM (
+also used during cleanup)</li>
+</ul>
+<p>When invoked, <code>this.render</code> will render the provided template and return a
+promise that resolves when rendering is completed.</p>
+<a class="header" href="0232-simplify-qunit-testing-api.html#changes-from-current-system" id="changes-from-current-system"><h2>Changes from Current System</h2></a>
+<p>Here is a brief list of the more important but possibly understated changes
+being proposed here:</p>
+<ul>
+<li>the various setup methods no longer need to know the name of the object under test</li>
+<li><code>this.subject</code> is removed in favor of using the standard public API for looking up
+and creating instances (<code>this.owner.lookup</code> and <code>this.owner.factoryFor</code>)</li>
+<li><code>this.inject</code> is removed in favor of using <code>this.owner.lookup</code> directly</li>
+<li><code>this.register</code> is removed in favor of using <code>this.owner.register</code> directly</li>
+<li><code>this.render</code> will begin being asynchronous to allow for further iteration in the
+underlying rendering engines ability to speed up render times (by yielding back
+to the browser and not blocking the main thread)</li>
+<li><code>this.pauseTest</code> and <code>this.resumeTest</code> are being added</li>
+<li><code>this.element</code> is being introduced as a public API for DOM assertions in a jQuery-less
+environment</li>
+<li>QUnit nested modules are required</li>
+</ul>
+<p>These changes generally do not affect our ability to write a codemod to aide in the migration.</p>
+<a class="header" href="0232-simplify-qunit-testing-api.html#migration-examples" id="migration-examples"><h2>Migration Examples</h2></a>
+<p>The migration can likely be largely automated (following the
+<a href="https://github.com/Turbo87/ember-mocha-codemods">excellent codemod</a> that
+<a href="https://github.com/turbo87">Tobias Bieniek</a> wrote for a similar <code>ember-mocha</code>
+the transition), but it is still useful to review concrete scenarios
+of tests before and after this RFC is implemented.</p>
+<a class="header" href="0232-simplify-qunit-testing-api.html#component--helper-integration-test" id="component--helper-integration-test"><h3>Component / Helper Integration Test</h3></a>
+<pre><code class="language-js">// **** before ****
+
+import { moduleForComponent, test } from 'ember-qunit';
+import hbs from 'htmlbars-inline-precompile';
+
+moduleForComponent('x-foo', {
+  integration: true
+});
+
+test('renders', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs`{{pretty-color name=&quot;red&quot;}}`);
+
+  assert.equal(this.$('.color-name').text(), 'red');
+});
+
+// **** after ****
+
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import hbs from 'htmlbars-inline-precompile';
+
+module('x-foo', function(hooks) {
+  setupRenderingTest(hooks);
+
+  test('renders', async function(assert) {
+    assert.expect(1);
+
+    await this.render(hbs`{{pretty-color name=&quot;red&quot;}}`);
+
+    assert.equal(this.$('.color-name').text(), 'red');
+  });
+});
+</code></pre>
+<a class="header" href="0232-simplify-qunit-testing-api.html#component-unit-test" id="component-unit-test"><h3>Component Unit Test</h3></a>
+<pre><code class="language-js">// **** before ****
+
+import { moduleForComponent, test } from 'ember-qunit';
+
+moduleForComponent('x-foo', {
+  unit: true
+});
+
+test('computes properly', function(assert) {
+  assert.expect(1);
+
+  let subject = this.subject({
+    name: 'something'
+  });
+
+  let result = subject.get('someCP');
+  assert.equal(result, 'expected value');
+});
+
+// **** after ****
+
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
+
+module('x-foo', function(hooks) {
+  setupTest(hooks);
+
+  test('computed properly', function(assert) {
+    assert.expect(1);
+
+    let Factory = this.owner.factoryFor('component:x-foo');
+    let subject = Factory.create({
+      name: 'something'
+    });
+
+    let result = subject.get('someCP');
+    assert.equal(result, 'expected value');
+  });
+});
+</code></pre>
+<a class="header" href="0232-simplify-qunit-testing-api.html#serviceroutecontroller-test" id="serviceroutecontroller-test"><h3>Service/Route/Controller Test</h3></a>
+<pre><code class="language-js">// **** before ****
+
+import { moduleFor, test } from 'ember-qunit';
+
+moduleFor('service:flash', 'Unit | Service | Flash', {
+  unit: true
+});
+
+test('should allow messages to be queued', function (assert) {
+  assert.expect(4);
+  
+  let subject = this.subject();
+  
+  subject.show('some message here');
+  
+  let messages = subject.messages;
+  
+  assert.deepEqual(messages, [
+    'some message here'
+  ]);
+});
+
+// **** after ****
+
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
+
+module('Unit | Service | Flash', function(hooks) {
+  setupTest(hooks);
+  
+  test('should allow messages to be queued', function (assert) {
+    assert.expect(4);
+  
+    let subject = this.owner.lookup('service:flash');
+  
+    subject.show('some message here');
+  
+    let messages = subject.messages;
+  
+    assert.deepEqual(messages, [
+      'some message here'
+    ]);
+  });
+});
+
+</code></pre>
+<a class="header" href="0232-simplify-qunit-testing-api.html#ecosystem-updates" id="ecosystem-updates"><h2>Ecosystem Updates</h2></a>
+<p>The blueprints in all official projects (and any provided by popular addons)
+will need to be updated to detect <code>ember-qunit</code> version and emit the correct
+output.</p>
+<p>This includes:</p>
+<ul>
+<li>ember-source</li>
+<li>ember-data</li>
+<li>ember-cli-legacy-blueprints</li>
+<li>others?</li>
+</ul>
+<p>This exact process was done for <code>ember-mocha</code>'s migration, making this a well
+trodden path.</p>
+<a class="header" href="0232-simplify-qunit-testing-api.html#update-guides" id="update-guides"><h2>Update Guides</h2></a>
+<p>The guides includes a section for testing, this section needs to be reviewed
+and revamped to match the proposal here.</p>
+<a class="header" href="0232-simplify-qunit-testing-api.html#deprecate-older-apis" id="deprecate-older-apis"><h2>Deprecate older APIs</h2></a>
+<p>Once this RFC is implemented, the older APIs will be deprecated and retained
+for a full LTS cycle (assuming speedy landing, this would mean the older APIs
+would be deprecated around Ember 2.20). After that timeframe, the older APIs
+will be removed from <code>ember-qunit</code> and <code>ember-test-helpers</code> and they will
+release with SemVer major version bumps.</p>
+<p>Note that while the older <code>moduleFor</code> and <code>moduleForComponent</code> APIs will be
+deprecated, they will still be possible to use since the host application can
+pin to a version of <code>ember-qunit</code> / <code>ember-test-helpers</code> that support its own
+usage. This is a large benefit of migrating these testing features away from
+<code>Ember</code>'s internals, and into the addon space.</p>
+<a class="header" href="0232-simplify-qunit-testing-api.html#relationship-to-grand-testing-unification" id="relationship-to-grand-testing-unification"><h2>Relationship to &quot;Grand Testing Unification&quot;</h2></a>
+<p>This RFC is a small stepping stone towards the future where all types of tests
+share a similar API. The API proposed here is much easier to extend to provide
+the functionality that is required for <a href="https://github.com/emberjs/rfcs/pull/119">emberjs/rfcs#119</a>.</p>
+<a class="header" href="0232-simplify-qunit-testing-api.html#how-we-teach-this" id="how-we-teach-this"><h1>How We Teach This</h1></a>
+<p>This change requires updates to the API documentation of <code>ember-qunit</code> and the
+main Ember guides' testing section. The changes are largely intended to reduce
+confusion, making it easier to teach and understand testing in Ember.</p>
+<a class="header" href="0232-simplify-qunit-testing-api.html#drawbacks" id="drawbacks"><h1>Drawbacks</h1></a>
+<a class="header" href="0232-simplify-qunit-testing-api.html#churn" id="churn"><h2>Churn</h2></a>
+<p>As mentioned in <a href="https://github.com/emberjs/rfcs/pull/229">emberjs/rfcs#229</a>, test
+related churn is quite painful and annoying. In order to maintain the general
+goodwill of folks, we must ensure that we avoid needless churn.</p>
+<p>This RFC should be implemented in conjunction with
+<a href="https://github.com/emberjs/rfcs/pull/229">emberjs/rfcs#229</a> so that we can avoid
+multiple back to back changes in the blueprints.</p>
+<a class="header" href="0232-simplify-qunit-testing-api.html#a-hrefhttpsgithubcomqunitjsqunitissues977qunitjsqunit977a" id="a-hrefhttpsgithubcomqunitjsqunitissues977qunitjsqunit977a"><h2><a href="https://github.com/qunitjs/qunit/issues/977">qunitjs/qunit#977</a></h2></a>
+<p>Until very recently, the QUnit nested module API was only able to allow a single
+callback for each of the hooks per-nesting level. This means that the proposal in
+this RFC (which requires the hooks to be setup by <code>ember-qunit</code>) would disallow
+user-land <code>beforeEach</code>/<code>afterEach</code> hooks to be setup.</p>
+<p>The work around is &quot;simple&quot; (if somewhat annoying), which is to &quot;just nest another
+level&quot;. The good news is that <a href="https://github.com/trentwillis">Trent Willis</a> fixed
+the underlying problem in <a href="https://github.com/qunitjs/qunit/pull/1188">qunitjs/qunit#1188</a>,
+which should be released as 2.3.4 well before this RFC is merged.</p>
+<a class="header" href="0232-simplify-qunit-testing-api.html#alternatives" id="alternatives"><h1>Alternatives</h1></a>
+<p>The simplest alternative is to do nothing. This would loose all of the positive
+benefits mentioned in this RFC, but should still be considered a possibility...</p>
+<a class="header" href="0232-simplify-qunit-testing-api.html#unanswered-questions" id="unanswered-questions"><h1>Unanswered Questions</h1></a>
+<a class="header" href="0232-simplify-qunit-testing-api.html#hooks-argument" id="hooks-argument"><h2><code>hooks</code> argument</h2></a>
+<p>A few folks (e.g. <a href="https://github.com/ebryn">@ebryn</a> and <a href="https://github.com/stefanpenner">@stefanpenner</a>)
+have approached me with concerns around the <code>hooks</code> argument I have mentioned/used here. The concerns
+are generally an initial reaction to the QUnit nested modules API in general and not directly related
+to this RFC (other than it highlighting a new feature that they haven't used before).</p>
+<p>The main concerns are:</p>
+<ul>
+<li>Teaching folks what <code>hooks</code> means is a bit more difficult because it does not represent the &quot;test
+environment&quot;, but rather just a way to invoke the callbacks for <code>before</code> / <code>beforeEach</code> / <code>after</code> /
+<code>afterEach</code>.</li>
+<li>Passing only <code>hooks</code> to the helper functions proposed in the RFC means that if we ever need to thread
+more information through, we either have to use <code>hooks</code> as a transport or change our API to add more
+arguments.</li>
+<li>It seems somewhat impossible to communicate across multiple helpers (again without using <code>hooks</code>
+as a state/transport mechanism).</li>
+</ul>
+<p>I've kicked off a conversation over with the QUnit folks in https://github.com/qunitjs/qunit/issues/1200.
+If that PR were merged this proposal would be modified to the following syntax:</p>
+<pre><code class="language-js">// current proposal
+module('x-foo', function(hooks) {
+  setupRenderingTest(hooks);
+  // ....snip....
+});
+
+// after qunitjs/qunit#1200
+module('x-foo', function(hooks) {
+  setupRenderingTest(this);
+  // ....snip....
+});
+</code></pre>
+<p>Another possible solution is to rename the argument (here and in the blueprints) to <code>module</code>.
+This is more in line with what the QUnit folks view it as: the &quot;module context&quot; that
+is being created for that specific <code>QUnit.module</code> invocation.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0229-deprecate-testing-restricted-resolver.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0236-deprecation-ember-string.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0229-deprecate-testing-restricted-resolver.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0236-deprecation-ember-string.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

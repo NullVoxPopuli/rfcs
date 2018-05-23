@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>0322-deprecate-copy-copyable - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="0001-transform-attribute-meta-parameter.html"><strong>1.</strong> 0001-transform-attribute-meta-parameter</a></li><li><a href="0003-block-params.html"><strong>2.</strong> 0003-block-params</a></li><li><a href="0010-engines.html"><strong>3.</strong> 0010-engines</a></li><li><a href="0011-improved-cp-syntax.html"><strong>4.</strong> 0011-improved-cp-syntax</a></li><li><a href="0015-the-road-to-ember-2-0.html"><strong>5.</strong> 0015-the-road-to-ember-2-0</a></li><li><a href="0024-bound-attributes.html"><strong>6.</strong> 0024-bound-attributes</a></li><li><a href="0045-internet-explorer.html"><strong>7.</strong> 0045-internet-explorer</a></li><li><a href="0046-registry-reform.html"><strong>8.</strong> 0046-registry-reform</a></li><li><a href="0050-improved-actions.html"><strong>9.</strong> 0050-improved-actions</a></li><li><a href="0053-helpers.html"><strong>10.</strong> 0053-helpers</a></li><li><a href="0056-improved-release-cycle.html"><strong>11.</strong> 0056-improved-release-cycle</a></li><li><a href="0057-ember-data-reference-unification.html"><strong>12.</strong> 0057-ember-data-reference-unification</a></li><li><a href="0058-helper-listing.html"><strong>13.</strong> 0058-helper-listing</a></li><li><a href="0061-ember-data-background-fetch.html"><strong>14.</strong> 0061-ember-data-background-fetch</a></li><li><a href="0064-contextual-component-lookup.html"><strong>15.</strong> 0064-contextual-component-lookup</a></li><li><a href="0065-deprecation-warning-handlers.html"><strong>16.</strong> 0065-deprecation-warning-handlers</a></li><li><a href="0091-weakmap.html"><strong>17.</strong> 0091-weakmap</a></li><li><a href="0095-router-service.html"><strong>18.</strong> 0095-router-service</a></li><li><a href="0101-ember-data-friendly-errors.html"><strong>19.</strong> 0101-ember-data-friendly-errors</a></li><li><a href="0120-route-serializers.html"><strong>20.</strong> 0120-route-serializers</a></li><li><a href="0136-contains-to-includes.html"><strong>21.</strong> 0136-contains-to-includes</a></li><li><a href="0139-isHtmlSafe.html"><strong>22.</strong> 0139-isHtmlSafe</a></li><li><a href="0143-module-unification.html"><strong>23.</strong> 0143-module-unification</a></li><li><a href="0150-factory-for.html"><strong>24.</strong> 0150-factory-for</a></li><li><a href="0176-javascript-module-api.html"><strong>25.</strong> 0176-javascript-module-api</a></li><li><a href="0178-deprecate-ember-k.html"><strong>26.</strong> 0178-deprecate-ember-k</a></li><li><a href="0181-deprecate-ember-data-initializers.html"><strong>27.</strong> 0181-deprecate-ember-data-initializers</a></li><li><a href="0186-track-unique-history-location-state.html"><strong>28.</strong> 0186-track-unique-history-location-state</a></li><li><a href="0191-deprecate-component-lifecycle-hook-args.html"><strong>29.</strong> 0191-deprecate-component-lifecycle-hook-args</a></li><li><a href="0194-deprecate-custom-event-manager.html"><strong>30.</strong> 0194-deprecate-custom-event-manager</a></li><li><a href="0213-custom-components.html"><strong>31.</strong> 0213-custom-components</a></li><li><a href="0225-ember-engines-mount-params.html"><strong>32.</strong> 0225-ember-engines-mount-params</a></li><li><a href="0226-named-blocks.html"><strong>33.</strong> 0226-named-blocks</a></li><li><a href="0229-deprecate-testing-restricted-resolver.html"><strong>34.</strong> 0229-deprecate-testing-restricted-resolver</a></li><li><a href="0232-simplify-qunit-testing-api.html"><strong>35.</strong> 0232-simplify-qunit-testing-api</a></li><li><a href="0236-deprecation-ember-string.html"><strong>36.</strong> 0236-deprecation-ember-string</a></li><li><a href="0237-deprecation-ember-map.html"><strong>37.</strong> 0237-deprecation-ember-map</a></li><li><a href="0240-es-classes.html"><strong>38.</strong> 0240-es-classes</a></li><li><a href="0252-browser-support-changes.html"><strong>39.</strong> 0252-browser-support-changes</a></li><li><a href="0268-acceptance-testing-refactor.html"><strong>40.</strong> 0268-acceptance-testing-refactor</a></li><li><a href="0276-named-args.html"><strong>41.</strong> 0276-named-args</a></li><li><a href="0278-template-only-components.html"><strong>42.</strong> 0278-template-only-components</a></li><li><a href="0280-remove-application-wrapper.html"><strong>43.</strong> 0280-remove-application-wrapper</a></li><li><a href="0281-es5-getters.html"><strong>44.</strong> 0281-es5-getters</a></li><li><a href="0286-block-let-template-helper.html"><strong>45.</strong> 0286-block-let-template-helper</a></li><li><a href="0294-optional-jquery.html"><strong>46.</strong> 0294-optional-jquery</a></li><li><a href="0297-deprecate-ember-logger.html"><strong>47.</strong> 0297-deprecate-ember-logger</a></li><li><a href="0311-angle-bracket-invocation.html"><strong>48.</strong> 0311-angle-bracket-invocation</a></li><li><a href="0318-array-helper.html"><strong>49.</strong> 0318-array-helper</a></li><li><a href="0322-deprecate-copy-copyable.html" class="active"><strong>50.</strong> 0322-deprecate-copy-copyable</a></li><li><a href="0326-ember-data-filter-deprecation.html"><strong>51.</strong> 0326-ember-data-filter-deprecation</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <ul>
+<li>2018-03-24</li>
+<li>RFC PR: 322</li>
+<li>Ember Issue: (leave this empty)</li>
+</ul>
+<a class="header" href="0322-deprecate-copy-copyable.html#deprecation-of-embercopy-and-embercopyable" id="deprecation-of-embercopy-and-embercopyable"><h1>Deprecation of Ember.copy and Ember.Copyable</h1></a>
+<a class="header" href="0322-deprecate-copy-copyable.html#summary" id="summary"><h2>Summary</h2></a>
+<p>This RFC recommends the deprecation and eventual removal of <code>Ember.copy</code> and the <code>Ember.Copyable</code> mixin.</p>
+<a class="header" href="0322-deprecate-copy-copyable.html#motivation" id="motivation"><h2>Motivation</h2></a>
+<p>A deep-copy mechanism is certainly useful, but it is a general JavaScript problem. Ember itself doesn't need to offer one, especially one that Ember itself isn't using internally. This function and its accompanying mixin arrived with SproutCore, a long time ago, and are not used by Ember itself, even though they currently reside in <code>@ember/object/internals</code>.</p>
+<p><code>ember-data</code> uses <code>Ember.copy</code> to do deep-copies. However, the <code>ember-data</code> team finds its needs would be better served by a private deep-copy mechanism that doesn't flow inadvertently through external interfaces into the <code>Ember.copy</code> methods of user-supplied objects. These interfaces are not designed to support deep copies of user-supplied data, and it can raise havoc in the form of hard-to-diagnose bugs, especially in test scenarios.</p>
+<p>Since <code>ember</code> and <code>ember-data</code> do not intend to use this mechanism going forward, it would be better to remove it from the Ember codebase and extract it into an add-on for those who wish to continue to use it.</p>
+<a class="header" href="0322-deprecate-copy-copyable.html#detailed-design" id="detailed-design"><h2>Detailed design</h2></a>
+<p>There are four steps to deprecating any function:</p>
+<ul>
+<li>logging the deprecation in the call</li>
+<li>removal of calls to the function from ember and any add-ons that ship with ember-cli</li>
+<li>extraction to an add-on</li>
+<li>eventual removal of the feature in the stated release (in this case 4.0.0).</li>
+</ul>
+<p>This RFC deprecates the <code>copy</code> function and <code>Copyable</code> mixin of <code>@ember/object/internals</code>.</p>
+<p>Shallow copies of the form  <code>copy(x)</code>  or <code>copy(x, false)</code> can be replaced mechanically with <code>Object.assign({}, x)</code>. The simplest way to deal with deep copies in any situation depends upon the nature of the data involved.</p>
+<a class="header" href="0322-deprecate-copy-copyable.html#current-internal-uses" id="current-internal-uses"><h3>Current internal uses</h3></a>
+<a class="header" href="0322-deprecate-copy-copyable.html#ember-source" id="ember-source"><h4><code>ember-source</code></h4></a>
+<p>This following modules in <code>packages/ember-runtime/lib</code> implement the code being deprecated:</p>
+<ul>
+<li><code>copy.js</code> contains the <code>copy()</code> function that will log the deprecation before executing,</li>
+<li><code>mixins/copyable.js</code> provides the <code>Copyable</code> mixin, but it contains no executable code to deprecate.</li>
+<li><code>mixins/array.js</code> - The <code>NativeArray</code> mixin extends the <code>Copyable</code> mixin and implements <code>copy()</code>.</li>
+</ul>
+<p>The following tests in <code>packages/ember-runtime/tests</code> use the implementation above:</p>
+<ul>
+<li><code>core/copy_test.js</code> tests the <code>copy()</code> method itself.</li>
+<li><code>copyable-array/copy-test.js</code> tests the <code>copy()</code> method of a <code>NativeArray</code> for identical results.</li>
+<li><code>helpers/array.js</code> provides the arrays used by the <code>NativeArray</code> test above.</li>
+<li><code>system/native_array/copyable_suite_test.js</code> tests the independence of the results of deep copying a <code>NativeArray</code></li>
+</ul>
+<p>The route  <code>packages/ember-routing/lib/system/route.js</code> has one shallow copy, but the test  <code>packages/ember/tests/routing/decoupled_basic_test</code> is using deep copy.</p>
+<p>The <code>copy()</code> methods in <code>packages/ember-metal/lib/map.js</code> and  <code>chains.js</code> and their use in <code>meta.js</code>, and  <code>map_test.js</code> are unrelated.</p>
+<p>At present, the handling of arrays in <code>Ember.copy</code> is inconsistent. <code>NativeArray</code> uses the <code>Copyable</code> mixin and implements a <code>copy</code> method. When calling <code>Ember.copy</code>, passing a <code>NativeArray</code>, it will note that the passed parameter uses <code>Copyable</code> and call the copy method inside  <code>NativeArray</code>. However, the recursive <code>_copy</code> method that <code>Ember.copy</code> calls for other objects has its own generic mechanism for copying arrays. If <code>copy</code> is passed a non-<code>Copyable</code> object that contains a <code>NativeArray</code> as a member, when the recursion gets to that member, it will use the generic mechanism rather than delegating to the <code>copy</code> method within the  <code>NativeArray</code>.</p>
+<p>The recursive  <code>_copy</code> method also has an assertion that will fail if it is called with any <code>EmberObject</code> that is not also <code>Copyable</code>. This assertion occurs before (and hence affects) the code which handles arrays, even though, for arrays, the object's <code>copy</code> method isn't then used.</p>
+<p>During the deprecation period, the <code>Ember.copy</code> method and the <code>NativeArray.copy</code> methods will carry a deprecation warning. We will remove <code>Copyable</code> from <code>NativeArray</code> and change  <code>Ember.copy</code> to consistently use the common array copy mechanism to copy arrays rather than sometimes delegating. We will move the assertion that an <code>EmberObject</code> must be  <code>Copyable</code> to the clause that handles non-array objects.</p>
+<p>We need a way to deprecate use of the <code>Copyable</code> mixin. If the penalty for adding code in such a common place isn't too high, we could have <code>core_object.extend()</code>  check for <code>Copyable</code> and deprecate accordingly. We will also supply a new eslint warning that flags the deprecated use of <code>Copyable</code>. (This may be our first eslint check for deprecations. We may want to consider adding others at the same time.)</p>
+<p>Those using the add-on will need to mechanically adjust any uses of  <code>myArray.copy(deep)</code> to  <code>copy(myArray, deep)</code> in order to avoid the deprecation message.</p>
+<p>At the end of this period, we will remove the deprecated copy() method, the Copyable mixin, and the deprecated NativeArray.copy() method.</p>
+<a class="header" href="0322-deprecate-copy-copyable.html#ember-data" id="ember-data"><h4><code>ember-data</code></h4></a>
+<p>The following code in <code>ember-data</code> uses <code>copy()</code>, but only for shallow copies:</p>
+<ul>
+<li><code>addon/-private/system/model/internal-model.js</code> - one use</li>
+<li><code>addon/-private/system/snapshot.js</code> - two uses</li>
+<li><code>addon/-private/system/store.js</code> - one use</li>
+</ul>
+<p>All of the following uses in tests perform deep copies:</p>
+<ul>
+<li><code>tests/integration/adapter/build-url-mixin-test.js</code> - two uses</li>
+<li><code>tests/integration/adapter/rest-adapter-test.js</code> - two uses</li>
+<li><code>tests/integration/store-test.js</code> - two uses</li>
+<li><code>tests/unit/system/relationships/polymorphic-relationship-payloads-test.js</code> - four uses</li>
+</ul>
+<p>The <code>copy()</code> methods referenced in <code>addon/-private/system.map.js</code> and  <code>addon/-private/system/relationships/state/relationship.js</code> are unrelated.</p>
+<p>It would appear that deep copy is used within these packages only during testing, and generally to ensure fresh test data without side-effects.</p>
+<a class="header" href="0322-deprecate-copy-copyable.html#current-external-uses" id="current-external-uses"><h3>Current external uses</h3></a>
+<p>The key considerations for add-ons or apps looking for an alternative to copy() and Copyable are:</p>
+<ul>
+<li>Do they call <code>copy()</code> to do shallow copies or deep copies?</li>
+<li>If deep copies are being performed, are the objects involved POJOs or are they derived from <code>EmberObject</code>?</li>
+<li>Do they provide objects that use the <code>Copyable</code> mixin with <code>copy()</code> methods intended for use in deep copies by other classes?</li>
+<li>Is the data you are copying the sort of thing where you can do the copy in its behalf, or does it require collaboration from the object itself? Or are the contents so open-ended that you can't possibly know?</li>
+</ul>
+<p>Shallow copies are directly supported by ES6. It's easy to perform recursive deep copies for most simple POJOs without delegating work to the object you are copying. For more complex data, you may need some kind of recursive delegation. <code>Copyable</code> is a delegation mechanism, and apps and add-ons that require delegation will probably want to use the proposed add-on.</p>
+<p>The Code Search capabilities of emberobserver are a wonderful way to get a glimpse of how code in the wild is using particular features.</p>
+<p>A quick search of the top-scoring add-on packages revealed that most, but by no means all, of the uses of <code>copy()</code> in the modules were for shallow copies that can be accomplished using Object.assign, so a lot of the code affected by this deprecation can rely on a simple substitution.</p>
+<p>Very few packages used <code>Copyable</code> - only 9 across the whole set - and most used the feature for only one class.   <code>ember-data-copyable</code> is probably most wedded to the mechanism: it delivers a  <code>Copyable</code>-based mixin for asynchronous copying.  <code>ember-data-model-fragments</code> has pretty open-ended properties. These add-ons would be likely to use the proposed add-on moving forward.   <code>ember-restless</code>, and <code>ember-calendar</code> appear more bounded. Any deep copy mechanism for POJOs may meet their needs.</p>
+<a class="header" href="0322-deprecate-copy-copyable.html#add-on" id="add-on"><h3>Add-on</h3></a>
+<p>The add-on will supply the <code>copy()</code> function and the <code>Copyable</code> mixin based on the existing code, modified as indicated above for handling of arrays.</p>
+<p>We could treat the add-on as the extraction of a feature from the monolithic <code>ember-source</code>, as was recently done for strings. If we choose to frame it in that way, the naming should follow the conventions set out for extracting elements of Ember into their own packages. If we choose not to frame it that way, then naming is one of the things this section should specify clearly.</p>
+<a class="header" href="0322-deprecate-copy-copyable.html#how-we-teach-this" id="how-we-teach-this"><h2>How we teach this</h2></a>
+<a class="header" href="0322-deprecate-copy-copyable.html#communication-of-change" id="communication-of-change"><h3>Communication of change</h3></a>
+<p>We need to inform users that <code>Ember.copy</code> and <code>Ember.Copyable</code> will be dprecated and in what release it will occur. This notification should also point them to the add-on for those who need it.</p>
+<a class="header" href="0322-deprecate-copy-copyable.html#official-code-bases-and-documentation" id="official-code-bases-and-documentation"><h3>Official code bases and documentation</h3></a>
+<p>We do not actively teach the use of <code>Ember.copy</code>. It doesn't appear anywhere in our guides, website, or tutorial. Once it is gone from the code, we also need to verify it no longer appears in the API listings.</p>
+<p>We must provide an entry in the deprecation guide for this change:</p>
+<ul>
+<li>describing the use of <code>to = Object.assign({},from)</code> for shallow copies.</li>
+<li>pointing out viable alternatives for deep copies.</li>
+<li>directing heavy users of deep copies to the addon.</li>
+</ul>
+<a class="header" href="0322-deprecate-copy-copyable.html#drawbacks" id="drawbacks"><h2>Drawbacks</h2></a>
+<p>The primary drawback is the API churn of people pulling it out of their code. However, for most uses, the change will be straightforward, and the add-on will be available for the foreseeable future for those who want to continue with the implementation.</p>
+<a class="header" href="0322-deprecate-copy-copyable.html#alternatives" id="alternatives"><h2>Alternatives</h2></a>
+<p>We could simply leave it in place as a utility for others to use. Even then, it would make sense to split it out into its own module, as has already been done for strings, so the work would be much the same.</p>
+<a class="header" href="0322-deprecate-copy-copyable.html#unresolved-questions" id="unresolved-questions"><h2>Unresolved questions</h2></a>
+<p>None at the moment...</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="0318-array-helper.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="0326-ember-data-filter-deprecation.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="0318-array-helper.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="0326-ember-data-filter-deprecation.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>
