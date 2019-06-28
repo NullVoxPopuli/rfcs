@@ -9,14 +9,7 @@
 
 _The goal is for components to make up the entirety of the view layer_.
 
- - Requires:
-   - [RFC 496: Handlebars Strict Mode](https://github.com/emberjs/rfcs/pull/496)
-   - [RFC 454: SFC & Template Import Primitives](https://github.com/emberjs/rfcs/pull/454)
-   - [RFC 380: Add queryParams to the router service](https://github.com/emberjs/rfcs/pull/380)
-
- - Provide alternative APIs that encompass existing behavior currently implemented by controllers.
-   1. query params
-   2. passing state and handling actions to/from the route, loading, and error templates
+ - Provide alternative APIs that encompass passing state and handling actions to/from the route, loading, and error templates
 
  - Out of scope:
    - Deprecating and eliminating controllers -- but the goal of this RFC is to provide a _path_ to remove controllers from Ember altogether. 
@@ -41,24 +34,6 @@ This'll explore how controllers are used and how viable alternatives can be for 
 
 
 ## Detailed design
-
-First, what would motivate someone to use a Controller today? Borrowing from [this blog post](https://medium.com/ember-ish/what-are-controllers-used-for-in-ember-js-cba712bf3b3e) by [Jen Weber](https://twitter.com/jwwweber): 
-
-1. You need to use query parameters in the URL that the user sees (such as filters that you use for display or that you need to send with back end requests)  
-
-2. There are actions or variables that you want to share with child components  
-
-3. (2a) You have a computed property that depends on the results of the model hook, such as filtering a list
-
-All of this behavior can be implemented elsewhere, and most of what controllers _can_ do is already more naturally covered by components.
-
-### 1. Query Params
-
-See this RFC for [adding query params to the router service](https://github.com/emberjs/rfcs/pull/380), query-param management would be pulled out of the controller entirely.
-
-### 2. Passing State and Handling Actions to/from the Template
-
-In order to fully eliminate the controller, there _must_ be a way to handle computed properties or state along with responding to actions from the template. Components can cover this already, and would be an intuitive way to interact with the view and behavioral layer.
 
 Currently, controllers + templates must be used in the app by having:
   - `app/controllers/{my-route-name/or-path}.js`
@@ -397,6 +372,8 @@ The current / classic / old ways of having the resolver _able_ to look up compon
 More specifically recommended will be to use a separate component for each of the three states, but there should still be examples (as above) showing the one-component-does-everything approach.
 
 In the release that makes these capabilities a default, any pages mentioning the controller, or the route template, or the loading/error templates should be removed or updated to fit the new way of using components
+
+`ember g route` should generate a route with the proposed format in this RFC and an associated component.
 
 
 ## Drawbacks
