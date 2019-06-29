@@ -31,6 +31,48 @@ This will be the new default:
 
 This means that the shorthand syntax of using `@service` without a parameter should be discouraged, and the use of the service class should be used in its place.
 
+This isn't a new idea as it's very similar to how other platforms do dependency injection. 
+- Java's [Dagger](https://square.github.io/dagger/):
+    ```java
+    class CoffeeMaker {
+      @Inject Heater heater;
+      @Inject Pump pump;
+
+      ...
+    }
+  ```
+- Java's [Guice](https://github.com/google/guice/wiki/Injections) does constructor-based injections:
+    ```java
+    public class RealBillingService implements BillingService {
+        private final CreditCardProcessor processorProvider;
+        private final TransactionLog transactionLogProvider;
+
+        @Inject
+        public RealBillingService(
+            CreditCardProcessor processorProvider,
+            TransactionLog transactionLogProvider
+        ) {
+            this.processorProvider = processorProvider;
+            this.transactionLogProvider = transactionLogProvider;
+        }
+    }
+    ```
+- Guice is similar to [asp.net's default injection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.2) system
+  ```csharp
+  public class MyDependency : IMyDependency
+  {
+      private readonly ILogger<MyDependency> _logger;
+
+      public MyDependency(ILogger<MyDependency> logger)
+      {
+          this._logger = logger;
+      }
+  }
+    ```
+
+    These constructor-based dependency injection techniques are common in languages without decorators (or where decorators are hard to without sacrificing performance (common in Java)), but are much more verbose than decorator-based injection. Because Ember's current string-based dependency injection is powered by decorators _and_ concise, this RFC will not explore the option of constructor-based dependency injection. 
+
+
 At present, the service decorator wraps around the `ApplicationInstance#lookup` method -- something like this (roughly / hand-waiving the implementation details of decorators and getting access to the app instance):
 
 ```ts
