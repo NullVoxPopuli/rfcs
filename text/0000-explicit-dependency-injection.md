@@ -17,6 +17,15 @@ The main goal is to _use the platform_ and enable "go to definition" support fro
 
 ## Detailed design
 
+### Current
+
+The current dependency injection system has some flaws. 
+
+1. It is impossible to know the interface of a service.
+2. There is no way to "go-to definition" for a service injection, which hinders the ability for newcomers to learn and discover the inner workings of their project
+
+### Classes
+
 instead of:
 ```ts
 @service notifications;
