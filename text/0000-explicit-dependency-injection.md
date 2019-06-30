@@ -70,10 +70,10 @@ This isn't a new idea as it's very similar to how other platforms do dependency 
   }
     ```
 
-    These constructor-based dependency injection techniques are common in languages without decorators (or where decorators are hard to without sacrificing performance (common in Java)), but are much more verbose than decorator-based injection. Because Ember's current string-based dependency injection is powered by decorators _and_ concise, this RFC will not explore the option of constructor-based dependency injection. 
+    These constructor-based dependency injection techniques are common in languages without decorators (or where decorators are hard to without sacrificing performance (common in Java)), but are much more verbose than decorator-based injection using properties on the class. Because Ember's current string-based dependency injection is powered by decorators _and_ concise, this RFC will not explore the option of constructor-based dependency injection. The primary goal is to _add_ functionality to the existing dependency injection system in Ember.
 
 
-At present, the service decorator wraps around the `ApplicationInstance#lookup` method -- something like this (roughly / hand-waiving the implementation details of decorators and getting access to the app instance):
+At present, the `@service` decorator wraps around the `ApplicationInstance#lookup` method -- something like this (roughly / hand-waiving the implementation details of decorators and getting access to the app instance):
 
 ```ts
 function service(name) {
@@ -81,7 +81,7 @@ function service(name) {
 }
 ```
 
-Instead, with this RFC, the service pseudo-function should check for the type of the parameter, and:
+In addition to string-based keys, with this RFC, the service pseudo-function should check for the type of the parameter, and:
 
 ```ts
 function service(nameOrClass) {
@@ -93,7 +93,7 @@ function service(nameOrClass) {
 }
 ```
 
-In order for `lookup` to be able to take a class definition as an argument, there will need to be an alternative way to _lookup_ instances of services by the class. Though, when a class is used for lookup, if there is no existing registration found, lookup _will register the class and instantiate it for you_.
+In order for `lookup` to be able to take a class definition as an argument, there will need to be an alternative way to _lookup_ instances of services by the class. And as a convenience, when a class is used for lookup, if there is no existing registration found, lookup _will register the class and instantiate it for you_.
 
 Consider:
 
@@ -108,7 +108,7 @@ is the same as
 appInstance.lookup(MyClass);
 ```
 
-This will be most handy for decorators or other common abstractions that desire to interact with services (such as the router or store), but have direct access to them from the component or route context.
+This will be most handy for decorators or other common abstractions that desire to interact with services (such as the router or store), but only have direct access to them via a component or route context.
 
 On the `Registry`, there already exists a reference to the class definition when registering an entry to the container.
 
@@ -123,6 +123,9 @@ A new map can exist on the registry that can appropriately be wired up to regist
 Examples: 
 
  - **service registration and override**
+
+    This is a common scenario where a service may be defined explicitly for use an application, but in a _test_, some behavior may need to be overridden.
+
     ```ts
     class MyFooService extends Service {
       @tracked foo = 0;
@@ -131,30 +134,40 @@ Examples:
         this.foo++;
       }
     }
-
+    ```
+    When the application boots, as it is today, each service found in the `app` namespace, will be registered using the class reference.
+    ```ts
     appInstance.register(MyFooService, MyFooService);
     // this would register MyFooService on the *key* MyFooService,
     // just as today, it would look like
     appInstance.register('service:my-foo-service', MyFooService);
     ```
-    Now, where this _IS_ Dependency Injection, and how we aren't just using the concrete class all the time is where you can do things like this
+    For full compatibility with today's applications, each server will have two registrations: one string key, and one class key.
 
+    Coming back to the the intent of this example: wanting to override behavior in a test. This can be achieved by creating a class that subclasses the original service.
     ```ts
-    // note that this must share ancestry with the registered service.
     class MyFooOverrideService extends MyFooService {
       add() {
         this.foo += 2;
       }
     }
 
-    // both stubbing (in a test), or clobbering, would look the same
+    // both stubbing (in a test), or clobbering the originally registered service,
+    //  would look the same:
     appInstance.register(MyFooService, MyFooOverrideService);
+    // the key in this registration, MyFooService, must be an
+    // ancestor of MyFooOverrideService.
+    // The restriction there is to encourage to not simply 
+    // replace unrelated services with each other. For example, 
+    // replacing the router service with the ember-data store
+    // does not make sense, and is disallowed.
 
     const service = appInstance.lookup(MyFooService);
 
     service instanceof MyFooOverrideService // true
     service instanceof MyFooService // true
     ```
+    Even though the lookup is performed with `MyFooService`, we are given back an instance of `MyFooOverrideService` is returned.  
 
  - **less typing for lazy registration**
     ```ts
@@ -323,11 +336,13 @@ module('Integration | Component | location-indicator', function(hooks) {
 
 Instead of using strings or inferred injections, the guides should be updated to use the Class definition of a service that it intends to inject.
 
-Ember Inspector and the unstable-ember-language-server will likely need to be updated to support this kind of lookup.
+Ember Inspector and the unstable-ember-language-server will likely need to be updated to support this kind of lookup.  Additionally, we may want to explore the ember development server exposing a socket where tools can get runtime data about the application. This would allow the ember-language-server to not only know which concrete class is used for a dependency injection reference, but also it would be able to show all other possible overrides of a particular service.
+
+There will no doubt be some resistence to this change, and for those who ponder the possibility of "just using a module" instead of dependency injection altogether, they may want to read [this article](https://blogs.endjin.com/2014/04/understanding-dependency-injection/) or [this article](https://blog.thecodewhisperer.com/permalink/keep-dependency-injection-simple) 
 
 ## Drawbacks
 
-- more verbose
+- slightly more verbose
 
 ## Alternatives
 
