@@ -7,7 +7,8 @@
 
 ## Summary
 
-When learning Ember and/or Dependency Injection, the question comes about how magic the injection strings are. The goal of this RFC is to propose an alternate default for injections that allow ctrl+clickability / "go to definition" from the injection to the class that defines the type of the injected instance.
+When learning Ember and/or Dependency Injection, the question comes about how magic the injection strings are. 
+The goal of this RFC is to propose an alternate default for injections that allow ctrl+clickability / "go to definition" from the injection to the class that defines the type of the injected instance.
 
 Note: while this RFC mainly talks in terms in services, this applies to all injections.
 
@@ -25,6 +26,13 @@ The current dependency injection system has some flaws.
 2. There is no way to "go-to definition" for a service injection, which hinders the ability for newcomers to learn and discover the inner workings of their project. 
 3. Discoverability and Traceability are low. How would one know that a service comes from an addon?
 4. There is no contract of API with a service. A service can be registered over / replaced with a totally different class that shares none of the API of the original class.
+
+  
+While we may know how to find the definition of a service in an app based on a service path, 
+this becomes harder when a service is defined in an addons and _especially_ with dynamically created services, such as those in tests. 
+From a learning perspective, many people new to ember have expressed confusion around the dependency injection system in that it is "magic".
+
+This RFC provides paths towards addressing all of the above.
 
 ### Proposed - Class-based lookup
 
@@ -64,7 +72,8 @@ function service(nameOrClass) {
 }
 ```
 
-In order for `lookup` to be able to take a class definition as an argument, there will need to be an alternative way to _lookup_ instances of services by the class. And as a convenience, when a class is used for lookup, if there is no existing registration found, lookup _will register the class and instantiate it for you_.
+In order for `lookup` to be able to take a class definition as an argument, there will need to be an alternative way to _lookup_ instances of services by the class. 
+And as a convenience, when a class is used for lookup, if there is no existing registration found, lookup _will register the class and instantiate it for you_.
 
 Consider:
 
