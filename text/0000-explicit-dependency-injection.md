@@ -40,49 +40,9 @@ This will be the new default:
 @service(MessageDispatcherService) dispatcher;
 ```
 
-This means that the shorthand syntax of using `@service` without a parameter should be discouraged, and the use of the service class should be used in its place.
+This means that the shorthand syntax of using `@service` without a parameter should be discouraged, and the use of the service class should be used in its place. 
 
-This isn't a new idea as it's very similar to how other platforms do dependency injection. 
-- Java's [Dagger](https://square.github.io/dagger/):
-    ```java
-    class CoffeeMaker {
-      @Inject Heater heater;
-      @Inject Pump pump;
-
-      ...
-    }
-  ```
-- Java's [Guice](https://github.com/google/guice/wiki/Injections) does constructor-based injections:
-    ```java
-    public class RealBillingService implements BillingService {
-        private final CreditCardProcessor processorProvider;
-        private final TransactionLog transactionLogProvider;
-
-        @Inject
-        public RealBillingService(
-            CreditCardProcessor processorProvider,
-            TransactionLog transactionLogProvider
-        ) {
-            this.processorProvider = processorProvider;
-            this.transactionLogProvider = transactionLogProvider;
-        }
-    }
-    ```
-- Guice is similar to [asp.net's default injection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.2) system
-  ```csharp
-  public class MyDependency : IMyDependency
-  {
-      private readonly ILogger<MyDependency> _logger;
-
-      public MyDependency(ILogger<MyDependency> logger)
-      {
-          this._logger = logger;
-      }
-  }
-    ```
-
-    These constructor-based dependency injection techniques are common in languages without decorators (or where decorators are hard to without sacrificing performance (common in Java)), but are much more verbose than decorator-based injection using properties on the class. Because Ember's current string-based dependency injection is powered by decorators _and_ concise, this RFC will not explore the option of constructor-based dependency injection. The primary goal is to _add_ functionality to the existing dependency injection system in Ember.
-
+_The current way of accessing services via inference of the decorated property, or parameterless `@service` decorators are not proposed to be deprecated in this RFC._
 
 At present, the `@service` decorator wraps around the `ApplicationInstance#lookup` method -- something like this (roughly / hand-waiving the implementation details of decorators and getting access to the app instance):
 
@@ -371,6 +331,48 @@ Instead of using strings or inferred injections, the guides should be updated to
 Ember Inspector and the unstable-ember-language-server will likely need to be updated to support this kind of lookup.  Additionally, we may want to explore the ember development server exposing a socket where tools can get runtime data about the application. This would allow the ember-language-server to not only know which concrete class is used for a dependency injection reference, but also it would be able to show all other possible overrides of a particular service.
 
 There will no doubt be some resistence to this change, and for those who ponder the possibility of "just using a module" instead of dependency injection altogether, they may want to read [this article](https://blogs.endjin.com/2014/04/understanding-dependency-injection/) or [this article](https://blog.thecodewhisperer.com/permalink/keep-dependency-injection-simple) 
+
+This isn't a new idea as it's very similar to how other platforms do dependency injection. 
+- Java's [Dagger](https://square.github.io/dagger/):
+    ```java
+    class CoffeeMaker {
+      @Inject Heater heater;
+      @Inject Pump pump;
+
+      ...
+    }
+  ```
+- Java's [Guice](https://github.com/google/guice/wiki/Injections) does constructor-based injections:
+    ```java
+    public class RealBillingService implements BillingService {
+        private final CreditCardProcessor processorProvider;
+        private final TransactionLog transactionLogProvider;
+
+        @Inject
+        public RealBillingService(
+            CreditCardProcessor processorProvider,
+            TransactionLog transactionLogProvider
+        ) {
+            this.processorProvider = processorProvider;
+            this.transactionLogProvider = transactionLogProvider;
+        }
+    }
+    ```
+- Guice is similar to [asp.net's default injection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.2) system
+  ```csharp
+  public class MyDependency : IMyDependency
+  {
+      private readonly ILogger<MyDependency> _logger;
+
+      public MyDependency(ILogger<MyDependency> logger)
+      {
+          this._logger = logger;
+      }
+  }
+    ```
+
+    These constructor-based dependency injection techniques are common in languages without decorators (or where decorators are hard to without sacrificing performance (common in Java)), but are much more verbose than decorator-based injection using properties on the class. Because Ember's current string-based dependency injection is powered by decorators _and_ concise, this RFC will not explore the option of constructor-based dependency injection. The primary goal is to _add_ functionality to the existing dependency injection system in Ember.
+
 
 ## Drawbacks
 
