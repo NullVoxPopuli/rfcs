@@ -17,7 +17,7 @@ The main goal is to _use the platform_ and enable "go to definition" support fro
 
 ## Detailed design
 
-### Current
+### Current - String-based lookup
 
 The current dependency injection system has some flaws. 
 
@@ -26,7 +26,7 @@ The current dependency injection system has some flaws.
 3. Discoverability and Traceability are low. How would one know that a service comes from an addon?
 4. There is no contract of API with a service. A service can be registered over / replaced with a totally different class that shares none of the API of the original class.
 
-### Classes
+### Proposed - Class-based lookup
 
 instead of:
 ```ts
@@ -199,14 +199,23 @@ Examples:
 
  - **typescript fastboot example with instance initializers**
   
+    In a fastboot environment, there is no access to the window or document.
+    So when rendering the ember app on the server, we need a clean way to stub APIs that are accessed on the window or document.
+
+    For example, when accessing the cookie, we may define an _[abstract class](https://stackoverflow.com/questions/3344816/when-and-why-to-use-abstract-classes-methods)_, where we can either define default behavior or a contract where subclasses must adhere to in order to ensure usage of classes that inherit from this `CookieService`.
+
+    For example, in typescript, an abstract class may be defined as the following.
     ```ts
     // app/services/cookie/cookie-service.ts
     abstract class CookieService {
       abstract getValue(key: string): string {}
-
       abstract setValue(key: string, value: string): void {}
-    } 
 
+      // maybe other methods have implementations.
+    } 
+    ```
+
+    ```ts
     // app/components/my-component.js
     import Component from '@glimmer/component';
     import { inject as service } from '@ember/service';
@@ -215,6 +224,12 @@ Examples:
       @service(CookieService) cookie;
     }
 
+    ```
+    The benefit of defining an abstract class is that we are _not allowed_ to instantiate it. In this scenario, we don't want to instantiate the `CookieService` because it isn't _semantically specific_ enough. We want to know what environment the cookies are being manipulated in.
+
+    For both FastBoot and the Browser, we'll define two Services:
+
+    ```ts
     // app/services/cookie/fastboot-service.js
     import CookieService from 'app-name/services/cookies/cookie-service';
 
@@ -237,7 +252,13 @@ Examples:
       }
       // ...
     }
+    ```
 
+    By just defining the Browser and FastBoot specific cookie services alone isn't enough -- we need to be able to register/override the service at the lookup key `CookieService` _at runtime_. 
+
+    This can be done in an initializer:
+
+    ```ts
     // app/instance-initializers/register-cookie-service;
     import CookieService from 'app-name/services/cookies/cookie-service';
     import FastbootCookieService from 'app-name/services/cookies/fastboot-service';
@@ -256,7 +277,7 @@ Examples:
     export default { initialize };
     ```
 
-Logic will be added to the register method to ensure that the lookup type either is the same as the service instance's type or is an ancestor type. This will prevent the ability to register unrelated classes that would break the implied class hierarchy that is assumed with dependency injection. 
+Logic will be added to the register method to ensure that the lookup type either is the same as the service instance's type or is an ancestor type. This will prevent the ability to register unrelated classes that would break contract with the implied class hierarchy that is assumed with dependency injection. 
 
 ### Usage in testing
 
