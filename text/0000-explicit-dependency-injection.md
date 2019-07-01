@@ -7,7 +7,8 @@
 
 ## Summary
 
-When learning Ember and/or Dependency Injection, the question comes about how magic the injection strings are. The goal of this RFC is to propose an alternate default for injections that allow ctrl+clickability / "go to definition" from the injection to the class that defines the type of the injected instance.
+When learning Ember and/or Dependency Injection, the question comes about how magic the injection strings are. 
+The goal of this RFC is to propose an alternate default for injections that allow ctrl+clickability / "go to definition" from the injection to the class that defines the type of the injected instance.
 
 Note: while this RFC mainly talks in terms in services, this applies to all injections.
 
@@ -16,6 +17,24 @@ Note: while this RFC mainly talks in terms in services, this applies to all inje
 The main goal is to _use the platform_ and enable "go to definition" support from service definitions so developers can more easily discover the where and how their service is defined.
 
 ## Detailed design
+
+### Current - String-based lookup
+
+The current dependency injection system has some flaws. 
+
+1. It is impossible to know the interface of a service.
+2. There is no way to "go-to definition" for a service injection, which hinders the ability for newcomers to learn and discover the inner workings of their project. 
+3. Discoverability and Traceability are low. How would one know that a service comes from an addon?
+4. There is no contract of API with a service. A service can be registered over / replaced with a totally different class that shares none of the API of the original class.
+
+  
+While we may know how to find the definition of a service in an app based on a service path, 
+this becomes harder when a service is defined in an addons and _especially_ with dynamically created services, such as those in tests. 
+From a learning perspective, many people new to ember have expressed confusion around the dependency injection system in that it is "magic".
+
+This RFC provides paths towards addressing all of the above.
+
+### Proposed - Class-based lookup
 
 instead of:
 ```ts
@@ -29,9 +48,11 @@ This will be the new default:
 @service(MessageDispatcherService) dispatcher;
 ```
 
-This means that the shorthand syntax of using `@service` without a parameter should be discouraged, and the use of the service class should be used in its place.
+This means that the shorthand syntax of using `@service` without a parameter should be discouraged, and the use of the service class should be used in its place. 
 
-At present, the service decorator wraps around the `ApplicationInstance#lookup` method -- something like this (roughly / hand-waiving the implementation details of decorators and getting access to the app instance):
+_The current way of accessing services via inference of the decorated property, or parameterless `@service` decorators are not proposed to be deprecated in this RFC._
+
+At present, the `@service` decorator wraps around the `ApplicationInstance#lookup` method -- something like this (roughly / hand-waiving the implementation details of decorators and getting access to the app instance):
 
 ```ts
 function service(name) {
@@ -39,7 +60,7 @@ function service(name) {
 }
 ```
 
-Instead, with this RFC, the service pseudo-function should check for the type of the parameter, and:
+In addition to string-based keys, with this RFC, the service pseudo-function should check for the type of the parameter, and:
 
 ```ts
 function service(nameOrClass) {
@@ -51,7 +72,8 @@ function service(nameOrClass) {
 }
 ```
 
-In order for `lookup` to be able to take a class definition as an argument, there will need to be an alternative way to _lookup_ instances of services by the class. Though, when a class is used for lookup, if there is no existing registration found, lookup _will register the class and instantiate it for you_.
+In order for `lookup` to be able to take a class definition as an argument, there will need to be an alternative way to _lookup_ instances of services by the class. 
+And as a convenience, when a class is used for lookup, if there is no existing registration found, lookup _will register the class and instantiate it for you_.
 
 Consider:
 
@@ -66,7 +88,7 @@ is the same as
 appInstance.lookup(MyClass);
 ```
 
-This will be most handy for decorators or other common abstractions that desire to interact with services (such as the router or store), but have direct access to them from the component or route context.
+This will be most handy for decorators or other common abstractions that desire to interact with services (such as the router or store), but only have direct access to them via a component or route context.
 
 On the `Registry`, there already exists a reference to the class definition when registering an entry to the container.
 
@@ -81,6 +103,9 @@ A new map can exist on the registry that can appropriately be wired up to regist
 Examples: 
 
  - **service registration and override**
+
+    This is a common scenario where a service may be defined explicitly for use an application, but in a _test_, some behavior may need to be overridden.
+
     ```ts
     class MyFooService extends Service {
       @tracked foo = 0;
@@ -89,30 +114,40 @@ Examples:
         this.foo++;
       }
     }
-
+    ```
+    When the application boots, as it is today, each service found in the `app` namespace, will be registered using the class reference.
+    ```ts
     appInstance.register(MyFooService, MyFooService);
     // this would register MyFooService on the *key* MyFooService,
     // just as today, it would look like
     appInstance.register('service:my-foo-service', MyFooService);
     ```
-    Now, where this _IS_ Dependency Injection, and how we aren't just using the concrete class all the time is where you can do things like this
+    For full compatibility with today's applications, each server will have two registrations: one string key, and one class key.
 
+    Coming back to the the intent of this example: wanting to override behavior in a test. This can be achieved by creating a class that subclasses the original service.
     ```ts
-    // note that this must share ancestry with the registered service.
     class MyFooOverrideService extends MyFooService {
       add() {
         this.foo += 2;
       }
     }
 
-    // both stubbing (in a test), or clobbering, would look the same
+    // both stubbing (in a test), or clobbering the originally registered service,
+    //  would look the same:
     appInstance.register(MyFooService, MyFooOverrideService);
+    // the key in this registration, MyFooService, must be an
+    // ancestor of MyFooOverrideService.
+    // The restriction there is to encourage to not simply 
+    // replace unrelated services with each other. For example, 
+    // replacing the router service with the ember-data store
+    // does not make sense, and is disallowed.
 
     const service = appInstance.lookup(MyFooService);
 
     service instanceof MyFooOverrideService // true
     service instanceof MyFooService // true
     ```
+    Even though the lookup is performed with `MyFooService`, we are given back an instance of `MyFooOverrideService` is returned.  
 
  - **less typing for lazy registration**
     ```ts
@@ -133,14 +168,23 @@ Examples:
 
  - **typescript fastboot example with instance initializers**
   
+    In a fastboot environment, there is no access to the window or document.
+    So when rendering the ember app on the server, we need a clean way to stub APIs that are accessed on the window or document.
+
+    For example, when accessing the cookie, we may define an _[abstract class](https://stackoverflow.com/questions/3344816/when-and-why-to-use-abstract-classes-methods)_, where we can either define default behavior or a contract where subclasses must adhere to in order to ensure usage of classes that inherit from this `CookieService`.
+
+    For example, in typescript, an abstract class may be defined as the following.
     ```ts
     // app/services/cookie/cookie-service.ts
     abstract class CookieService {
       abstract getValue(key: string): string {}
-
       abstract setValue(key: string, value: string): void {}
-    } 
 
+      // maybe other methods have implementations.
+    } 
+    ```
+
+    ```ts
     // app/components/my-component.js
     import Component from '@glimmer/component';
     import { inject as service } from '@ember/service';
@@ -149,6 +193,12 @@ Examples:
       @service(CookieService) cookie;
     }
 
+    ```
+    The benefit of defining an abstract class is that we are _not allowed_ to instantiate it. In this scenario, we don't want to instantiate the `CookieService` because it isn't _semantically specific_ enough. We want to know what environment the cookies are being manipulated in.
+
+    For both FastBoot and the Browser, we'll define two Services:
+
+    ```ts
     // app/services/cookie/fastboot-service.js
     import CookieService from 'app-name/services/cookies/cookie-service';
 
@@ -171,7 +221,13 @@ Examples:
       }
       // ...
     }
+    ```
 
+    By just defining the Browser and FastBoot specific cookie services alone isn't enough -- we need to be able to register/override the service at the lookup key `CookieService` _at runtime_. 
+
+    This can be done in an initializer:
+
+    ```ts
     // app/instance-initializers/register-cookie-service;
     import CookieService from 'app-name/services/cookies/cookie-service';
     import FastbootCookieService from 'app-name/services/cookies/fastboot-service';
@@ -190,7 +246,7 @@ Examples:
     export default { initialize };
     ```
 
-Logic will be added to the register method to ensure that the lookup type either is the same as the service instance's type or is an ancestor type. This will prevent the ability to register unrelated classes that would break the implied class hierarchy that is assumed with dependency injection. 
+Logic will be added to the register method to ensure that the lookup type either is the same as the service instance's type or is an ancestor type. This will prevent the ability to register unrelated classes that would break contract with the implied class hierarchy that is assumed with dependency injection. 
 
 ### Usage in testing
 
@@ -281,11 +337,55 @@ module('Integration | Component | location-indicator', function(hooks) {
 
 Instead of using strings or inferred injections, the guides should be updated to use the Class definition of a service that it intends to inject.
 
-Ember Inspector and the unstable-ember-language-server will likely need to be updated to support this kind of lookup.
+Ember Inspector and the unstable-ember-language-server will likely need to be updated to support this kind of lookup.  Additionally, we may want to explore the ember development server exposing a socket where tools can get runtime data about the application. This would allow the ember-language-server to not only know which concrete class is used for a dependency injection reference, but also it would be able to show all other possible overrides of a particular service.
+
+There will no doubt be some resistence to this change, and for those who ponder the possibility of "just using a module" instead of dependency injection altogether, they may want to read [this article](https://blogs.endjin.com/2014/04/understanding-dependency-injection/) or [this article](https://blog.thecodewhisperer.com/permalink/keep-dependency-injection-simple) 
+
+This isn't a new idea as it's very similar to how other platforms do dependency injection. 
+- Java's [Dagger](https://square.github.io/dagger/):
+    ```java
+    class CoffeeMaker {
+      @Inject Heater heater;
+      @Inject Pump pump;
+
+      ...
+    }
+  ```
+- Java's [Guice](https://github.com/google/guice/wiki/Injections) does constructor-based injections:
+    ```java
+    public class RealBillingService implements BillingService {
+        private final CreditCardProcessor processorProvider;
+        private final TransactionLog transactionLogProvider;
+
+        @Inject
+        public RealBillingService(
+            CreditCardProcessor processorProvider,
+            TransactionLog transactionLogProvider
+        ) {
+            this.processorProvider = processorProvider;
+            this.transactionLogProvider = transactionLogProvider;
+        }
+    }
+    ```
+- Guice is similar to [asp.net's default injection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.2) system
+  ```csharp
+  public class MyDependency : IMyDependency
+  {
+      private readonly ILogger<MyDependency> _logger;
+
+      public MyDependency(ILogger<MyDependency> logger)
+      {
+          this._logger = logger;
+      }
+  }
+    ```
+
+    These constructor-based dependency injection techniques are common in languages without decorators (or where decorators are hard to without sacrificing performance (common in Java)), but are much more verbose than decorator-based injection using properties on the class. Because Ember's current string-based dependency injection is powered by decorators _and_ concise, this RFC will not explore the option of constructor-based dependency injection. The primary goal is to _add_ functionality to the existing dependency injection system in Ember.
+
 
 ## Drawbacks
 
-- more verbose
+- slightly more verbose
 
 ## Alternatives
 
