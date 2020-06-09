@@ -332,40 +332,61 @@ There is no need to have compatibility with the router's queryParams here.
 
 Currently, query params _must_ be [specified on the controller](https://guides.emberjs.com/release/routing/query-params/):
 ```ts
-export default class extends Controller {
+export default class ArticlesController extends Controller {
   queryParams = ['page', 'filter', {
-   // QP 'articles_category' is mapped to 'category' in our route and controller
-   category: 'articles_category'
+    // QP 'articles_category' is mapped to 'category' in our route and controller
+    category: 'articles_category'
   }];
+
   category = null;
   page = 1;
   filter = 'recent';
-
-  @computed('category', 'model')
-  get filteredArticles() {
-    // do something with category and model as category changes
-  }
 }
 ```
 
-Having query-param-related computed properties available everywhere will be a shift in thinking that "the controller manages query params" to "query params are a routing concern and are on the router service"
+Having query-param-related computed properties available everywhere will be a shift in thinking that "the controller manages query params" to "query params are a concern of the query params service".
+
+The above example from the guides could be consumed in a route as the following.
 
 ```ts
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import { alias } from '@ember/object/computed';
 
-export default class ApplicationRoute extends Route {
-  @service router;
+export default class ArticlesRoute extends Route {
+  @service queryParams;
 
-  @alias('router.queryParams.r') isSpeakerNotes;
-  @alias('router.queryParams.slide') slideNumber;
+  // model is entangled with the query params?
+  async model() {
+    // all query params defined on a controller are available via the service
+    let { page, filter, category } = this.queryParams;
 
-  model() {
-    return {
-      isSpeakerNotes: this.isSpeakerNotes,
-      slideNumber: this.slideNumber
-    }
+    let posts = await fetch(`/api/posts?page=${page}&filter=${filter}&category=${category}`);
+    
+    return { posts };
+  }
+}
+```
+
+Even with no controller required, page,filter, and category would still be 
+available -- however, the default value would be `''`.
+
+To set a default value, people should be encouraged to use the same semantics
+as with components and receiving args.
+
+```ts
+export default class ArticlesRoute extends Route {
+  @service queryParams;
+
+  get filter() {
+    return this.queryParams.filter ?? 'recent';
+  }
+
+  // ...
+  // model is entangled with the query params?
+  // maybe a resource needs to be involved
+  async model() {
+    let { page, filter, category } = this;
+    // ...
   }
 }
 ```
