@@ -7,28 +7,74 @@
 
 ## Summary
 
-This RFC proposes a new primitive API change to the `RouterService` to allow access to query params from anywhere.
+This RFC proposes a new built-in Service for managing query params which would 
+allow for query params to be accessed and manipulated from anywhere in the app.
 
-Access to query params is currently restricted to the controller, and subsequently, the corresponding route.
-This results in some limitations with which users may consume query param data.
-By exposing query params on the [RouterService](https://api.emberjs.com/ember/release/classes/RouterService), users will be able to easily access the query params from deep down a component tree, removing the need to pass query param related data and actions down many layers of components.
-
+Access to query params is currently restricted to the controller and the 
+corresponding route. This results in some limitations with which users may 
+consume query param data. By exposing query params on a service, application 
+developers will be able to easily access the query params from deep within a 
+component tree, removing the need to pass query param related data and actions 
+down through many layers of components from the route template.
 
 
 ## Motivation
 
-Modern SPA concepts have converged on the idea that query params should be easily accessible -- independent from the object responsible for handling the route.
+Modern SPA concepts have converged on the idea that query params should be 
+easily accessible -- independent from the construct responsible for handling 
+routing -- yet not forgotten, as query params are very tied to the URL. 
 Like with the [RouterService](https://github.com/emberjs/rfcs/blob/master/text/0095-router-service.md),
-it is common to have a need to perform routing behavior from deep down a component tree.
-Additionally, the current query params implementation feels very verbose for "just wanting to access a property" and has been frustrating to have to explain awkward behavior when on-boarding new devs who may be unfamiliar with Ember.
+it is common to have a need to perform routing behavior from deep down a 
+component tree. 
+
+Additionally, the current query params implementation feels 
+very verbose for "just wanting to access a property" and has been frustrating 
+to have to explain awkward behavior when on-boarding new developers who may be 
+unfamiliar with Ember.
 
 Accessing data within the url **should feel easy**.
 
 **What's wrong with the existing query params?**
-- For all but one use case, controllers can be avoided. Query Params force controllers into existence for those who are trying to avoid them. 
-- The caching mechanism is persistent beyond just child routes. _Any_ time a route with query params is re-visited, the query params values will be restored. This can be useful for those who are needing this behavior, but for those who want to manage queryParams via transition / navigations, they'd need to set up query param resets on enter/exit of routes, link-to's and transitions -- the query params implementation becomes more of an obstacle than a feature.
+- For all but one use case, controllers _can_ be avoided. Query params force 
+  controllers into existence for those who are trying to avoid them. 
+
+- The caching mechanism is persistent beyond just child routes. _Any_ time a 
+  route with query params is re-visited, the query params values will be 
+  restored. This can be useful for those who are needing this behavior, but 
+  for those who want to manage query params via transition or navigations,
+  they'd need to set up some mechanism for resetting or clearing query params
+  on activation or transition away from routes -- the query params 
+  implementation becomes more of an obstacle than a feature.
 
 ## Detailed Design
+
+------------ implementation idea? --------------
+
+```ts
+// Route at '@ember/routing/route';
+export default class Route {
+  @service('queryParams') qps;
+  @controller(this.name) controller; // does this work like this? never used this
+
+  @use [Symbol('QP')] entangleQueryParams(this, ...this.qps.all, ...this.controller.queryParams)
+}
+
+function entagleQueryParams(routeInstance, ...queryParams) {
+  // ... details
+}
+
+class RouteQueryParamsManager {
+  @service router;
+
+  declare route: Route;
+
+  updateUsable() {
+    // re-run model hooks?
+    this.router.refresh(this.route);
+  }
+}
+
+```
 
 ### Accessing Query Params
 
@@ -37,13 +83,19 @@ import Component from "@glimmer/component";
 import { inject as service } from '@ember/service';
 
 export default class Pagination extends Component {
-  @service router;
+  @service queryParams;
 
   get currentPage() {
-    const { page } = this.router.queryParams;
-
-    return page;
+    // returns "1" from ?page=1
+    return this.queryParams.page;
   }
+  set currentPage(value) {
+    // sets value to ?page=stringified-value
+    // NOTE: this API is only possible if the service itself is a proxy to itself
+    //       otherwise we need helper methods,
+    this.queryParams.page = value;
+  }
+
 }
 ```
 
@@ -98,25 +150,24 @@ If query params are defined ahead of time as sticky, they will persist in the UR
 This can be configured in the `Router.map` function:
 ```ts
 Router.map(function() {
-  this.queryParams('bar');
-
-  this.route('faq');
-
-  this.route('posts', function() {
-    this.queryParams('foo', 'baz');
-
-    this.route('new');
-    this.route('index');
-    this.route(
-      'show',
-      { path: '/:postId', queryParams: ['hideComments', 'invertColors'] },
-      function() {
-        this.route('edit');
-        this.route('comment');
-        this.route('share');
-      }
-    );
+  this.route('application', { queryParams: 'bar' }, function() {
+    this.route('faq');
+  
+    this.route('posts', { queryParams: ['foo', 'baz']} function() {  
+      this.route('new');
+      this.route('index');
+      this.route(
+        'show',
+        { path: '/:postId', queryParams: ['hideComments', 'invertColors'] },
+        function() {
+          this.route('edit');
+          this.route('comment');
+          this.route('share');
+        }
+      );
+    });
   });
+
 });
 ```
 
