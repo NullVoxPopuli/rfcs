@@ -1,8 +1,9 @@
 - Start Date: 2018-09-21
+- Relevant Team(s): Ember.js, Learning, Steering
 - RFC PR: [https://github.com/emberjs/rfcs/pull/380](https://github.com/emberjs/rfcs/pull/380)
-- Ember Issue: (leave this empty)
+- Tracking: (leave this empty)
 
-# Add `queryParams` to the router service
+# Query Params Service
 
 ## Summary
 
