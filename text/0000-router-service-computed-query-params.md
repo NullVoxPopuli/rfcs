@@ -119,11 +119,11 @@ import EmberRouter from '@ember/routing/router';
 
 import config from '../config/environment';
 
-const Router = EmberRouter.extend({
-  location: config.locationType,
-  rootURL: config.rootURL,
+export default class Router extends EmberRouter {
+  location = config.locationType;
+  rootURL = config.rootURL;
 
-  queryParamsConfig: {
+  static queryParamsConfig = {
     serialize(queryParams: object): string {
       // serialize object for query string
       // default to URLSearchParams, polyfilled for IE11
@@ -132,8 +132,8 @@ const Router = EmberRouter.extend({
       // parse to object for use in `injectedRouter.queryString`
       // also default to URLSerachParams
     }
-  }
-});
+  };
+};
 ```
 
 
@@ -167,7 +167,6 @@ Router.map(function() {
       );
     });
   });
-
 });
 ```
 
@@ -187,19 +186,19 @@ Given we want a way to search over a list of products, be able to view additiona
 
 ```ts
 Router.map(function() {
-  this.queryParams('bar');
-
-  this.route('search', { queryParams: [
-    'term', 'isPrime', 'department', 'averageReview', 'brand', 
-    'memoryType', 'processor', 'vRamCapacity', 'certification',
-  ]}, function() {
-    // index route will be the search results page
-
-    // shows a selected result with additional information
-    this.route('summary', { path: '/summary/:itemId' });
-
-    // shows a modal with a field to name the search to be loaded later
-    this.route('save');
+  this.route('application', { queryParams: 'bar' }, function() {
+    this.route('search', { queryParams: [
+      'term', 'isPrime', 'department', 'averageReview', 'brand', 
+      'memoryType', 'processor', 'vRamCapacity', 'certification',
+    ]}, function() {
+      // index route will be the search results page
+  
+      // shows a selected result with additional information
+      this.route('summary', { path: '/summary/:itemId' });
+  
+      // shows a modal with a field to name the search to be loaded later
+      this.route('save');
+    });
   });
 });
 ```
@@ -236,16 +235,14 @@ Router.map(function() {
    implementation of the submit action make look like:
 
    ```ts
-   @service router;
+   @service queryParams;
 
    @action submit() {
-     let { queryParams } = this.router
-
      await fetch('some-url', {
        method: 'POST',
        body: JSON.stringify({
          name: this.name,
-         search: queryParams
+         search: this.queryParams.all
        }),
      });
    }
