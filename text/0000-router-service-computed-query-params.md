@@ -140,8 +140,22 @@ export default class Router extends EmberRouter {
 This will address a long standing issues from as far back as 2016,
 some new functionality for serialization and deserialization could be powered by [qs](https://www.npmjs.com/package/qs) ([3.4kb (gzip+min)](https://bundlephobia.com/result?p=qs@6.7.0)) or a lternatively, [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) -- this would enable the setting of arrays and objects which is not possible today.
 
+### Translation between old and new
 
-### Sticky Query Params
+<details>
+<summary>Re-setting Query Params on transition</summary>
+
+
+</details>
+
+<details>
+<summary>Deriving Initial Query Param values from the `model` data</summary>
+
+</details>
+
+<details>
+<summary>Sticky Query Params</summary>
+
 
 By default, transitionTo will clear the query params, unless specified inside the transiion.
 
@@ -248,6 +262,8 @@ Router.map(function() {
    }
 
    ```
+
+</details>
 
 
 -------------------------------------------
