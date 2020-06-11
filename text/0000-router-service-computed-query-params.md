@@ -142,14 +142,70 @@ some new functionality for serialization and deserialization could be powered by
 
 ### Translation between old and new
 
+Some of the following is taken from the [Ember 3.18.0 Guides](https://guides.emberjs.com/v3.18.0/routing/query-params/)
+
 <details>
-<summary>Re-setting Query Params on transition</summary>
+<summary>transitionTo</summary>
+
+</details>
+
+<details>
+  <summary>Causing the `model` Data to Refresh</summary>
+
+```ts
+export default class ArticlesRoute extends Route {
+  queryParams = {
+    category: {
+      refreshModel: true
+    }
+  };
+
+  model(params) {
+    // This gets called upon entering 'articles' route
+    // for the first time, and we opt into refiring it upon
+    // query param changes by setting `refreshModel:true` above.
+
+    // params has format of { category: "someValueOrJustNull" },
+    // which we can forward to the server.
+    return this.store.query('article', params);
+  }
+}
+```
+
+</details>
+
+
+<details>
+<summary>Updating the URL with replaceState</summary>
+
+</details>
+
+<details>
+<summary>Map a controller's property to a different query param key</summary>
+
+```ts
+import Controller from '@ember/controller';
+
+export default class ArticlesController extends Controller {
+  queryParams = [{
+    category: 'articles_category'
+  }];
+
+  category = null;
+}
+```
+
+</details>
+
+
+<details>
+<summary>Re-setting Query Params on Transition</summary>
 
 
 </details>
 
 <details>
-<summary>Deriving Initial Query Param values from the `model` data</summary>
+<summary>Deriving Initial Query Param Values from the `model` Data</summary>
 
 </details>
 
