@@ -210,6 +210,11 @@ export default class ArticlesController extends Controller {
 </details>
 
 <details>
+<summary>Sticky Query Params Scoped to the Controller Instead of the `Model` Data</summary>
+
+</details>
+
+<details>
 <summary>Sticky Query Params</summary>
 
 
