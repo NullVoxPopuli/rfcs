@@ -3,7 +3,7 @@
 - RFC PR: [https://github.com/emberjs/rfcs/pull/380](https://github.com/emberjs/rfcs/pull/380)
 - Tracking: (leave this empty)
 
-# URL and QueryParams as Tracked State
+# URL and QueryParams from a singular centralized tracked state
 
 ## Summary
 
