@@ -3,6 +3,9 @@
 - RFC PR: [https://github.com/emberjs/rfcs/pull/380](https://github.com/emberjs/rfcs/pull/380)
 - Tracking: (leave this empty)
 
+NOTE: this is a revision in progress and is not complete
+
+
 # URL and QueryParams from a singular centralized tracked state
 
 ## Summary
@@ -166,35 +169,70 @@ awkward behavior when on-boarding new developers who may be unfamiliar with Embe
   on activation or transition away from routes -- the query params 
   implementation becomes more of an obstacle than a feature.
 
+- Because query params can only be set on a controller, managing query param 
+  mutations results in _prop-drilling_, a common anti patterns as a result of 
+  _too much_ data-down, actions up which makes maintenance and debugging harder.
+
 ## Detailed Design
 
------------- implementation idea? --------------
+With the goal to maintain compatibility of the current implementation of query 
+params, this design is primarily focused on how we update and get updates from 
+the URL. Something to be mindful of is that we also want to enable _more_ possibilities
+in the future, rather that dig further into our current implementation. For example,
+we should _eventually_ have APIs that allow the Routing mechanisms to be swapped out 
+with a different "Route as State" management technique -- maybe a "Stack", such 
+as what would be used by native mobile apps.
+
+> Primary Objective: Make the URL, including Query Params "Tracked State", such that
+  interacting with the URL and QueryParams follows the same reactivity model that 
+  we use in the rest of our Ember apps.
+
+* _It is understood that Routing is very complex and there are a lot of moving parts_.
+* This RFC does not propose we focus on supporting stack-based routing, but only that
+  we don't shoehorn ourselves away from the possibility of supporting stack-based routing.
+
+
+To start, let's look at the existing way Routing works:
+
+TODO: fill this out
+
+ - [router_js](https://github.com/tildeio/router.js)
+ - 
+ -
+ - `Route`
+ - `RouterService`
+ -
+
+
+With a centralized "Route as State" or "URL as State" architecture, we may end up with something like
+
+ - `RouteManager`
+ - `Route`
+ - `RouterService`
+
+At the root of the route and URL management tree, the full URL needs to be tracked.
+This can be implemented today via a popstate listener on the `window`.
+
+??? TODO: ??? prototype this out and see if it works.
+IF so, it means we don't always have to use transitionTo?
+what implications would that have?
 
 ```ts
-// Route at '@ember/routing/route';
-export default class Route {
-  @service('queryParams') qps;
-  @controller(this.name) controller; // does this work like this? never used this
 
-  @use [Symbol('QP')] entangleQueryParams(this, ...this.qps.all, ...this.controller.queryParams)
-}
-
-function entagleQueryParams(routeInstance, ...queryParams) {
-  // ... details
-}
-
-class RouteQueryParamsManager {
-  @service router;
-
-  declare route: Route;
-
-  updateUsable() {
-    // re-run model hooks?
-    this.router.refresh(this.route);
-  }
-}
 
 ```
+
+When the URL information is tracked, the existing route infrastructure can remain the same.
+Over time, we may provide additional RFCs suggesting implementations to simplify the routing
+behavior to take advantage of the URL being tracked, and exploring the possibility of the
+"active route", and transitions to/from the active route being "derived data".
+
+
+
+
+### Accessing the URL and current route
+
+_Unchanged from today's behavior_
 
 ### Accessing Query Params
 
@@ -203,17 +241,17 @@ import Component from "@glimmer/component";
 import { inject as service } from '@ember/service';
 
 export default class Pagination extends Component {
-  @service queryParams;
+  @service router;
 
   get currentPage() {
     // returns "1" from ?page=1
-    return this.queryParams.page;
+    return this.router.queryParams.page;
   }
   set currentPage(value) {
     // sets value to ?page=stringified-value
     // NOTE: this API is only possible if the service itself is a proxy to itself
     //       otherwise we need helper methods,
-    this.queryParams.page = value;
+    this.router.queryParams.page = value;
   }
 
 }
@@ -225,6 +263,7 @@ Having query params accessible on the router service would allow users to implem
  - fill in form fields from a link.
  - filter / search components could update the query param property.
  - whatever else query params are used for outside of a SPA.
+
 
 ### Serialization / Deserialization
 
@@ -589,3 +628,32 @@ export default class ArticlesRoute extends Route {
 
 - Some people may be relying on the controller query-params allow-list.
 - Some people may be super tied in to controller query params cacheing.
+
+
+## Alternatives and Outstanding Questions
+
+- `@queryParam` decorator
+
+  Not required for this RFC but might be a good DX boost for basic use cases.
+
+  ```ts
+  import Component from "@glimmer/component";
+  import { queryParam } from '@ember/routing';
+
+  export default class Pagination extends Component {
+    @queryParam('page') currentPage;
+  }
+  ```
+
+  When using the `@queryParam` decorator, setting a value via 
+  `@queryParam('page') currentPage = 'foo';` would be the equivelant of:
+
+  ```ts
+  get currentPage() {
+    // returns 'foo' when 'page' is not present in the URL
+    return this.router.queryParams.page ?? defaultValue;
+  }
+  ```
+
+  The `@queryParam` decorator would not provide any additional functionality. 
+  The values are always strings, both when retrieved and when set.
