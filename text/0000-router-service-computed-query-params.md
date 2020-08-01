@@ -3,40 +3,160 @@
 - RFC PR: [https://github.com/emberjs/rfcs/pull/380](https://github.com/emberjs/rfcs/pull/380)
 - Tracking: (leave this empty)
 
-# Query Params Service
+# URL and QueryParams as Tracked State
 
 ## Summary
 
-This RFC proposes a new built-in Service for managing query params which would 
-allow for query params to be accessed and manipulated from anywhere in the app.
+Today, the URL can be interacted with via multiple mechanisms: the `RouterService` 
+and a controller's configured implicit query param properties. Query params, in
+particular, are a pain point for many developers due that implicit configuration.
 
-Access to query params is currently restricted to the controller and the 
-corresponding route. This results in some limitations with which users may 
-consume query param data. By exposing query params on a service, application 
-developers will be able to easily access the query params from deep within a 
-component tree, removing the need to pass query param related data and actions 
-down through many layers of components from the route template.
+This RFC proposes a new concept for managing the URL as a whole, unifying the APIs
+for route transitions, and query param transitions. This will be a process, and 
+will more than likely require experimentation _first_.
 
 
 ## Motivation
 
-Modern SPA concepts have converged on the idea that query params should be 
-easily accessible -- independent from the construct responsible for handling 
-routing -- yet not forgotten, as query params are very tied to the URL. 
+_Accessing data within the URL **should feel easy**._
+
+Modern SPA concepts have converged on the idea that accessing data from the URL
+should be convenient and be possible everywhere within an app. 
+
+<details><summary>Examples from other ecosystems</summary>
+
+**Vanilla JS**
+
+```js
+// https://emberjs.com?foo=bar
+let queryParams = new URLSearchParams(window.location.search)
+
+queryParams.get('foo') // "bar"
+```
+
+We _could_ do this in our Ember apps and ignore the existing query params 
+implementation altogether, but it means each app developer is left 
+to implement a didTransition hook, parse the search object themselves, and then
+figure out a way to push changes to query params back to the URL.
+
+The very least we can do as a framework is,
+ - offer a centralized way to get and set query params and allow developers to 
+   define the lifecycle of those params on each route 
+ - provide a more ergonomic interface for interacting with the top level params, 
+   as the top-level params have no room for interpretation from servers for how 
+   to handle nested and array params, allowing us to standardize on "native JS" 
+   with property getting and setting.
+
+**React**
+
+_using react-router @ ^5.0.0_
+
+React offers a `useLocation` hook, that listens to the window.location object.
+From there, it's up to the app developer to decide what to do with the `.search`
+property on the `Location`.
+
+```jsx
+// https://emberjs.com?foo=bar
+
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter, useLocation } from "react-router-dom";
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+function App() {
+  let queryParams = useQuery();
+
+  return <div>{queryParams.get('foo')}</div>; // renders "bar"
+}
+
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  node
+);
+```
+
+**Vue**
+
+_using vue-router @ ^3.0.0_
+
+Vue-Router injects a `$route` service / property that parses the query params.
+
+```js
+// https://emberjs.com?foo=bar
+
+export default {
+  computed: {
+    foo() {
+      return this.$route.params.foo; // "bar"
+    }
+  }
+}
+```
+
+**Angular**
+
+_using Angular @ ^10.0.0_
+
+Angular also has injectable route data via the `ActivatedRoute` service.
+
+Query params are an rx.js observeable that, when pipe/map'd, exposes an 
+`URLSearchParams` object.
+
+```ts
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-admin-dashboard',
+  templateUrl: './admin-dashboard.component.html',
+  styleUrls: ['./admin-dashboard.component.css']
+})
+export class AdminDashboardComponent implements OnInit {
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    // Capture the session ID if available
+    this.sessionId = this.route
+      .queryParamMap
+      .pipe(map(params => params.get('session_id') || 'None'));
+  }
+}
+```
+
+</details>
+
+
 Like with the [RouterService](https://github.com/emberjs/rfcs/blob/master/text/0095-router-service.md),
-it is common to have a need to perform routing behavior from deep down a 
-component tree. 
+where is is common to perform routing behavior from deep within a component tree, 
+the desire exists to do the same with query params.
 
-Additionally, the current query params implementation feels 
-very verbose for "just wanting to access a property" and has been frustrating 
-to have to explain awkward behavior when on-boarding new developers who may be 
-unfamiliar with Ember.
+Access to query params is [currently restricted to the controller and the 
+corresponding route](https://guides.emberjs.com/v3.20.0/routing/query-params/). 
+This results in some limitations with which users may 
+consume query param data. By exposing query params on a service, application 
+developers will be able to easily access the query params from deep within a 
+component tree, removing the need to pass query param related data and actions 
+down through many layers of components from the route template and aligning more
+with the other ecosystems.
 
-Accessing data within the url **should feel easy**.
+Lastly, the current query params implementation feels very verbose for 
+"just wanting to access a property" and has been frustrating to have to explain 
+awkward behavior when on-boarding new developers who may be unfamiliar with Ember.
 
 **What's wrong with the existing query params?**
 - For all but one use case, controllers _can_ be avoided. Query params force 
   controllers into existence for those who are trying to avoid them. 
+  
+  > NOTE: Any discussion about controllers (aside from backwards compatibility)
+  >       is outside the scope of this RFC. The goal of this RFC is only to unify 
+  >       access to data from the URL.
 
 - The caching mechanism is persistent beyond just child routes. _Any_ time a 
   route with query params is re-visited, the query params values will be 
