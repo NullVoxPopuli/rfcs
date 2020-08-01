@@ -1,33 +1,238 @@
 - Start Date: 2018-09-21
+- Relevant Team(s): Ember.js, Learning, Steering
 - RFC PR: [https://github.com/emberjs/rfcs/pull/380](https://github.com/emberjs/rfcs/pull/380)
-- Ember Issue: (leave this empty)
+- Tracking: (leave this empty)
 
-# Add `queryParams` to the router service
+NOTE: this is a revision in progress and is not complete
+
+
+# URL and QueryParams from a singular centralized tracked state
 
 ## Summary
 
-This RFC proposes a new primitive API change to the `RouterService` to allow access to query params from anywhere.
+Today, the URL can be interacted with via multiple mechanisms: the `RouterService` 
+and a controller's configured implicit query param properties. Query params, in
+particular, are a pain point for many developers due that implicit configuration.
 
-Access to query params is currently restricted to the controller, and subsequently, the corresponding route.
-This results in some limitations with which users may consume query param data.
-By exposing query params on the [RouterService](https://api.emberjs.com/ember/release/classes/RouterService), users will be able to easily access the query params from deep down a component tree, removing the need to pass query param related data and actions down many layers of components.
-
+This RFC proposes a new concept for managing the URL as a whole, unifying the APIs
+for route transitions, and query param transitions. This will be a process, and 
+will more than likely require experimentation _first_.
 
 
 ## Motivation
 
-Modern SPA concepts have converged on the idea that query params should be easily accessible -- independent from the object responsible for handling the route.
-Like with the [RouterService](https://github.com/emberjs/rfcs/blob/master/text/0095-router-service.md),
-it is common to have a need to perform routing behavior from deep down a component tree.
-Additionally, the current query params implementation feels very verbose for "just wanting to access a property" and has been frustrating to have to explain awkward behavior when on-boarding new devs who may be unfamiliar with Ember.
+_Accessing data within the URL **should feel easy**._
 
-Accessing data within the url **should feel easy**.
+Modern SPA concepts have converged on the idea that accessing data from the URL
+should be convenient and be possible everywhere within an app. 
+
+<details><summary>Examples from other ecosystems</summary>
+
+**Vanilla JS**
+
+```js
+// https://emberjs.com?foo=bar
+let queryParams = new URLSearchParams(window.location.search)
+
+queryParams.get('foo') // "bar"
+```
+
+We _could_ do this in our Ember apps and ignore the existing query params 
+implementation altogether, but it means each app developer is left 
+to implement a didTransition hook, parse the search object themselves, and then
+figure out a way to push changes to query params back to the URL.
+
+The very least we can do as a framework is,
+ - offer a centralized way to get and set query params and allow developers to 
+   define the lifecycle of those params on each route 
+ - provide a more ergonomic interface for interacting with the top level params, 
+   as the top-level params have no room for interpretation from servers for how 
+   to handle nested and array params, allowing us to standardize on "native JS" 
+   with property getting and setting.
+
+**React**
+
+_using react-router @ ^5.0.0_
+
+React offers a `useLocation` hook, that listens to the window.location object.
+From there, it's up to the app developer to decide what to do with the `.search`
+property on the `Location`.
+
+```jsx
+// https://emberjs.com?foo=bar
+
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter, useLocation } from "react-router-dom";
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+function App() {
+  let queryParams = useQuery();
+
+  return <div>{queryParams.get('foo')}</div>; // renders "bar"
+}
+
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  node
+);
+```
+
+**Vue**
+
+_using vue-router @ ^3.0.0_
+
+Vue-Router injects a `$route` service / property that parses the query params.
+
+```js
+// https://emberjs.com?foo=bar
+
+export default {
+  computed: {
+    foo() {
+      return this.$route.params.foo; // "bar"
+    }
+  }
+}
+```
+
+**Angular**
+
+_using Angular @ ^10.0.0_
+
+Angular also has injectable route data via the `ActivatedRoute` service.
+
+Query params are an rx.js observeable that, when pipe/map'd, exposes an 
+`URLSearchParams` object.
+
+```ts
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-admin-dashboard',
+  templateUrl: './admin-dashboard.component.html',
+  styleUrls: ['./admin-dashboard.component.css']
+})
+export class AdminDashboardComponent implements OnInit {
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    // Capture the session ID if available
+    this.sessionId = this.route
+      .queryParamMap
+      .pipe(map(params => params.get('session_id') || 'None'));
+  }
+}
+```
+
+</details>
+
+
+Like with the [RouterService](https://github.com/emberjs/rfcs/blob/master/text/0095-router-service.md),
+where is is common to perform routing behavior from deep within a component tree, 
+the desire exists to do the same with query params.
+
+Access to query params is [currently restricted to the controller and the 
+corresponding route](https://guides.emberjs.com/v3.20.0/routing/query-params/). 
+This results in some limitations with which users may 
+consume query param data. By exposing query params on a service, application 
+developers will be able to easily access the query params from deep within a 
+component tree, removing the need to pass query param related data and actions 
+down through many layers of components from the route template and aligning more
+with the other ecosystems.
+
+Lastly, the current query params implementation feels very verbose for 
+"just wanting to access a property" and has been frustrating to have to explain 
+awkward behavior when on-boarding new developers who may be unfamiliar with Ember.
 
 **What's wrong with the existing query params?**
-- For all but one use case, controllers can be avoided. Query Params force controllers into existence for those who are trying to avoid them. 
-- The caching mechanism is persistent beyond just child routes. _Any_ time a route with query params is re-visited, the query params values will be restored. This can be useful for those who are needing this behavior, but for those who want to manage queryParams via transition / navigations, they'd need to set up query param resets on enter/exit of routes, link-to's and transitions -- the query params implementation becomes more of an obstacle than a feature.
+- For all but one use case, controllers _can_ be avoided. Query params force 
+  controllers into existence for those who are trying to avoid them. 
+  
+  > NOTE: Any discussion about controllers (aside from backwards compatibility)
+  >       is outside the scope of this RFC. The goal of this RFC is only to unify 
+  >       access to data from the URL.
+
+- The caching mechanism is persistent beyond just child routes. _Any_ time a 
+  route with query params is re-visited, the query params values will be 
+  restored. This can be useful for those who are needing this behavior, but 
+  for those who want to manage query params via transition or navigations,
+  they'd need to set up some mechanism for resetting or clearing query params
+  on activation or transition away from routes -- the query params 
+  implementation becomes more of an obstacle than a feature.
+
+- Because query params can only be set on a controller, managing query param 
+  mutations results in _prop-drilling_, a common anti patterns as a result of 
+  _too much_ data-down, actions up which makes maintenance and debugging harder.
 
 ## Detailed Design
+
+With the goal to maintain compatibility of the current implementation of query 
+params, this design is primarily focused on how we update and get updates from 
+the URL. Something to be mindful of is that we also want to enable _more_ possibilities
+in the future, rather that dig further into our current implementation. For example,
+we should _eventually_ have APIs that allow the Routing mechanisms to be swapped out 
+with a different "Route as State" management technique -- maybe a "Stack", such 
+as what would be used by native mobile apps.
+
+> Primary Objective: Make the URL, including Query Params "Tracked State", such that
+  interacting with the URL and QueryParams follows the same reactivity model that 
+  we use in the rest of our Ember apps.
+
+* _It is understood that Routing is very complex and there are a lot of moving parts_.
+* This RFC does not propose we focus on supporting stack-based routing, but only that
+  we don't shoehorn ourselves away from the possibility of supporting stack-based routing.
+
+
+To start, let's look at the existing way Routing works:
+
+TODO: fill this out
+
+ - [router_js](https://github.com/tildeio/router.js)
+ - 
+ -
+ - `Route`
+ - `RouterService`
+ -
+
+
+With a centralized "Route as State" or "URL as State" architecture, we may end up with something like
+
+ - `RouteManager`
+ - `Route`
+ - `RouterService`
+
+At the root of the route and URL management tree, the full URL needs to be tracked.
+This can be implemented today via a popstate listener on the `window`.
+
+??? TODO: ??? prototype this out and see if it works.
+IF so, it means we don't always have to use transitionTo?
+what implications would that have?
+
+```ts
+
+
+```
+
+When the URL information is tracked, the existing route infrastructure can remain the same.
+Over time, we may provide additional RFCs suggesting implementations to simplify the routing
+behavior to take advantage of the URL being tracked, and exploring the possibility of the
+"active route", and transitions to/from the active route being "derived data".
+
+
+
+
+### Accessing the URL and current route
+
+_Unchanged from today's behavior_
 
 ### Accessing Query Params
 
@@ -39,10 +244,16 @@ export default class Pagination extends Component {
   @service router;
 
   get currentPage() {
-    const { page } = this.router.queryParams;
-
-    return page;
+    // returns "1" from ?page=1
+    return this.router.queryParams.page;
   }
+  set currentPage(value) {
+    // sets value to ?page=stringified-value
+    // NOTE: this API is only possible if the service itself is a proxy to itself
+    //       otherwise we need helper methods,
+    this.router.queryParams.page = value;
+  }
+
 }
 ```
 
@@ -52,6 +263,7 @@ Having query params accessible on the router service would allow users to implem
  - fill in form fields from a link.
  - filter / search components could update the query param property.
  - whatever else query params are used for outside of a SPA.
+
 
 ### Serialization / Deserialization
 
@@ -66,11 +278,11 @@ import EmberRouter from '@ember/routing/router';
 
 import config from '../config/environment';
 
-const Router = EmberRouter.extend({
-  location: config.locationType,
-  rootURL: config.rootURL,
+export default class Router extends EmberRouter {
+  location = config.locationType;
+  rootURL = config.rootURL;
 
-  queryParamsConfig: {
+  static queryParamsConfig = {
     serialize(queryParams: object): string {
       // serialize object for query string
       // default to URLSearchParams, polyfilled for IE11
@@ -79,16 +291,91 @@ const Router = EmberRouter.extend({
       // parse to object for use in `injectedRouter.queryString`
       // also default to URLSerachParams
     }
-  }
-});
+  };
+};
 ```
 
 
 This will address a long standing issues from as far back as 2016,
 some new functionality for serialization and deserialization could be powered by [qs](https://www.npmjs.com/package/qs) ([3.4kb (gzip+min)](https://bundlephobia.com/result?p=qs@6.7.0)) or a lternatively, [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) -- this would enable the setting of arrays and objects which is not possible today.
 
+### Translation between old and new
 
-### Sticky Query Params
+Some of the following is taken from the [Ember 3.18.0 Guides](https://guides.emberjs.com/v3.18.0/routing/query-params/)
+
+<details>
+<summary>transitionTo</summary>
+
+</details>
+
+<details>
+  <summary>Causing the `model` Data to Refresh</summary>
+
+```ts
+export default class ArticlesRoute extends Route {
+  queryParams = {
+    category: {
+      refreshModel: true
+    }
+  };
+
+  model(params) {
+    // This gets called upon entering 'articles' route
+    // for the first time, and we opt into refiring it upon
+    // query param changes by setting `refreshModel:true` above.
+
+    // params has format of { category: "someValueOrJustNull" },
+    // which we can forward to the server.
+    return this.store.query('article', params);
+  }
+}
+```
+
+</details>
+
+
+<details>
+<summary>Updating the URL with replaceState</summary>
+
+</details>
+
+<details>
+<summary>Map a controller's property to a different query param key</summary>
+
+```ts
+import Controller from '@ember/controller';
+
+export default class ArticlesController extends Controller {
+  queryParams = [{
+    category: 'articles_category'
+  }];
+
+  category = null;
+}
+```
+
+</details>
+
+
+<details>
+<summary>Re-setting Query Params on Transition</summary>
+
+
+</details>
+
+<details>
+<summary>Deriving Initial Query Param Values from the `model` Data</summary>
+
+</details>
+
+<details>
+<summary>Sticky Query Params Scoped to the Controller Instead of the `Model` Data</summary>
+
+</details>
+
+<details>
+<summary>Sticky Query Params</summary>
+
 
 By default, transitionTo will clear the query params, unless specified inside the transiion.
 
@@ -97,24 +384,22 @@ If query params are defined ahead of time as sticky, they will persist in the UR
 This can be configured in the `Router.map` function:
 ```ts
 Router.map(function() {
-  this.queryParams('bar');
-
-  this.route('faq');
-
-  this.route('posts', function() {
-    this.queryParams('foo', 'baz');
-
-    this.route('new');
-    this.route('index');
-    this.route(
-      'show',
-      { path: '/:postId', queryParams: ['hideComments', 'invertColors'] },
-      function() {
-        this.route('edit');
-        this.route('comment');
-        this.route('share');
-      }
-    );
+  this.route('application', { queryParams: 'bar' }, function() {
+    this.route('faq');
+  
+    this.route('posts', { queryParams: ['foo', 'baz']} function() {  
+      this.route('new');
+      this.route('index');
+      this.route(
+        'show',
+        { path: '/:postId', queryParams: ['hideComments', 'invertColors'] },
+        function() {
+          this.route('edit');
+          this.route('comment');
+          this.route('share');
+        }
+      );
+    });
   });
 });
 ```
@@ -135,19 +420,19 @@ Given we want a way to search over a list of products, be able to view additiona
 
 ```ts
 Router.map(function() {
-  this.queryParams('bar');
-
-  this.route('search', { queryParams: [
-    'term', 'isPrime', 'department', 'averageReview', 'brand', 
-    'memoryType', 'processor', 'vRamCapacity', 'certification',
-  ]}, function() {
-    // index route will be the search results page
-
-    // shows a selected result with additional information
-    this.route('summary', { path: '/summary/:itemId' });
-
-    // shows a modal with a field to name the search to be loaded later
-    this.route('save');
+  this.route('application', { queryParams: 'bar' }, function() {
+    this.route('search', { queryParams: [
+      'term', 'isPrime', 'department', 'averageReview', 'brand', 
+      'memoryType', 'processor', 'vRamCapacity', 'certification',
+    ]}, function() {
+      // index route will be the search results page
+  
+      // shows a selected result with additional information
+      this.route('summary', { path: '/summary/:itemId' });
+  
+      // shows a modal with a field to name the search to be loaded later
+      this.route('save');
+    });
   });
 });
 ```
@@ -184,21 +469,21 @@ Router.map(function() {
    implementation of the submit action make look like:
 
    ```ts
-   @service router;
+   @service queryParams;
 
    @action submit() {
-     let { queryParams } = this.router
-
      await fetch('some-url', {
        method: 'POST',
        body: JSON.stringify({
          name: this.name,
-         search: queryParams
+         search: this.queryParams.all
        }),
      });
    }
 
    ```
+
+</details>
 
 
 -------------------------------------------
@@ -280,40 +565,61 @@ There is no need to have compatibility with the router's queryParams here.
 
 Currently, query params _must_ be [specified on the controller](https://guides.emberjs.com/release/routing/query-params/):
 ```ts
-export default class extends Controller {
+export default class ArticlesController extends Controller {
   queryParams = ['page', 'filter', {
-   // QP 'articles_category' is mapped to 'category' in our route and controller
-   category: 'articles_category'
+    // QP 'articles_category' is mapped to 'category' in our route and controller
+    category: 'articles_category'
   }];
+
   category = null;
   page = 1;
   filter = 'recent';
-
-  @computed('category', 'model')
-  get filteredArticles() {
-    // do something with category and model as category changes
-  }
 }
 ```
 
-Having query-param-related computed properties available everywhere will be a shift in thinking that "the controller manages query params" to "query params are a routing concern and are on the router service"
+Having query-param-related computed properties available everywhere will be a shift in thinking that "the controller manages query params" to "query params are a concern of the query params service".
+
+The above example from the guides could be consumed in a route as the following.
 
 ```ts
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import { alias } from '@ember/object/computed';
 
-export default class ApplicationRoute extends Route {
-  @service router;
+export default class ArticlesRoute extends Route {
+  @service queryParams;
 
-  @alias('router.queryParams.r') isSpeakerNotes;
-  @alias('router.queryParams.slide') slideNumber;
+  // model is entangled with the query params?
+  async model() {
+    // all query params defined on a controller are available via the service
+    let { page, filter, category } = this.queryParams;
 
-  model() {
-    return {
-      isSpeakerNotes: this.isSpeakerNotes,
-      slideNumber: this.slideNumber
-    }
+    let posts = await fetch(`/api/posts?page=${page}&filter=${filter}&category=${category}`);
+    
+    return { posts };
+  }
+}
+```
+
+Even with no controller required, page,filter, and category would still be 
+available -- however, the default value would be `''`.
+
+To set a default value, people should be encouraged to use the same semantics
+as with components and receiving args.
+
+```ts
+export default class ArticlesRoute extends Route {
+  @service queryParams;
+
+  get filter() {
+    return this.queryParams.filter ?? 'recent';
+  }
+
+  // ...
+  // model is entangled with the query params?
+  // maybe a resource needs to be involved
+  async model() {
+    let { page, filter, category } = this;
+    // ...
   }
 }
 ```
@@ -322,3 +628,32 @@ export default class ApplicationRoute extends Route {
 
 - Some people may be relying on the controller query-params allow-list.
 - Some people may be super tied in to controller query params cacheing.
+
+
+## Alternatives and Outstanding Questions
+
+- `@queryParam` decorator
+
+  Not required for this RFC but might be a good DX boost for basic use cases.
+
+  ```ts
+  import Component from "@glimmer/component";
+  import { queryParam } from '@ember/routing';
+
+  export default class Pagination extends Component {
+    @queryParam('page') currentPage;
+  }
+  ```
+
+  When using the `@queryParam` decorator, setting a value via 
+  `@queryParam('page') currentPage = 'foo';` would be the equivelant of:
+
+  ```ts
+  get currentPage() {
+    // returns 'foo' when 'page' is not present in the URL
+    return this.router.queryParams.page ?? defaultValue;
+  }
+  ```
+
+  The `@queryParam` decorator would not provide any additional functionality. 
+  The values are always strings, both when retrieved and when set.
