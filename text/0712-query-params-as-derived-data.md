@@ -73,8 +73,6 @@ import { inject as service } from '@ember/service';
 export default class ArticlesController extends Controller {
   @service router;
 
-  queryParams = ['category'];
-
   get categoryFromQueryParams() {
     return this.router.currentRoute.queryParams.category;
   }
