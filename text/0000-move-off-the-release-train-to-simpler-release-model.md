@@ -25,19 +25,19 @@ automated, PR-driven release model the rest of the ecosystem already runs:
 
 Concretely:
 
-- Work integrates on a long-lived `develop` branch. Every pull request that
-  changes shipped code carries a SemVer impact label and a changelog entry.
+- Work integrates on `main` — the single long-lived branch. Every pull request
+  that changes shipped code carries a SemVer impact label and a changelog entry.
 - `release-plan` derives the next version and the changelog from that per-PR
   metadata. There is no longer a human deciding "what goes in this release" by
   hand.
-- Promoting `develop` to `main` cuts a release. **Every merge can release**,
-  but the actual `npm publish` runs inside a GitHub Actions job bound to a
-  protected [Deployment environment][gh-environments]. A required reviewer
-  approves the deployment before the publish runs. That approval is the only
-  manual gate, and it replaces the entire release-manager checklist.
+- **Every merge to `main` can release.** The actual `npm publish` runs inside a
+  GitHub Actions job bound to a protected [Deployment environment][gh-environments].
+  A required reviewer approves the deployment before the publish runs. That
+  approval is the only manual gate, and it replaces the entire release-manager
+  checklist.
 - Official, stable releases go through that same gated `release-plan publish`.
   Pre-release / bleeding-edge builds (today's `canary`) come straight off
-  `develop`.
+  `main`.
 
 SemVer is unchanged. Ember keeps the same compatibility promises it has always
 made; only the *mechanics and cadence* of cutting a release change.
@@ -98,20 +98,14 @@ work than the tooling everyone else trusts. **We can get away with
 
 ### Branching model
 
-Two long-lived branches:
+A single long-lived branch: **`main`**. All pull requests merge here, and
+`main` is both where work integrates and what the latest published version
+corresponds to. There is no `develop`, no `beta`, and no `release` branch — none
+of the branch-per-channel machinery the train requires.
 
-- **`develop`** — the integration branch. All pull requests merge here. This is
-  the source of pre-release (`canary`-equivalent) builds.
-- **`main`** — the released line. Whatever is on `main` corresponds to the
-  latest published stable version.
-
-A release is "promote `develop` to `main`." In practice this is `release-plan`
-opening (and later merging) a release PR; the promotion is what triggers the
-publish job.
-
-> The names `develop` / `main` are illustrative. A `main` (integration) /
-> `release` (published) split works identically. See
-> [Unresolved questions](#unresolved-questions).
+A release is simply "publish the current state of `main`," driven by
+`release-plan` and gated by the deployment approval described below. Pre-release
+(`canary`-equivalent) builds also come off `main`.
 
 ### Per-PR release metadata
 
@@ -137,9 +131,10 @@ governers *when* it ships.
 
 The publish itself runs in CI, not on a maintainer's laptop:
 
-1. A merge to `develop` lets `release-plan prepare` compute the pending release
-   (version + changelog) and surface it as a release PR.
-2. Promoting that to `main` triggers the publish workflow.
+1. A merge to `main` lets `release-plan prepare` compute the pending release
+   (version + changelog) from the metadata of everything merged since the last
+   release, and surface it as a release PR.
+2. Merging that release PR triggers the publish workflow.
 3. The workflow's publish job targets a **protected GitHub Environment** (e.g.
    `npm-publish`). The environment has a *required reviewers* protection rule.
    The npm token / trusted-publishing identity is scoped to that environment, so
@@ -162,14 +157,14 @@ release-manager knowledge.
 
 - **Stable** — published from `main` through the gated environment, as above.
 - **Pre-release (`canary`)** — published automatically and unattended from
-  `develop` (e.g. `X.Y.Z-canary.N` / `--tag canary`). Users who want the
-  bleeding edge keep a continuous stream, now produced by CI on every merge
+  `main` (e.g. `X.Y.Z-canary.N` / `--tag canary`) on each merge. Users who want
+  the bleeding edge keep a continuous stream, now produced by CI off `main`
   rather than by a nightly job against a special branch.
 - **`beta`** — the dedicated beta channel goes away as a *standing* concept.
   Its purpose (a soak period before stable) is served by the `canary` stream
   plus the deliberate approval gate. A specific change that warrants extended
-  baking can still be shipped under a pre-release tag before promotion; it just
-  isn't a permanent, separately-managed branch.
+  baking can still be shipped under a pre-release tag before the stable publish;
+  it just isn't a permanent, separately-managed branch.
 
 ### Deprecations, majors, and LTS
 
@@ -199,7 +194,7 @@ dropping lockstep, but it makes lockstep an explicit, opt-in coordination step
 rather than a side effect of the train:
 
 - If lockstep is kept, the release workflow coordinates the version across the
-  packages at promotion time.
+  packages at release time.
 - If lockstep is relaxed, normal SemVer ranges already express cross-package
   compatibility, and each package releases on its own merges.
 
@@ -293,8 +288,6 @@ Documentation work:
 
 ## Unresolved questions
 
-- **Branch names.** `develop` / `main` vs `main` / `release` — pick the pair
-  that best fits existing automation and contributor expectations.
 - **Lockstep.** Do `ember-source`, `ember-cli`, `ember-data`/WarpDrive keep
   lockstep versioning, or release independently? If lockstep, where does the
   coordination live in the workflow?
