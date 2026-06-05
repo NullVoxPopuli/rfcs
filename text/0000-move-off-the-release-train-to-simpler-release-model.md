@@ -37,10 +37,11 @@ Concretely:
   same six-week schedule, with the `npm publish` gated behind a protected
   [GitHub deployment environment][gh-environments] — a required reviewer
   approves before it publishes.
-- The separate, published **`canary` and `beta` channels go away**. "Bleeding
-  edge" becomes *track `main` via git*: consumers who want unreleased code point
-  at the git ref rather than a special npm dist-tag maintained off a special
-  branch. `main` itself is the canary/alpha.
+- The **`canary` and `beta` channels collapse into a single `alpha`**, published
+  automatically from `main` (the way Embroider published its prereleases).
+  Because `ember-source` lives in git, `main` is also directly consumable as a
+  git ref. Either way, "bleeding edge" is just "whatever is on `main`" — there is
+  no separate channel branch or nightly promotion job behind it.
 
 SemVer, the six-week cadence, the deprecation policy, LTS, and the major-version
 process from RFC [#0830][rfc-830] are all **unchanged**. Only the branch
@@ -79,13 +80,15 @@ provenance, no scheduled human ceremony required. The framework does not need a
 bespoke, hand-run process that is strictly more work than the tooling everyone
 else already trusts. **We can get away with `release-plan`.**
 
-### `canary`/`beta` as published channels mostly duplicate "the git repo"
+### A separate `canary` branch mostly duplicates "the git repo"
 
-The reason `canary` exists is so people can run unreleased Ember. But that is
-exactly what the default branch *is*. Publishing it as a separate, branch-backed
-npm channel is extra plumbing to approximate "whatever is on `main` right now."
-Letting consumers track `main` via git directly removes the plumbing without
-removing the capability.
+The reason `canary` exists is so people can run unreleased Ember — and it is
+already consumed straight from git, not from an `ember-source@canary` npm
+dist-tag. But "the latest unreleased code" is exactly what the default branch
+*is*. A separate `canary` branch plus its nightly promotion job is extra
+plumbing to approximate "whatever is on `main` right now." Publishing an `alpha`
+prerelease automatically from `main` (and keeping the existing git-ref workflow)
+delivers the same capability with none of the branch machinery.
 
 ### Keep the cadence — it works
 
@@ -151,18 +154,17 @@ configuration rather than tribal release-manager knowledge.
 
 - **Stable (`latest`)** — published from `main` through the gated environment,
   on the six-week cadence, as above.
-- **Canary / alpha** — **is `main`.** To run unreleased Ember, depend on the git
-  ref (e.g. `main` or a specific commit) rather than a published `canary`
-  dist-tag. There is no longer a separately-managed canary branch or its nightly
-  publish job; the latest in-progress code is just the head of `main`.
-- **`beta`** — removed. The dedicated beta channel and its branch go away. A
-  specific change that warrants extended baking can still be merged early and
-  exercised via the git-tracked `main` before the next scheduled stable release;
-  it just isn't a permanent, separately-published channel.
-
-> How `ember-source` consumers consume `main` from git — since the published
-> package is normally a build artifact — is the main detail to settle. See
-> [Unresolved questions](#unresolved-questions).
+- **`alpha`** — published automatically from `main`, the way Embroider published
+  its prereleases. This is the bleeding-edge stream, and it gives `main` a
+  turnkey npm dist-tag (`ember-source@alpha`) — something canary never had on
+  npm. Because `ember-source` lives in git, `main` also remains directly
+  consumable as a git ref (e.g. `emberjs/ember.js#<sha>`), exactly as canary is
+  consumed today. There is no separate channel branch or nightly promotion job
+  behind it; the latest in-progress code is just the head of `main`.
+- **`beta`** — removed. The dedicated `beta` channel, its branch, and the
+  `ember-source@beta` dist-tag go away; its consumers move to `@alpha` (or the
+  git ref). A change that warrants extra baking can still be merged early and
+  exercised via `@alpha` before the next scheduled stable release.
 
 ### Deprecations, majors, and LTS — unchanged
 
@@ -198,7 +200,7 @@ This is called out as a design consideration rather than decided here; see
 
 ### What is removed
 
-- The published `canary` and `beta` channels and their dedicated branches.
+- The `canary` and `beta` branches, and the `ember-source@beta` dist-tag.
 - The cherry-pick / back-merge machinery for keeping three live channels.
 - The release-manager checklist: manual version bumps, manual changelog
   assembly, manual lockstep `npm publish`, and channel cut/promote steps.
@@ -222,33 +224,34 @@ environment) review the pre-computed release PR and approve the deployment. The
 role shrinks from "run the channel/checklist ceremony" to "review and click
 approve."
 
-**Consumers of `canary`/`beta`** are the most important audience for this
-change, because their workflow moves. Anyone who today depends on
-`ember-source@canary` or `ember-source@beta` — including `ember-try` scenarios,
-addon CI matrices that test against upcoming Ember, and people bisecting
-regressions — needs to switch to tracking `main` via git. The migration guide
-must spell out exactly how to do that (see Unresolved questions), and the
-default `ember-try` / blueprint scenarios should be updated to the new approach.
+**Consumers of `beta`** are the audience whose workflow moves. Anyone who today
+depends on `ember-source@beta` — `ember-try` scenarios, addon CI matrices that
+test against upcoming Ember, people bisecting regressions — switches to
+`ember-source@alpha` (or a git ref). Canary consumers are unaffected: they
+already use a git ref, and that keeps working. The default `ember-try` /
+blueprint scenarios should be updated to point at `@alpha`.
 
 Documentation work:
 
 - Rewrite the website Releases page: `main` is the release line, the six-week
-  cadence is unchanged, and there are no longer published `canary`/`beta`
-  channels — track git for the edge.
+  cadence is unchanged, the prerelease stream is `@alpha` (auto-published from
+  `main`), and `beta` no longer exists.
 - Update the contributor guide with the label/changelog workflow.
 - Document the environment, the approver group, and the approval procedure.
-- A migration/announcement blog post focused on the `canary`/`beta` → git change.
+- A migration/announcement blog post focused on `@beta` → `@alpha`.
 
 ## Drawbacks
 
-- **Losing published `canary`/`beta` builds is a real regression for some
-  workflows.** `npm install ember-source@beta` is lower-friction than depending
-  on a git ref, and a lot of ecosystem CI (`ember-try`, addon test matrices) is
-  built around those dist-tags. Tracking `main` from git must be made genuinely
-  easy or this trades maintainer effort for downstream effort.
-- **`ember-source` is a build artifact**, so "just depend on the git ref" is not
-  as turnkey as it is for a typical source-published addon. The consumption story
-  for `main` needs to be concrete and supported, not hand-waved.
+- **Removing the `@beta` dist-tag still moves some consumers.** `ember-try`
+  scenarios and addon CI matrices pinned to `ember-source@beta` have to switch to
+  `@alpha`. This is a one-time, mechanical migration rather than a loss of
+  capability — `@alpha` is auto-published from `main` and the canary git-ref
+  workflow is unchanged — but it is still ecosystem-wide churn that needs
+  coordinating.
+- **Collapsing `beta` into `alpha` removes a soak stage.** Today `beta` is a
+  distinct, more-stable-than-canary checkpoint. Folding it into `@alpha` means
+  there is one prerelease stream, not two; changes get less differentiated baking
+  before a scheduled stable release.
 - **Per-PR labeling discipline.** A wrong impact label yields a wrong bump.
   `release-plan` makes the bump deterministic, but the input is human-supplied.
 - **Concentrated publish authority.** Publish power moves to whoever can approve
@@ -263,12 +266,11 @@ Documentation work:
 
 - **Keep the train as-is (status quo).** Pays the recurring branch-management and
   RM-ceremony cost, and the bus-factor risk, indefinitely.
-- **Keep a published `canary` (or `beta`), but automate it.** A middle ground:
-  drop only `beta`, and have `release-plan` publish a `canary` prerelease
-  dist-tag off `main` automatically so existing `@canary` consumers don't have to
-  move to git. This preserves the convenient dist-tag at the cost of keeping one
-  prerelease channel. Worth considering if the git-tracking story proves too
-  rough for downstream CI.
+- **Keep `beta` as a second prerelease stream.** Retain a `@beta` dist-tag
+  alongside `@alpha`, both auto-published from `main` (e.g. `@beta` from the
+  pending release PR). This preserves the extra soak stage at the cost of a
+  second prerelease tag to reason about. Worth considering if a single `@alpha`
+  stream proves too coarse for downstream CI.
 - **Use `changesets` instead of `release-plan`.** Functionally similar;
   `release-plan` is preferred because the Ember ecosystem has standardized on it.
 - **Also drop the cadence (fully continuous releases).** A more radical model
@@ -277,13 +279,12 @@ Documentation work:
 
 ## Unresolved questions
 
-- **How consumers track `main` via git.** Given `ember-source` is a built
-  artifact: is it a git dependency on a build branch, an automated prerelease tag
-  cut from `main`, published nightly git snapshots, or documented local-build
-  instructions? This is the crux of the proposal and must be settled.
-- **Whether any prerelease dist-tag is retained at all** (the "automate canary"
-  alternative) versus purely git-tracked `main`.
-- **`ember-try` and ecosystem CI migration** off `@canary`/`@beta` scenarios.
+- **`@alpha` publishing cadence.** Does `@alpha` publish on every merge to
+  `main`, or on a lighter schedule (e.g. nightly)? Either is straightforward with
+  `release-plan`; this is a tuning decision.
+- **Whether `beta` is fully dropped or kept as a second `@beta` prerelease
+  stream** (the alternative above).
+- **`ember-try` and ecosystem CI migration** off `@beta` scenarios onto `@alpha`.
 - **Lockstep.** Do `ember-source`, `ember-cli`, `ember-data`/WarpDrive keep
   lockstep versioning, or release independently? If lockstep, where does the
   coordination live in the workflow?
