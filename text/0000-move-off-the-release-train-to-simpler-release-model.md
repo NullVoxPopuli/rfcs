@@ -43,7 +43,7 @@ The expensive part of the release train is all the machinery around it, plus the
 
 We don't actually have a formal release-manager rotation. In practice the release comes down to essentially one person per project: @katiegengler for `ember.js`, @mansona for `ember-cli`. This is a bus-factor and burnout risk -- which other teams have already faced. When that person isn't around (due to life, unplanned things, etc (this alone is not a big deal)), the release slips.
 
-The biggest win of getting off the train is that releasing stops being specialized knowledge. With [`release-plan`][release-plan], _any_ maintainer can trivially cut a release: they look over the release-preview PR and approve a deployment. No npm keys on anyone's laptop, no checklist, no tribal knowledge.
+The biggest win of getting off the train is that releasing stops being specialized knowledge (despite efforts to write it all down). With [`release-plan`][release-plan], _any_ maintainer can trivially cut a release: they look over the release-preview PR and approve a deployment.
 
 ### Extra release branches are overhead
 
