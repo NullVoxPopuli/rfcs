@@ -131,10 +131,11 @@ The cadence is unchanged; the *mechanics* are automated:
 1. `release-plan prepare` keeps a release PR continuously up to date — it
    computes the pending version and changelog from the metadata of everything
    merged since the last release.
-2. On the scheduled six-week release date, that release PR is merged, which
-   triggers the publish workflow. (The schedule is the rhythm; nothing forces a
-   release between scheduled dates, and a date can still be held or moved by the
-   same people who manage the calendar today.)
+2. On the scheduled six-week release date, that release PR is merged — by a
+   maintainer or a scheduled workflow — which triggers the publish workflow.
+   (The schedule is the rhythm; nothing forces a release between scheduled
+   dates, and a date can still be held or moved by the same people who manage
+   the calendar today.)
 3. The publish job targets a **protected GitHub Environment** (e.g.
    `npm-publish`) with a *required reviewers* protection rule. The npm token /
    trusted-publishing identity is scoped to that environment, so nothing can
@@ -142,6 +143,14 @@ The cadence is unchanged; the *mechanics* are automated:
    deployment.
 4. On approval, the job runs `release-plan publish`: it tags, pushes, and
    publishes to npm (with provenance via OIDC trusted publishing).
+
+Across a cycle, `release-plan` collapses all the labeled PRs into a *single*
+version bump — highest impact wins, so six weeks of `minor`-labeled work yields
+one minor, exactly as one stable minor per cycle does today. `@alpha` publishes
+the in-progress version continuously (e.g. `6.5.0-alpha.N`); the scheduled
+stable cut publishes the finalized version (`6.5.0`) as `@latest`. The stable
+release is just a snapshot of `main` at the scheduled date, which is what
+promoting `release` from `beta` produced before.
 
 The deliberate approval click is the entire residual ceremony — there is no
 checklist, no manual version edit, no manual changelog, no manual `npm publish`,
@@ -174,9 +183,13 @@ Because the six-week cadence is retained, the policies layered on top of it are
 - **Deprecations** are still introduced as SemVer-minor and removed in majors,
   on the same deprecation-freeze schedule.
 - **Majors** still follow the major-version process of RFC #0830 (its `M.10`
-  deprecation freeze and `M.12` → `(M+1).0` train). That process is sequenced by
-  the minor cadence, which this proposal keeps; it simply *executes* via
-  `release-plan` from `main` instead of via the channel pipeline.
+  deprecation freeze and `M.12` → `(M+1).0` train). The key point: that process
+  already controls *when a breaking change is allowed to merge* — deprecation
+  removals land only in the major window, not mid-cycle. So a `breaking` label
+  only ever appears on `main` when a major is due, and `release-plan`'s
+  label-driven bump produces a major exactly when RFC #0830 says it should. The
+  process is unchanged; it simply *executes* via `release-plan` from `main`
+  instead of via the channel pipeline.
 - **LTS** continues as today.
 
 In other words, this RFC changes *how* a release is cut and *which branches/
@@ -185,8 +198,8 @@ guarantee*.
 
 ### Lockstep across packages
 
-Historically `ember-source`, `ember-cli`, and `ember-data` released in lockstep.
-`release-plan` operates per repository. This proposal does **not** mandate
+Historically `ember-source`, `ember-cli`, and `ember-data` (now WarpDrive)
+released in lockstep. `release-plan` operates per repository. This proposal does **not** mandate
 dropping lockstep, but it makes lockstep an explicit, opt-in coordination step
 rather than a side effect of the channel pipeline:
 
