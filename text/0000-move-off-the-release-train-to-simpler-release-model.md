@@ -27,7 +27,7 @@ Concretely:
 
 - Just `main`. No `beta` or `release` branches.
 - Stable releases are cut from `main` by [`release-plan`][release-plan] on the same six-week schedule. The `npm publish` is gated behind a protected [GitHub deployment environment][gh-environments], so a maintainer approves before anything publishes.
-- We drop the `beta` channel. A new `@alpha` prerelease is published nightly from `main` (the way Embroider and Glint _used to_ publish theirs), and `ember-source@beta` users either move to `@alpha` or drop the scenario. Canary is unchanged: consuming `main` from git works exactly like it does today.
+- We drop the `beta` channel. `@alpha` prerelease is nearly the same as before, but published nightly from `main`, and `ember-source@beta` users either move to `@alpha` or drop the scenario. 
 
 SemVer, the six-week cadence, the deprecation policy, LTS, and the major-version process from [RFC #0830][rfc-830] are all unchanged. The only things that change are the branch structure and the publishing mechanics.
 
