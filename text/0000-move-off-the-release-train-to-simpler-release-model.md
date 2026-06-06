@@ -28,7 +28,7 @@ Concretely:
 
 - A single long-lived branch: **`main`**. No `beta` or `release` branches.
 - Stable releases are cut from `main` by [`release-plan`][release-plan] on the same six-week schedule, with the `npm publish` gated behind a protected [GitHub deployment environment][gh-environments] — a required reviewer approves before it publishes.
-- The `beta` channel collapses into a single **`alpha`**, published nightly from `main` the way Embroider and Glint *used to* publish their prereleases. `ember-source@beta` consumers move to `ember-source@alpha`.
+- Drop the `beta` channel. A new **`@alpha`** prerelease is published nightly from `main` (the way Embroider and Glint *used to* publish theirs); `ember-source@beta` consumers move to `@alpha` or drop the scenario. **Canary is unchanged** — consuming `main` from git works exactly as it does today.
 
 SemVer, the six-week cadence, the deprecation policy, LTS, and the major-version process from RFC [#0830][rfc-830] are all **unchanged**. Only the branch structure and the publishing mechanics change.
 
@@ -91,8 +91,9 @@ The approval click is the entire residual ceremony: no manual version edit, no m
 ### Channels
 
 - **Stable (`latest`)** — published from `main` through the gated environment, on the six-week cadence, as above.
-- **`alpha`** — published nightly from `main`, the way Embroider and Glint *used to* publish their prereleases. This is the bleeding-edge stream, and it gives `main` a turnkey npm dist-tag (`ember-source@alpha`).
-- **`beta`** — removed. The dedicated `beta` branch and the `ember-source@beta` dist-tag go away; its consumers move to `@alpha`. A change that warrants extra baking can still be merged early and exercised via `@alpha` before the next scheduled stable release.
+- **Canary** — *unchanged by this RFC.* Canary is the default branch (`main`) consumed from git, and that keeps working exactly as it does today.
+- **`alpha`** — new. A published, npm-installable prerelease of `main`, cut nightly the way Embroider and Glint *used to* publish theirs. It gives `main` a turnkey npm dist-tag (`ember-source@alpha`) for people who want canary's code without consuming from git. The `release-plan` defaults handle the version scheme; nothing special is needed.
+- **`beta`** — removed. The dedicated `beta` branch and the `ember-source@beta` dist-tag go away. A change that warrants extra baking can still be merged early and exercised via canary or `@alpha` before the next scheduled stable release.
 
 ### Deprecations, majors, and LTS
 
@@ -128,7 +129,7 @@ In other words, this RFC changes *how* a release is cut and *which branches exis
 
 **Maintainers** gain the ability to release. The role shrinks from "shepherd the branches and the cut" to "review the release-preview PR and approve the deployment" — something any maintainer can do, from anywhere, without npm keys.
 
-**Consumers of `beta`** are the audience whose workflow moves. Anyone who today depends on `ember-source@beta` — `ember-try` scenarios, addon CI matrices that test against upcoming Ember, people bisecting regressions — switches to `ember-source@alpha`. The default `ember-try` / blueprint scenarios should be updated to point at `@alpha`.
+**Consumers of `beta`** are the audience whose workflow moves. Anyone whose `ember-try` config or CI matrix tests `ember-source@beta` removes that scenario, since `@beta` no longer exists; they can add `@alpha` if they want a published prerelease. Canary testing (consuming `main` from git) is unaffected.
 
 Documentation work:
 
@@ -139,7 +140,7 @@ Documentation work:
 
 ## Drawbacks
 
-- **Removing the `@beta` dist-tag moves some consumers.** `ember-try` scenarios and addon CI matrices pinned to `ember-source@beta` have to switch to `@alpha`. This is a one-time, mechanical migration rather than a loss of capability, but it is still ecosystem-wide churn that needs coordinating.
+- **Removing the `@beta` dist-tag moves some consumers.** `ember-try` scenarios and addon CI matrices pinned to `ember-source@beta` have to remove that scenario (optionally adopting `@alpha`). This is a one-time, mechanical cleanup rather than a loss of capability — canary testing is unaffected — but it is still ecosystem-wide churn that needs coordinating.
 - **Collapsing `beta` into `alpha` removes a soak stage.** Today `beta` is a distinct checkpoint between the default branch and stable. Folding it into `@alpha` means one prerelease stream, not two; changes get less differentiated baking before a scheduled stable release.
 - **Per-PR labeling discipline.** A wrong label yields a wrong bump. `release-plan` makes the bump deterministic, but the label is human-supplied.
 - **Publish authority.** The people who can approve the protected environment are the same active folks who cut releases today — informal, no change — but it does mean the npm publish is only as locked-down as that environment's protection rules and those accounts' security (2FA / OIDC).
@@ -155,5 +156,4 @@ Documentation work:
 
 ## Unresolved questions
 
-- **`@alpha` version scheme.** The exact prerelease format and the `release-plan` config that produces it (e.g. `semverIncrementAs` / `semverIncrementTag`) so nightly `@alpha` builds version sensibly ahead of the next stable.
-- **`ember-try` and ecosystem CI migration.** The mechanics of moving the default `ember-try` / blueprint scenarios off `@beta` onto `@alpha`, and helping the ecosystem follow.
+None outstanding. The design choices — nightly `@alpha`, dropping `beta`, keeping canary as-is, timing-based lockstep, a maintainer cutting the release, and the existing folks approving the publish — are settled above. What remains is implementation: wiring up the `release-plan` workflows and the protected environment, and the ecosystem-side removal of `ember-source@beta` test scenarios.
