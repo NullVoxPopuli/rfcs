@@ -156,4 +156,4 @@ Documentation work:
 
 ## Unresolved questions
 
-None outstanding. The design choices — nightly `@alpha`, dropping `beta`, keeping canary as-is, timing-based lockstep, a maintainer cutting the release, and the existing folks approving the publish — are settled above. What remains is implementation: wiring up the `release-plan` workflows and the protected environment, and the ecosystem-side removal of `ember-source@beta` test scenarios.
+n/a
