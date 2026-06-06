@@ -28,7 +28,7 @@ Concretely:
 
 - A single long-lived branch: **`main`**. No `beta` or `release` branches.
 - Stable releases are cut from `main` by [`release-plan`][release-plan] on the same six-week schedule, with the `npm publish` gated behind a protected [GitHub deployment environment][gh-environments] — a required reviewer approves before it publishes.
-- The `beta` channel collapses into a single **`alpha`**, published automatically from `main` the way Embroider and Glint *used to* publish their prereleases. `ember-source@beta` consumers move to `ember-source@alpha`.
+- The `beta` channel collapses into a single **`alpha`**, published nightly from `main` the way Embroider and Glint *used to* publish their prereleases. `ember-source@beta` consumers move to `ember-source@alpha`.
 
 SemVer, the six-week cadence, the deprecation policy, LTS, and the major-version process from RFC [#0830][rfc-830] are all **unchanged**. Only the branch structure and the publishing mechanics change.
 
@@ -80,18 +80,18 @@ The changelog entry for a release *is* the set of merged PR titles (editable lat
 The cadence is unchanged; the *mechanics* are `release-plan`'s defaults:
 
 1. `release-plan` keeps a **release-preview PR** up to date — it bumps the version in `package.json`, edits `CHANGELOG.md`, and records the plan, from the labels and titles merged since the last release.
-2. On the scheduled six-week release date, that preview PR is merged — by a maintainer or a scheduled workflow — which triggers the publish workflow. (The schedule is the rhythm; nothing forces a release between scheduled dates, and a date can still be held or moved as it is today.)
+2. On the scheduled six-week release date, a maintainer merges that preview PR, which triggers the publish workflow. (The schedule is the rhythm; nothing forces a release between scheduled dates, and a date can still be held or moved as it is today.)
 3. The publish job targets a **protected GitHub Environment** (e.g. `npm-publish`) with a *required reviewers* rule. The npm token / trusted-publishing identity is scoped to that environment, so nothing can publish until a required reviewer clicks **Approve** on the pending deployment. Maintainers never need npm keys locally.
 4. On approval, the CI job runs `release-plan publish`: it tags, pushes, and publishes to npm (with provenance via OIDC trusted publishing).
 
-Across a cycle, `release-plan` collapses everything merged into a *single* version bump — highest impact wins, so six weeks of `enhancement` PRs yields one minor, exactly as one stable minor per cycle does today. `@alpha` publishes the in-progress version continuously (e.g. `6.5.0-alpha.N`); the scheduled stable cut publishes the finalized version (`6.5.0`) as `@latest`. The stable release is just a snapshot of `main` at the scheduled date — the same thing promoting `release` from `beta` produced before.
+Across a cycle, `release-plan` collapses everything merged into a *single* version bump — highest impact wins, so six weeks of `enhancement` PRs yields one minor, exactly as one stable minor per cycle does today. `@alpha` publishes the in-progress version nightly (e.g. `6.5.0-alpha.N`); the scheduled stable cut publishes the finalized version (`6.5.0`) as `@latest`. The stable release is just a snapshot of `main` at the scheduled date — the same thing promoting `release` from `beta` produced before.
 
 The approval click is the entire residual ceremony: no manual version edit, no manual changelog, no manual publish, and no branch to cut or promote. Because the gate is a GitHub Environment, the existing GitHub permission and audit model applies — who may approve and the record of who approved what are standard repo configuration rather than tribal knowledge.
 
 ### Channels
 
 - **Stable (`latest`)** — published from `main` through the gated environment, on the six-week cadence, as above.
-- **`alpha`** — published automatically from `main`, the way Embroider and Glint *used to* publish their prereleases. This is the bleeding-edge stream, and it gives `main` a turnkey npm dist-tag (`ember-source@alpha`).
+- **`alpha`** — published nightly from `main`, the way Embroider and Glint *used to* publish their prereleases. This is the bleeding-edge stream, and it gives `main` a turnkey npm dist-tag (`ember-source@alpha`).
 - **`beta`** — removed. The dedicated `beta` branch and the `ember-source@beta` dist-tag go away; its consumers move to `@alpha`. A change that warrants extra baking can still be merged early and exercised via `@alpha` before the next scheduled stable release.
 
 ### Deprecations, majors, and LTS
@@ -106,12 +106,7 @@ In other words, this RFC changes *how* a release is cut and *which branches exis
 
 ### Lockstep across packages
 
-Historically `ember-source` and `ember-cli` released in lockstep. `release-plan` operates per repository. This proposal does **not** mandate dropping lockstep, but it makes lockstep an explicit, opt-in coordination step rather than a side effect of the branch pipeline:
-
-- If lockstep is kept, the release workflow coordinates the version across the packages at release time.
-- If lockstep is relaxed, normal SemVer ranges already express cross-package compatibility, and each package releases on its own schedule.
-
-This is a design consideration rather than something decided here; see [Unresolved questions](#unresolved-questions).
+`ember-source` and `ember-cli` continue to release in lockstep — but lockstep here is a *timing* property, not a coupling. Each repo releases independently via `release-plan` (its natural per-repo mode), and the releases don't need to know about each other. Because both cut stable on the same six-week date, their versions stay aligned. There is no cross-repo coordination step in the workflow; the shared cadence is what keeps them in step.
 
 ### What is removed
 
@@ -137,7 +132,7 @@ This is a design consideration rather than something decided here; see [Unresolv
 
 Documentation work:
 
-- Rewrite the website Releases page: `main` is the release line, the six-week cadence is unchanged, the prerelease stream is `@alpha` (auto-published from `main`), and `beta` no longer exists.
+- Rewrite the website Releases page: `main` is the release line, the six-week cadence is unchanged, the prerelease stream is `@alpha` (published nightly from `main`), and `beta` no longer exists.
 - Update the contributor guide with the labeling workflow.
 - Document the environment, who can approve, and the approval procedure.
 - A migration/announcement blog post focused on `@beta` → `@alpha`.
@@ -147,21 +142,18 @@ Documentation work:
 - **Removing the `@beta` dist-tag moves some consumers.** `ember-try` scenarios and addon CI matrices pinned to `ember-source@beta` have to switch to `@alpha`. This is a one-time, mechanical migration rather than a loss of capability, but it is still ecosystem-wide churn that needs coordinating.
 - **Collapsing `beta` into `alpha` removes a soak stage.** Today `beta` is a distinct checkpoint between the default branch and stable. Folding it into `@alpha` means one prerelease stream, not two; changes get less differentiated baking before a scheduled stable release.
 - **Per-PR labeling discipline.** A wrong label yields a wrong bump. `release-plan` makes the bump deterministic, but the label is human-supplied.
-- **Concentrated publish authority.** The set of people who can approve the protected environment matters; that group's security and rotation need care.
+- **Publish authority.** The people who can approve the protected environment are the same active folks who cut releases today — informal, no change — but it does mean the npm publish is only as locked-down as that environment's protection rules and those accounts' security (2FA / OIDC).
 - **Tooling dependency.** The framework's release process becomes coupled to `release-plan` — a small, community-owned tool, but a new dependency.
 - **Cultural change.** `beta` is a long-standing, load-bearing part of Ember's testing culture and infrastructure; removing it is not only a mechanical change.
 
 ## Alternatives
 
 - **Keep the train as-is (status quo).** Pays the recurring branch-management cost and the bus-factor risk indefinitely.
-- **Keep `beta` as a second prerelease stream.** Retain a `@beta` dist-tag alongside `@alpha`, both auto-published from `main`. This preserves the extra soak stage at the cost of a second prerelease tag to reason about. Worth considering if a single `@alpha` stream proves too coarse for downstream CI.
+- **Keep `beta` as a second prerelease stream.** Retain a `@beta` dist-tag alongside `@alpha`. This proposal drops `beta` for a single `@alpha` stream; the alternative would preserve the extra soak stage at the cost of a second prerelease tag, and could be revisited if a single `@alpha` proves too coarse for downstream CI.
 - **Use `changesets` instead of `release-plan`.** Functionally similar; `release-plan` is preferred because the Ember ecosystem has standardized on it.
 - **Also drop the cadence (fully continuous releases).** A more radical model where every merge can release. Explicitly **not** proposed here — the six-week cadence is retained deliberately because it works.
 
 ## Unresolved questions
 
-- **`@alpha` publishing cadence.** Does `@alpha` publish on every merge to `main`, or on a lighter schedule (e.g. nightly)? Either is straightforward with `release-plan`; this is a tuning decision.
-- **Whether `beta` is fully dropped or kept as a second `@beta` prerelease stream** (the alternative above).
-- **`ember-try` and ecosystem CI migration** off `@beta` scenarios onto `@alpha`.
-- **Lockstep.** Do `ember-source` and `ember-cli` keep lockstep versioning, or release independently? If lockstep, where does the coordination live in the workflow?
-- **Approver group.** Who can approve the protected environment, how membership rotates, and the security posture (OIDC trusted publishing, audit).
+- **`@alpha` version scheme.** The exact prerelease format and the `release-plan` config that produces it (e.g. `semverIncrementAs` / `semverIncrementTag`) so nightly `@alpha` builds version sensibly ahead of the next stable.
+- **`ember-try` and ecosystem CI migration.** The mechanics of moving the default `ember-try` / blueprint scenarios off `@beta` onto `@alpha`, and helping the ecosystem follow.
