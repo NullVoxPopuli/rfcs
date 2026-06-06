@@ -37,7 +37,7 @@ SemVer, the six-week cadence, the deprecation policy, LTS, and the major-version
 
 ## Motivation
 
-The expensive part of the release train isn't the cadence. It's all the machinery around it, plus the time it takes maintainers with limited availability to keep it running.
+The expensive part of the release train is all the machinery around it, plus the time it takes maintainers with limited availability to keep it running.
 
 ### Releases depend on too few people
 
@@ -55,7 +55,7 @@ Working out the next version number and assembling the changelog are exactly the
 
 ### Keep the cadence
 
-The six-week cadence is predictable, well understood, and well loved. It's _not_ what makes the train expensive, so we deliberately keep it. We're moving off the branch-and-process model, not the calendar.
+The six-week cadence is predictable, well understood, and well loved, so we keep it. We're moving off the branch-and-process model, not the calendar.
 
 ## Detailed design
 
