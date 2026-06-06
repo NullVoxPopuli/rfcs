@@ -21,27 +21,24 @@ Ember's "release train" today bundles two separate things:
 
 1. **A six-week release cadence.** A new minor ships on a steady, predictable
    clock.
-2. **A multi-channel promotion pipeline.** Code flows through dedicated
-   `canary` → `beta` → `release` branches, cut and promoted by a rotating
-   release manager working a mostly-manual checklist each cycle.
+2. **A multi-branch promotion pipeline.** Code is promoted from the default
+   branch through dedicated `beta` and `release` branches (plus LTS branches),
+   shepherded by a small number of people who manage each release.
 
 **This RFC keeps (1) and replaces (2).** The six-week cadence is the part that
-works, and it stays exactly as it is. What goes away is the multi-channel branch
-machinery and the hand-run release ceremony.
+works, and it stays exactly as it is. What goes away is the extra release
+branches and the bespoke per-cycle process.
 
 Concretely:
 
-- A single long-lived branch: **`main`**. No `canary`, `beta`, or `release`
-  branches.
+- A single long-lived branch: **`main`**. No `beta` or `release` branches.
 - Stable releases are cut from `main` by [`release-plan`][release-plan] on the
   same six-week schedule, with the `npm publish` gated behind a protected
   [GitHub deployment environment][gh-environments] — a required reviewer
   approves before it publishes.
-- The **`canary` and `beta` channels collapse into a single `alpha`**, published
-  automatically from `main` (the way Embroider published its prereleases).
-  Because `ember-source` lives in git, `main` is also directly consumable as a
-  git ref. Either way, "bleeding edge" is just "whatever is on `main`" — there is
-  no separate channel branch or nightly promotion job behind it.
+- The `beta` channel collapses into a single **`alpha`**, published
+  automatically from `main` the way Embroider and Glint *used to* publish their
+  prereleases. `ember-source@beta` consumers move to `ember-source@alpha`.
 
 SemVer, the six-week cadence, the deprecation policy, LTS, and the major-version
 process from RFC [#0830][rfc-830] are all **unchanged**. Only the branch
@@ -54,169 +51,153 @@ structure and the publishing mechanics change.
 ## Motivation
 
 The expensive part of the release train is not the cadence — it's the machinery
-around it.
+around it, and the time it takes maintainers with limited availability to manage
+it all.
 
-### Three live channels are a standing branch-management cost
+### Releases depend on too few people
 
-Maintaining `canary`, `beta`, and `release` as separate, simultaneously-live
-lines (plus LTS) means ongoing cherry-picks, back-merges, and branch bookkeeping
-that exist only to service the shape of the train. Every cycle a release manager
-(RM) works a long, mostly-manual checklist: cut `beta` from `canary`, promote
-`beta` to `release`, hand-publish `ember-source`, `ember-cli`, and (historically)
-`ember-data` in lockstep, regenerate and proofread the changelog, and coordinate
-the release. That work:
+There is no formal release-manager rotation. In practice the release depends on
+essentially one person per project — Katie for `ember.js`, Chris for
+`ember-cli`. That is a real bus-factor and burnout risk: when that person is
+unavailable, the release slips.
 
-- **Needs a volunteer on a clock, indefinitely**, and slips when no RM is
-  available. It is a recurring source of burnout and bus-factor risk.
-- **Is manual and therefore error-prone** — version bumps, changelog assembly,
-  and multi-package lockstep publishing are exactly the mechanical steps tooling
-  does more reliably than a person at the end of a checklist.
+The biggest win of moving off the train is that releasing stops being
+specialized knowledge. With [`release-plan`][release-plan], **any maintainer can
+trivially cut a release**: they review the release-preview PR and approve a
+deployment. No npm keys on anyone's machine, no checklist, no tribal knowledge.
 
-### The ecosystem already automated this
+### Extra release branches are overhead
 
-Nearly every modern Ember addon releases with [`release-plan`][release-plan]. It
-derives the SemVer bump and changelog from merged PRs and publishes to npm with
-provenance, no scheduled human ceremony required. The framework does not need a
-bespoke, hand-run process that is strictly more work than the tooling everyone
-else already trusts. **We can get away with `release-plan`.**
+Keeping `beta`, `release`, and the LTS branches alive alongside the default
+branch means ongoing backporting and branch bookkeeping that exists only to
+service the shape of the train. A single `main` removes all of it.
 
-### A separate `canary` branch mostly duplicates "the git repo"
+### release-plan automates the mechanical work
 
-The reason `canary` exists is so people can run unreleased Ember — and it is
-already consumed straight from git, not from an `ember-source@canary` npm
-dist-tag. But "the latest unreleased code" is exactly what the default branch
-*is*. A separate `canary` branch plus its nightly promotion job is extra
-plumbing to approximate "whatever is on `main` right now." Publishing an `alpha`
-prerelease automatically from `main` (and keeping the existing git-ref workflow)
-delivers the same capability with none of the branch machinery.
+Computing the next version number and assembling the changelog are exactly the
+mechanical, error-prone steps that should not be done by hand — and this is an
+important point: **`release-plan` does this for us**, deterministically, from the
+labels and titles of the PRs that were merged. The Ember ecosystem has already
+standardized on `release-plan` for almost every addon; the framework does not
+need a bespoke process that is strictly more work than the tooling everyone else
+already trusts.
 
-### Keep the cadence — it works
+### Keep the cadence
 
-The six-week cadence is predictable, well-understood, and well-loved. It is *not*
-what makes the train expensive, so this proposal deliberately keeps it. We are
-moving off the *channel-and-ceremony* model, not the calendar.
+The six-week cadence is predictable, well-understood, and well-loved. It is
+*not* what makes the train expensive, so this proposal deliberately keeps it. We
+are moving off the *branch-and-process* model, not the calendar.
 
 ## Detailed design
 
 ### Branching model
 
 A single long-lived branch: **`main`**. All pull requests merge here. `main` is
-both where work integrates and the source of every release. There are no
-`canary`, `beta`, or `release` branches, and none of the cherry-pick /
-back-merge machinery that keeping three live channels requires.
+both where work integrates and the source of every release. There are no `beta`
+or `release` branches, and none of the backport machinery that keeping multiple
+release branches requires.
 
 ### Per-PR release metadata
 
-Every PR that changes shipped code declares:
+`release-plan` is label-driven — this is the one way it works. Every PR is
+labeled with one of its labels:
 
-1. **A SemVer impact** — `patch`, `minor`, or `breaking` (major) — via a label
-   (or a changeset file, whichever the team prefers; `release-plan` supports the
-   label-driven flow out of the box).
-2. **A changelog entry** — the human-readable "what changed," authored as part
-   of review rather than reconstructed afterward.
+- `breaking` → major impact
+- `enhancement` → minor impact
+- `bug` → patch impact
+- `documentation`, `internal` → recorded, no release on their own
 
-`release-plan` aggregates these across everything merged since the last release
-to compute the next version number and assemble the changelog. The decision a
-release manager used to make by reading the diff is now made, deterministically,
-from metadata that was reviewed when the change landed.
+The changelog entry for a release *is* the set of merged PR titles (editable
+later by editing the title), so there is nothing extra to author. `release-plan`
+reads the labels and titles of everything merged since the last release to
+compute the next version and assemble the changelog. The judgment a maintainer
+used to apply by reading the diff is captured by the label on each PR at the time
+it lands.
 
-Breaking changes (`breaking` label) still require the same approval they require
-today: a `major` is a steering-level decision, sequenced by the major-version
-process (RFC #0830), not something an automated bump performs silently.
+### Releasing
 
-### Releasing: the six-week schedule, automated and gated
+The cadence is unchanged; the *mechanics* are `release-plan`'s defaults:
 
-The cadence is unchanged; the *mechanics* are automated:
-
-1. `release-plan prepare` keeps a release PR continuously up to date — it
-   computes the pending version and changelog from the metadata of everything
-   merged since the last release.
-2. On the scheduled six-week release date, that release PR is merged — by a
+1. `release-plan` keeps a **release-preview PR** up to date — it bumps the
+   version in `package.json`, edits `CHANGELOG.md`, and records the plan, from
+   the labels and titles merged since the last release.
+2. On the scheduled six-week release date, that preview PR is merged — by a
    maintainer or a scheduled workflow — which triggers the publish workflow.
    (The schedule is the rhythm; nothing forces a release between scheduled
-   dates, and a date can still be held or moved by the same people who manage
-   the calendar today.)
+   dates, and a date can still be held or moved as it is today.)
 3. The publish job targets a **protected GitHub Environment** (e.g.
-   `npm-publish`) with a *required reviewers* protection rule. The npm token /
+   `npm-publish`) with a *required reviewers* rule. The npm token /
    trusted-publishing identity is scoped to that environment, so nothing can
    publish until a required reviewer clicks **Approve** on the pending
-   deployment.
-4. On approval, the job runs `release-plan publish`: it tags, pushes, and
+   deployment. Maintainers never need npm keys locally.
+4. On approval, the CI job runs `release-plan publish`: it tags, pushes, and
    publishes to npm (with provenance via OIDC trusted publishing).
 
-Across a cycle, `release-plan` collapses all the labeled PRs into a *single*
-version bump — highest impact wins, so six weeks of `minor`-labeled work yields
-one minor, exactly as one stable minor per cycle does today. `@alpha` publishes
-the in-progress version continuously (e.g. `6.5.0-alpha.N`); the scheduled
-stable cut publishes the finalized version (`6.5.0`) as `@latest`. The stable
-release is just a snapshot of `main` at the scheduled date, which is what
-promoting `release` from `beta` produced before.
+Across a cycle, `release-plan` collapses everything merged into a *single*
+version bump — highest impact wins, so six weeks of `enhancement` PRs yields one
+minor, exactly as one stable minor per cycle does today. `@alpha` publishes the
+in-progress version continuously (e.g. `6.5.0-alpha.N`); the scheduled stable cut
+publishes the finalized version (`6.5.0`) as `@latest`. The stable release is
+just a snapshot of `main` at the scheduled date — the same thing promoting
+`release` from `beta` produced before.
 
-The deliberate approval click is the entire residual ceremony — there is no
-checklist, no manual version edit, no manual changelog, no manual `npm publish`,
-and no channel to cut or promote. Because the gate is a GitHub Environment, the
-existing GitHub permission and audit model applies: who may approve, the record
-of who approved what, and required-reviewer rotation are all standard repo
-configuration rather than tribal release-manager knowledge.
+The approval click is the entire residual ceremony: no manual version edit, no
+manual changelog, no manual publish, and no branch to cut or promote. Because the
+gate is a GitHub Environment, the existing GitHub permission and audit model
+applies — who may approve and the record of who approved what are standard repo
+configuration rather than tribal knowledge.
 
 ### Channels
 
 - **Stable (`latest`)** — published from `main` through the gated environment,
   on the six-week cadence, as above.
-- **`alpha`** — published automatically from `main`, the way Embroider published
-  its prereleases. This is the bleeding-edge stream, and it gives `main` a
-  turnkey npm dist-tag (`ember-source@alpha`) — something canary never had on
-  npm. Because `ember-source` lives in git, `main` also remains directly
-  consumable as a git ref (e.g. `emberjs/ember.js#<sha>`), exactly as canary is
-  consumed today. There is no separate channel branch or nightly promotion job
-  behind it; the latest in-progress code is just the head of `main`.
-- **`beta`** — removed. The dedicated `beta` channel, its branch, and the
-  `ember-source@beta` dist-tag go away; its consumers move to `@alpha` (or the
-  git ref). A change that warrants extra baking can still be merged early and
-  exercised via `@alpha` before the next scheduled stable release.
+- **`alpha`** — published automatically from `main`, the way Embroider and Glint
+  *used to* publish their prereleases. This is the bleeding-edge stream, and it
+  gives `main` a turnkey npm dist-tag (`ember-source@alpha`).
+- **`beta`** — removed. The dedicated `beta` branch and the `ember-source@beta`
+  dist-tag go away; its consumers move to `@alpha`. A change that warrants extra
+  baking can still be merged early and exercised via `@alpha` before the next
+  scheduled stable release.
 
-### Deprecations, majors, and LTS — unchanged
+### Deprecations, majors, and LTS
 
 Because the six-week cadence is retained, the policies layered on top of it are
-**unaffected**:
+unaffected:
 
 - **Deprecations** are still introduced as SemVer-minor and removed in majors,
   on the same deprecation-freeze schedule.
-- **Majors** still follow the major-version process of RFC #0830 (its `M.10`
-  deprecation freeze and `M.12` → `(M+1).0` train). The key point: that process
-  already controls *when a breaking change is allowed to merge* — deprecation
-  removals land only in the major window, not mid-cycle. So a `breaking` label
-  only ever appears on `main` when a major is due, and `release-plan`'s
-  label-driven bump produces a major exactly when RFC #0830 says it should. The
-  process is unchanged; it simply *executes* via `release-plan` from `main`
-  instead of via the channel pipeline.
+- **Majors** are not a manual process either. A PR is labeled `breaking`, and
+  because RFC #0830 puts a major on the normal cadence — one major roughly every
+  twelve 6-week minors, after the `M.10` deprecation freeze — `breaking` PRs only
+  merge in that window. So `release-plan`'s label-driven bump produces the major
+  on schedule, with no manual version work. The major-version process is
+  unchanged; it simply executes via `release-plan` from `main`.
 - **LTS** continues as today.
 
-In other words, this RFC changes *how* a release is cut and *which branches/
-channels exist*, not *when* releases happen or *what compatibility they
-guarantee*.
+In other words, this RFC changes *how* a release is cut and *which branches
+exist*, not *when* releases happen or *what compatibility they guarantee*.
 
 ### Lockstep across packages
 
-Historically `ember-source`, `ember-cli`, and `ember-data` (now WarpDrive)
-released in lockstep. `release-plan` operates per repository. This proposal does **not** mandate
+Historically `ember-source` and `ember-cli` released in lockstep.
+`release-plan` operates per repository. This proposal does **not** mandate
 dropping lockstep, but it makes lockstep an explicit, opt-in coordination step
-rather than a side effect of the channel pipeline:
+rather than a side effect of the branch pipeline:
 
 - If lockstep is kept, the release workflow coordinates the version across the
   packages at release time.
 - If lockstep is relaxed, normal SemVer ranges already express cross-package
   compatibility, and each package releases on its own schedule.
 
-This is called out as a design consideration rather than decided here; see
+This is a design consideration rather than something decided here; see
 [Unresolved questions](#unresolved-questions).
 
 ### What is removed
 
-- The `canary` and `beta` branches, and the `ember-source@beta` dist-tag.
-- The cherry-pick / back-merge machinery for keeping three live channels.
-- The release-manager checklist: manual version bumps, manual changelog
-  assembly, manual lockstep `npm publish`, and channel cut/promote steps.
+- The `beta` and `release` branches, and the `ember-source@beta` dist-tag.
+- The backport machinery for keeping multiple release branches alive.
+- The bespoke per-cycle release process: version bumps, changelog assembly, and
+  cut/promote steps now handled by `release-plan`.
 
 ### What is kept
 
@@ -228,62 +209,56 @@ This is called out as a design consideration rather than decided here; see
 
 ## How we teach this
 
-**Contributors** learn one habit: every PR that changes shipped code gets a
-SemVer-impact label and a changelog entry, authored during review. This is the
-same workflow they already follow in virtually every addon.
+**Contributors** keep doing what they already do in virtually every addon: label
+each PR with a `release-plan` label. The PR title becomes the changelog entry.
 
-**Release approvers** (a documented, rotating group with access to the protected
-environment) review the pre-computed release PR and approve the deployment. The
-role shrinks from "run the channel/checklist ceremony" to "review and click
-approve."
+**Maintainers** gain the ability to release. The role shrinks from "shepherd the
+branches and the cut" to "review the release-preview PR and approve the
+deployment" — something any maintainer can do, from anywhere, without npm keys.
 
 **Consumers of `beta`** are the audience whose workflow moves. Anyone who today
 depends on `ember-source@beta` — `ember-try` scenarios, addon CI matrices that
 test against upcoming Ember, people bisecting regressions — switches to
-`ember-source@alpha` (or a git ref). Canary consumers are unaffected: they
-already use a git ref, and that keeps working. The default `ember-try` /
-blueprint scenarios should be updated to point at `@alpha`.
+`ember-source@alpha`. The default `ember-try` / blueprint scenarios should be
+updated to point at `@alpha`.
 
 Documentation work:
 
 - Rewrite the website Releases page: `main` is the release line, the six-week
   cadence is unchanged, the prerelease stream is `@alpha` (auto-published from
   `main`), and `beta` no longer exists.
-- Update the contributor guide with the label/changelog workflow.
-- Document the environment, the approver group, and the approval procedure.
+- Update the contributor guide with the labeling workflow.
+- Document the environment, who can approve, and the approval procedure.
 - A migration/announcement blog post focused on `@beta` → `@alpha`.
 
 ## Drawbacks
 
-- **Removing the `@beta` dist-tag still moves some consumers.** `ember-try`
-  scenarios and addon CI matrices pinned to `ember-source@beta` have to switch to
-  `@alpha`. This is a one-time, mechanical migration rather than a loss of
-  capability — `@alpha` is auto-published from `main` and the canary git-ref
-  workflow is unchanged — but it is still ecosystem-wide churn that needs
-  coordinating.
+- **Removing the `@beta` dist-tag moves some consumers.** `ember-try` scenarios
+  and addon CI matrices pinned to `ember-source@beta` have to switch to `@alpha`.
+  This is a one-time, mechanical migration rather than a loss of capability, but
+  it is still ecosystem-wide churn that needs coordinating.
 - **Collapsing `beta` into `alpha` removes a soak stage.** Today `beta` is a
-  distinct, more-stable-than-canary checkpoint. Folding it into `@alpha` means
-  there is one prerelease stream, not two; changes get less differentiated baking
-  before a scheduled stable release.
-- **Per-PR labeling discipline.** A wrong impact label yields a wrong bump.
-  `release-plan` makes the bump deterministic, but the input is human-supplied.
-- **Concentrated publish authority.** Publish power moves to whoever can approve
-  the protected environment; that group's security and rotation matter.
+  distinct checkpoint between the default branch and stable. Folding it into
+  `@alpha` means one prerelease stream, not two; changes get less differentiated
+  baking before a scheduled stable release.
+- **Per-PR labeling discipline.** A wrong label yields a wrong bump.
+  `release-plan` makes the bump deterministic, but the label is human-supplied.
+- **Concentrated publish authority.** The set of people who can approve the
+  protected environment matters; that group's security and rotation need care.
 - **Tooling dependency.** The framework's release process becomes coupled to
   `release-plan` — a small, community-owned tool, but a new dependency.
-- **Cultural change.** `canary` and `beta` are long-standing, load-bearing parts
-  of Ember's testing culture and infrastructure; removing them as channels is not
-  only a mechanical change.
+- **Cultural change.** `beta` is a long-standing, load-bearing part of Ember's
+  testing culture and infrastructure; removing it is not only a mechanical
+  change.
 
 ## Alternatives
 
-- **Keep the train as-is (status quo).** Pays the recurring branch-management and
-  RM-ceremony cost, and the bus-factor risk, indefinitely.
+- **Keep the train as-is (status quo).** Pays the recurring branch-management
+  cost and the bus-factor risk indefinitely.
 - **Keep `beta` as a second prerelease stream.** Retain a `@beta` dist-tag
-  alongside `@alpha`, both auto-published from `main` (e.g. `@beta` from the
-  pending release PR). This preserves the extra soak stage at the cost of a
-  second prerelease tag to reason about. Worth considering if a single `@alpha`
-  stream proves too coarse for downstream CI.
+  alongside `@alpha`, both auto-published from `main`. This preserves the extra
+  soak stage at the cost of a second prerelease tag to reason about. Worth
+  considering if a single `@alpha` stream proves too coarse for downstream CI.
 - **Use `changesets` instead of `release-plan`.** Functionally similar;
   `release-plan` is preferred because the Ember ecosystem has standardized on it.
 - **Also drop the cadence (fully continuous releases).** A more radical model
@@ -298,8 +273,8 @@ Documentation work:
 - **Whether `beta` is fully dropped or kept as a second `@beta` prerelease
   stream** (the alternative above).
 - **`ember-try` and ecosystem CI migration** off `@beta` scenarios onto `@alpha`.
-- **Lockstep.** Do `ember-source`, `ember-cli`, `ember-data`/WarpDrive keep
-  lockstep versioning, or release independently? If lockstep, where does the
-  coordination live in the workflow?
+- **Lockstep.** Do `ember-source` and `ember-cli` keep lockstep versioning, or
+  release independently? If lockstep, where does the coordination live in the
+  workflow?
 - **Approver group.** Who can approve the protected environment, how membership
-  rotates, and the security posture (2FA, OIDC trusted publishing, audit).
+  rotates, and the security posture (OIDC trusted publishing, audit).
