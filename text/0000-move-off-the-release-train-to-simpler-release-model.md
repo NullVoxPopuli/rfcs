@@ -149,8 +149,6 @@ Docs work:
 
 ## Alternatives
 
-- Keep `beta` as a second prerelease stream. Hold onto a `@beta` dist-tag next to `@alpha`. This RFC drops `beta` for a single `@alpha` stream; the alternative keeps the extra soak stage at the cost of a second prerelease tag, and we could revisit it if one `@alpha` turns out too coarse for downstream CI.
-- Use `changesets` instead of `release-plan`. Pretty similar in practice; we prefer release-plan because the ecosystem already standardized on it.
 - Drop the cadence too (fully continuous releases). A more radical model where every merge can release. We're explicitly _not_ proposing that here, because the six-week cadence works.
 
 ## Unresolved questions
