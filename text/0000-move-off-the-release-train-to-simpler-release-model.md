@@ -6,7 +6,6 @@ release-versions:
 teams: # delete teams that aren't relevant
   - cli
   - framework
-  - steering
 prs:
   accepted: # Fill this in with the URL for the Proposal RFC PR
 project-link:
@@ -26,7 +25,7 @@ This RFC keeps (1) and replaces (2). The six-week cadence is the part that works
 
 Concretely:
 
-- One long-lived branch, `main`. No `beta` or `release` branches.
+- Just `main`. No `beta` or `release` branches.
 - Stable releases are cut from `main` by [`release-plan`][release-plan] on the same six-week schedule. The `npm publish` is gated behind a protected [GitHub deployment environment][gh-environments], so a maintainer approves before anything publishes.
 - We drop the `beta` channel. A new `@alpha` prerelease is published nightly from `main` (the way Embroider and Glint _used to_ publish theirs), and `ember-source@beta` users either move to `@alpha` or drop the scenario. Canary is unchanged: consuming `main` from git works exactly like it does today.
 
@@ -62,11 +61,11 @@ The six-week cadence is predictable, well understood, and well loved. It's _not_
 
 ### Branching model
 
-One long-lived branch: `main`. Every PR merges here, so `main` is both where work integrates and the source of every release. There are no `beta` or `release` branches, and none of the backporting that keeping multiple release branches requires.
+Everything merges to `main`. It's both where work integrates and the source of every release. There are no `beta` or `release` branches, and none of the backporting onto them that the train needs.
 
 ### Per-PR release metadata
 
-release-plan is label-driven. That's the one way it works, so there's nothing to invent here. Every PR gets one of its labels:
+release-plan uses these labels:
 
 - `breaking` (major impact)
 - `enhancement` (minor impact)
@@ -112,7 +111,7 @@ So this RFC changes _how_ a release is cut and _which branches exist_, not _when
 ### What this removes
 
 - The `beta` and `release` branches, and the `ember-source@beta` dist-tag.
-- The backporting needed to keep multiple release branches alive.
+- The backporting onto the `beta` and `release` branches.
 - The bespoke per-cycle release process. Version bumps, changelog assembly, and the cut/promote steps are all release-plan's job now.
 
 ### What this keeps
@@ -120,8 +119,9 @@ So this RFC changes _how_ a release is cut and _which branches exist_, not _when
 - The six-week release cadence, unchanged.
 - SemVer and every compatibility guarantee we make today.
 - The deprecation policy, LTS, and the major-version process (RFC #0830).
-- Steering's control over majors and over what ships.
+- Backports to LTSes, when needed.
 - A deliberate human gate before every publish.
+- From a consumer's point of view, nothing changes. They won't notice a difference.
 
 ## How we teach this
 
@@ -141,10 +141,6 @@ Docs work:
 ## Drawbacks
 
 - Dropping `@beta` moves some consumers. Any `ember-try` scenario or addon CI matrix pinned to `ember-source@beta` has to remove that scenario (and can adopt `@alpha` if it wants). It's a one-time, mechanical cleanup rather than a lost capability, since canary testing is unaffected, but it's still ecosystem-wide churn that needs coordinating.
-- Collapsing `beta` into `alpha` loses a soak stage. Today `beta` is a distinct checkpoint between the default branch and stable. With one prerelease stream instead of two, changes get less differentiated baking before a scheduled stable release.
-- Labeling discipline matters. A wrong label means a wrong bump. release-plan makes the bump deterministic, but the label itself is human-supplied.
-- Publish authority. The folks who can approve the protected environment are the same active people who cut releases today (informal, no change), but it does mean the npm publish is only as locked down as that environment's rules and those accounts' security (2FA / OIDC).
-- Tooling dependency. The framework's release process becomes coupled to release-plan. It's a small, community-owned tool, but it's a new dependency.
 - Cultural change. `beta` is a long-standing, load-bearing part of Ember's testing culture and infrastructure, so removing it isn't only a mechanical change.
 
 ## Alternatives
