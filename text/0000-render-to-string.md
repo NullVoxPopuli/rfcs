@@ -111,6 +111,8 @@ Calling `renderToString` without a global `document` is an error, with a message
 
 This keeps the server code path identical to the browser code path (`instanceof` checks and all), and means nothing new ships in the published build — serialization is just `innerHTML`.
 
+Requiring a real DOM is not a limitation to work around — it corrects a fundamental design mistake in Ember's existing SSR support. The `isInteractive` and `hasDOM` flags exist only because SimpleDOM cannot behave like a real document; each one is a fork between the server and browser code paths that app and addon code then has to guard against. With a real DOM there is nothing to flag. Modifiers running during a server render are most often a no-op, and at best beneficial — setting styles, manipulating state — with their DOM effects serialized like any other output.
+
 ### The Parameters
 
 #### `owner` (defaults to `{}`)
@@ -157,11 +159,7 @@ A rehydrating render adopts the existing DOM nodes — same node identity — ra
 
 ### FastBoot
 
-**This API does not support FastBoot, and FastBoot does not support this API.**
-
-FastBoot's SimpleDOM-based model (`isInteractive: false`, no modifiers, no settling, a `document` that isn't a document) is exactly what this design rejects. There is no compatibility layer: `renderToString` does not run inside today's FastBoot, and FastBoot cannot host it without changes.
-
-FastBoot would need to be updated to build on `renderToString` — dropping SimpleDOM for a real DOM implementation and adopting settle-before-serialize. That work is out of scope for this RFC and would land in FastBoot, not ember-source.
+FastBoot and `renderToString` do not interoperate: FastBoot's SimpleDOM-based model is exactly what this design rejects. FastBoot would need to be updated to build on `renderToString` — dropping SimpleDOM for a real DOM implementation and adopting settle-before-serialize. That work would land in FastBoot, not ember-source, and is out of scope for this RFC.
 
 ### Usage
 
@@ -225,8 +223,7 @@ The one genuinely new concept is "the environment provides the document." That i
 
 ## Drawbacks
 
-- Server environments must supply a global DOM implementation (e.g. happy-dom). This is one line of setup and keeps the framework build free of server-only code paths, but it is a real dependency the user owns.
-- Serialization is all-at-once; there is no streaming. Streaming is not precluded — a future API could compose with this one — but it is not in scope here.
+- Serialization is all-at-once. A streaming API is desired, but would need to be a separate RFC.
 - Until FastBoot is updated, Ember has two SSR stories that don't interoperate.
 
 ## Alternatives
