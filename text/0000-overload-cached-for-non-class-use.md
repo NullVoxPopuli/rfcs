@@ -33,15 +33,15 @@ suite: Leave as is
 
 This RFC introduces an overload to the existing `cached` function, allowing it to be used outside of classes.
 
-This is the memoization companion to [RFC#1071](https://github.com/emberjs/rfcs/blob/master/text/1071-overload-tracked-for-non-class-use.md), which overloaded `tracked` for use outside of classes, and this RFC re-uses the interfaces defined there.
+This is the caching companion to [RFC#1071](https://github.com/emberjs/rfcs/blob/master/text/1071-overload-tracked-for-non-class-use.md), which overloaded `tracked` for use outside of classes, and this RFC re-uses the interfaces defined there.
 
 ## Motivation
 
 Our guides are gaining in-depth reactivity documentation ([ember-learn/guides-source#2219](https://github.com/ember-learn/guides-source/pull/2219)), and over the years, it's been useful to talk about reactive primitives as things _outside_ of classes, and compose/wrap them in to refactoring boundaries (classes, components, etc). 
 
-[RFC#1071](https://github.com/emberjs/rfcs/blob/master/text/1071-overload-tracked-for-non-class-use.md) gave us `tracked()` for _root state_ outside of classes, but there is no ergonomic equivalent for memoizing a computation -- today, memoizing outside of a class requires either a class with a `@cached` getter, or dropping down to the memoization primitives from [RFC#615](https://github.com/emberjs/rfcs/blob/master/text/0615-autotracking-memoization.md).
+[RFC#1071](https://github.com/emberjs/rfcs/blob/master/text/1071-overload-tracked-for-non-class-use.md) gave us `tracked()` for _root state_ outside of classes, but there is no ergonomic equivalent for caching a computation -- today, caching outside of a class requires either a class with a `@cached` getter, or dropping down to the caching primitives from [RFC#615](https://github.com/emberjs/rfcs/blob/master/text/0615-autotracking-memoization.md).
 
-Enabling `cached` to be used outside of a class makes it a good tool for demos[^demos] for memoizing expensive computations in function-based APIs, such as _helpers_, _modifiers_, or _resources_ (or even in module space)[^apps]. They also provide a benefit in testing as well, since tests tend to want to assert that expensive computations do not re-run unnecessarily. 
+Enabling `cached` to be used outside of a class makes it a good tool for demos[^demos] for caching expensive computations in function-based APIs, such as _helpers_, _modifiers_, or _resources_ (or even in module space)[^apps]. They also provide a benefit in testing as well, since tests tend to want to assert that expensive computations do not re-run unnecessarily. 
 
 `cached`-as-non-decorator was prototyped in [Starbeam](https://starbeamjs.com/guides/fundamentals/functions.html) (as `CachedFormula`) and similar utilities have been available for folks to try out in ember via [ember-resources](https://github.com/NullVoxPopuli/ember-resources) and [reactiveweb](https://github.com/universal-ember/reactiveweb). 
 
@@ -91,19 +91,17 @@ and adds:
 
 ~~~ts
 /**
-* Utility to create a cached (memoized) computation. 
+* Utility to create a cached computation. 
 */
 function cached<Value>(
     fn: () => Value,
     options?: { 
-        equals: (a: Value, b: Value) => boolean, 
         description?: string 
     } = {}
 ) {
   return new CachedValue(
     fn,
     {
-      equals: options?.equals ?? Object.is,
       description: options?.description
     }
   );
@@ -118,34 +116,21 @@ interface CachedValue<Value> extends ReadOnlyReactive<Value> {
 }
 ~~~
 
-Unlike RFC#1071's `TrackedValue`, there is no `set`, `update`, or `freeze` -- a `CachedValue` is derived entirely from the tracked state its function reads, so it is _born_ a `ReadOnlyReactive`.
+Unlike RFC#1071's `TrackedValue`, there is no `set`, `update`, or `freeze` -- a `CachedValue` has no storage of its own; its value comes entirely from the tracked state its function reads, so it is a `ReadOnlyReactive` from the start.
 
 Behaviorally, `cached()` behaves almost the same as this function:
 ```js
 import { createCache, getValue } from '@glimmer/tracking/primitives/cache';
 
-function cached(fn, { equals, description } = {}) {
-  return new CachedValuePolyfill(fn, { equals: equals ?? Object.is, description });
+function cached(fn, { description } = {}) {
+  return new CachedValuePolyfill(fn, { description });
 }
 
 class CachedValuePolyfill {
     #cache;
-    #hasPrevious = false;
-    #previous;
 
     constructor(fn, options) {
-        this.#cache = createCache(() => {
-            let next = fn();
-
-            if (this.#hasPrevious && options.equals(this.#previous, next)) {
-                // retain the previous value (and its identity)
-                return this.#previous;
-            }
-
-            this.#hasPrevious = true;
-            this.#previous = next;
-            return next;
-        }, options.description);
+        this.#cache = createCache(fn, options.description);
     }
 
     get value() {
@@ -159,36 +144,11 @@ class CachedValuePolyfill {
 }
 ```
 
-(the real implementation would live lower in the reactivity system, because less abstraction layers are speedier)
-
-The function passed to `cached` is only re-invoked when tracked state it previously read has changed -- exactly the memoization semantics of the `@cached` decorator from [RFC#566](https://github.com/emberjs/rfcs/blob/master/text/0566-memo-decorator.md).
-
-The `equals` option decides whether a re-computed value _counts_ as a new value. When the freshly computed value is `equals` to the previous one, the previous value is returned instead, preserving referential identity for downstream consumers. The default is `Object.is`.
-
-For example, with this `CachedValue` and equality function:
-
-```gjs
-const letters = tracked(['a', 'b']);
-
-const upper = cached(
-    () => letters.value.map((letter) => letter.toUpperCase()),
-    { equals: (a, b) => a.length === b.length && a.every((x, i) => x === b[i]) }
-);
-
-const reassign = () => letters.value = ['a', 'b'];
-
-<template>
-    <output>{{upper.value}}</output>
-
-    <button {{on 'click' reassign}}>Click me</button> 
-</template>
-```
-
-Clicking the button re-runs the function (the `tracked` value was dirtied), but `upper.value` keeps returning the _same array instance_, so anything consuming `upper.value` does not need to re-process it.
+The function passed to `cached` is only re-invoked when tracked state it previously read has changed -- the same caching behavior as the `@cached` decorator from [RFC#566](https://github.com/emberjs/rfcs/blob/master/text/0566-memo-decorator.md).
 
 ### Usage
 
-Memoizing a computation over local state in a template.
+Caching a computation over local state in a template.
 
 ```gjs
 import { tracked, cached } from '@glimmer/tracking';
@@ -207,7 +167,7 @@ const increment = (c) => c.value++;
 </template>
 ```
 
-Memoizing a computation over module state.
+Caching a computation over module state.
 This is already common in demos.
 
 ```gjs
@@ -225,7 +185,7 @@ const increment = () => count.value++;
 </template>
 ```
 
-Using private mutable properties providing public, memoized, read-only access:
+Using private mutable properties providing public, cached, read-only access:
 
 ```gjs
 export class MyAPI {
@@ -346,14 +306,10 @@ const logLater = (read) => setTimeout(() => console.log(read()));
 </template>
 ```
 
-### When to use `equals`
-
-When re-computation may produce a new-but-equivalent value (arrays, objects, strings built from parts), and downstream consumers benefit from referential stability -- for example, avoiding re-renders of `{{#each}}` blocks or re-runs of downstream `cached` values that received an equivalent value.
-
 ## Drawbacks
 
 - same API does multiple things based on usage, but developers should be used to this somewhat as overloading is nothing new -- TS will also be agreeable with the overloads -- and RFC#1071 has already established this pattern for `tracked`
-- potential confusion between `@cached` (decorates a getter) and `cached(fn)` (wraps a function) -- though the mental model is the same: "memoize this computation against the tracked state it reads"
+- potential confusion between `@cached` (decorates a getter) and `cached(fn)` (wraps a function) -- though the mental model is the same: "cache this computation against the tracked state it reads"
 
 ## Alternatives
 
@@ -366,9 +322,13 @@ When re-computation may produce a new-but-equivalent value (arrays, objects, str
 
 ## Appendix
 
-### Relationship to RFC#615's memoization primitives
+### Relationship to the primitives from RFC#615
 
-The [Autotracking Memoization primitives in RFC#615](https://github.com/emberjs/rfcs/blob/master/text/0615-autotracking-memoization.md) (`createCache` / `getValue`) provide the same memoization capability, and the implementation of `cached()` sits on the same machinery. `cached()` packages that capability in the already-public `cached` import, without requiring 2 imports from a `primitives` path. The primitives remain as-is, and stay useful for library authors.
+The primitives from [RFC#615](https://github.com/emberjs/rfcs/blob/master/text/0615-autotracking-memoization.md) (`createCache` / `getValue`) provide the same caching capability, and the implementation of `cached()` sits on the same machinery. `cached()` packages that capability in the already-public `cached` import, without requiring 2 imports from a `primitives` path. The primitives remain as-is, and stay useful for library authors.
+
+### Deferred: an `equals` option
+
+An earlier draft proposed an `equals` option for retaining the previous value's identity when a re-computation produced an equivalent result. Since calling the function at all is the expensive part, re-running it only to discard the result has unclear benefit -- so it is not part of this RFC. It could be added later without changing the API proposed here.
 
 ### Naming: value
 
