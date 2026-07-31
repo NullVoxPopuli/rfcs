@@ -33,7 +33,7 @@ suite: Leave as is
 
 This RFC introduces an overload to the existing `cached` function, allowing it to be used outside of classes.
 
-This is the caching companion to [RFC#1071](https://github.com/emberjs/rfcs/blob/master/text/1071-overload-tracked-for-non-class-use.md), which overloaded `tracked` for use outside of classes, and this RFC re-uses the interfaces defined there.
+This is the caching companion to [RFC#1071](https://github.com/emberjs/rfcs/blob/master/text/1071-overload-tracked-for-non-class-use.md), which overloaded `tracked` for use outside of classes, and this RFC re-uses the interfaces defined there (adding `get` to `ReadOnlyReactive`, which was an oversight).
 
 ## Motivation
 
@@ -43,7 +43,7 @@ Our guides are gaining in-depth reactivity documentation ([ember-learn/guides-so
 
 Enabling `cached` to be used outside of a class makes it a good tool for demos[^demos] for caching expensive computations in function-based APIs, such as _helpers_, _modifiers_, or _resources_ (or even in module space)[^apps]. They also provide a benefit in testing as well, since tests tend to want to assert that expensive computations do not re-run unnecessarily. 
 
-`cached`-as-non-decorator was prototyped in [Starbeam](https://starbeamjs.com/guides/fundamentals/functions.html) (as `CachedFormula`) and similar utilities have been available for folks to try out in ember via [ember-resources](https://github.com/NullVoxPopuli/ember-resources) and [reactiveweb](https://github.com/universal-ember/reactiveweb). 
+`cached`-as-non-decorator was prototyped in [Starbeam](https://starbeamjs.com/guides/fundamentals/functions.html) (as `CachedFormula`). 
 
 [^apps]: Apps typically should not have reactive state in module space, becaues it doesn't get automatically reset between tests, since we don't reload modules between each tests (partly for perf reasons). Cached state in module space is safer than root state (it recomputes when its inputs reset), but the same caution applies to what it reads.
 
@@ -84,10 +84,17 @@ interface ReadOnlyReactive<Value> extends Reactive<Value> {
     * Cannot be set.
     */
     readonly value: Value;
+
+    /**
+    * Function short-hand of reading the value
+    */
+    get: () => Value;
 }
 ~~~
 
-and adds:
+`get` was an oversight in RFC#1071's `ReadOnlyReactive` -- this RFC adds it to the interface (rather than introducing a new interface). `TrackedValue` already has `get`, so it already conforms.
+
+This RFC adds:
 
 ~~~ts
 /**
@@ -98,25 +105,10 @@ function cached<Value>(
     options?: { 
         description?: string 
     } = {}
-) {
-  return new CachedValue(
-    fn,
-    {
-      description: options?.description
-    }
-  );
-}
-
-interface CachedValue<Value> extends ReadOnlyReactive<Value> {
-    /**
-    * Function short-hand of reading the value
-    * of the CachedValue
-    */
-    get: () => Value;
-}
+): ReadOnlyReactive<Value>;
 ~~~
 
-Unlike RFC#1071's `TrackedValue`, there is no `set`, `update`, or `freeze` -- a `CachedValue` has no storage of its own; its value comes entirely from the tracked state its function reads, so it is a `ReadOnlyReactive` from the start.
+Unlike RFC#1071's `TrackedValue`, there is no `set`, `update`, or `freeze` -- the returned value has no storage of its own; its value comes entirely from the tracked state its function reads, so it is a `ReadOnlyReactive` from the start.
 
 Behaviorally, `cached()` behaves almost the same as this function:
 ```js
@@ -147,25 +139,6 @@ class CachedValuePolyfill {
 The function passed to `cached` is only re-invoked when tracked state it previously read has changed -- the same caching behavior as the `@cached` decorator from [RFC#566](https://github.com/emberjs/rfcs/blob/master/text/0566-memo-decorator.md).
 
 ### Usage
-
-Caching a computation over local state in a template.
-
-```gjs
-import { tracked, cached } from '@glimmer/tracking';
-
-const double = (reactive) => cached(() => reactive.value * 2);
-const increment = (c) => c.value++;
-
-<template>
-    {{#let (tracked @initialCount) as |count|}}
-        {{#let (double count) as |doubled|}}
-            Count is: {{count.value}}, doubled is: {{doubled.value}}
-
-            <button {{on "click" (fn increment count)}}>add one</button>
-        {{/let}}
-    {{/let}}
-</template>
-```
 
 Caching a computation over module state.
 This is already common in demos.
@@ -345,7 +318,7 @@ The same reasoning as RFC#1071 applies:
 
 ### Why no `set`, `update`, or `freeze`
 
-A `CachedValue` has no storage of its own -- its value is entirely a function of the tracked state its function reads. Writing to it is meaningless, and it is already permanently "frozen" from the consumer's point of view. This is also why `CachedValue` extends `ReadOnlyReactive` rather than `Reactive`.
+The value returned from `cached()` has no storage of its own -- its value is entirely a function of the tracked state its function reads. Writing to it is meaningless, and it is already permanently "frozen" from the consumer's point of view. This is also why `cached()` returns a `ReadOnlyReactive` rather than a `Reactive`.
 
 ### Extension
 
