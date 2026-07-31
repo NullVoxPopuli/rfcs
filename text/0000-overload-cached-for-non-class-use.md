@@ -37,23 +37,17 @@ This is the memoization companion to [RFC#1071](https://github.com/emberjs/rfcs/
 
 ## Motivation
 
-Our documentation / guides currently don't have much of anything on reactivity, and over the years, it's been useful to talk about reactive primitives as things _outside_ of classes, and compose/wrap them in to refactoring boundaries (classes, components, etc). 
+Our guides are gaining in-depth reactivity documentation ([ember-learn/guides-source#2219](https://github.com/ember-learn/guides-source/pull/2219)), and over the years, it's been useful to talk about reactive primitives as things _outside_ of classes, and compose/wrap them in to refactoring boundaries (classes, components, etc). 
 
-To be clear about terms: _derived state_ is not the same as _cached state_, and derived state outside of a class needs no new API -- any plain function or getter that reads reactive values is already derived state, and staying a plain function should remain the default. `cached` is specifically about _caching_ such a derivation: only re-running the function when tracked state it previously read has changed. As with the `@cached` decorator, this is an opt-in optimization for expensive computations, not the way to derive.
-
-[RFC#1071](https://github.com/emberjs/rfcs/blob/master/text/1071-overload-tracked-for-non-class-use.md) gave us `tracked()` for _root state_ outside of classes, but there is no ergonomic equivalent for that opt-in caching -- today, memoizing a derivation outside of a class requires either a class with a `@cached` getter, or dropping down to the memoization primitives from [RFC#615](https://github.com/emberjs/rfcs/blob/master/text/0615-autotracking-memoization.md).
+[RFC#1071](https://github.com/emberjs/rfcs/blob/master/text/1071-overload-tracked-for-non-class-use.md) gave us `tracked()` for _root state_ outside of classes, but there is no ergonomic equivalent for memoizing a computation -- today, memoizing outside of a class requires either a class with a `@cached` getter, or dropping down to the memoization primitives from [RFC#615](https://github.com/emberjs/rfcs/blob/master/text/0615-autotracking-memoization.md).
 
 Enabling `cached` to be used outside of a class makes it a good tool for demos[^demos] for memoizing expensive computations in function-based APIs, such as _helpers_, _modifiers_, or _resources_ (or even in module space)[^apps]. They also provide a benefit in testing as well, since tests tend to want to assert that expensive computations do not re-run unnecessarily. 
-
-This is not too dissimilar to the [Autotracking Memoization primitives in RFC#615](https://github.com/emberjs/rfcs/blob/master/text/0615-autotracking-memoization.md) (`createCache` / `getValue`). Making `cached` work outside of classes provides the same benefit without requiring 2 imports from a `primitives` path to use. This RFC intends to provide a tool enabling us to de-emphasize (and potentially later deprecate) the `@glimmer/tracking/primitives/cache` import path for app developers[^primitives-future]. 
 
 `cached`-as-non-decorator was prototyped in [Starbeam](https://starbeamjs.com/guides/fundamentals/functions.html) (as `CachedFormula`) and similar utilities have been available for folks to try out in ember via [ember-resources](https://github.com/NullVoxPopuli/ember-resources) and [reactiveweb](https://github.com/universal-ember/reactiveweb). 
 
 [^apps]: Apps typically should not have reactive state in module space, becaues it doesn't get automatically reset between tests, since we don't reload modules between each tests (partly for perf reasons). Cached state in module space is safer than root state (it recomputes when its inputs reset), but the same caution applies to what it reads.
 
 [^demos]: demos _must_ over simplify to bring attention to a specific concept. Too much syntax getting in the way easily distracts from what is trying to be demoed. This has benefits for actual app development as well though, as we're, by focusing on concise demo-ability, gradually removing the amount of typing needed to create features. 
-
-[^primitives-future]: The primitives remain useful for library authors, and the implementation of `cached()` would sit on the same machinery -- but most application code should never need to import from a `primitives` path.
 
 ## Detailed design
 
@@ -312,7 +306,7 @@ However, developers may think of `@cached` (or decorators in general) as magic -
 
 We can even use the example over-simplified implementation of `@cached` from the _Detailed Design_ section above.
 
-Together with `tracked()` from RFC#1071, this completes the story for teaching reactivity without classes: `tracked()` is root state, plain functions are derived state, and `cached()` is the opt-in memoization of a derivation -- the same relationship `@cached` has to ordinary getters. As with the `@cached` decorator, overuse is discouraged: most derivations are cheap and should stay plain functions.
+Together with `tracked()` from RFC#1071, this completes the story for teaching reactivity without classes. As with the `@cached` decorator, overuse is discouraged: most computations are cheap and should stay plain functions.
 
 ### When to use `value`
 
@@ -371,6 +365,10 @@ When re-computation may produce a new-but-equivalent value (arrays, objects, str
 - none yet
 
 ## Appendix
+
+### Relationship to RFC#615's memoization primitives
+
+The [Autotracking Memoization primitives in RFC#615](https://github.com/emberjs/rfcs/blob/master/text/0615-autotracking-memoization.md) (`createCache` / `getValue`) provide the same memoization capability, and the implementation of `cached()` sits on the same machinery. `cached()` packages that capability in the already-public `cached` import, without requiring 2 imports from a `primitives` path. The primitives remain as-is, and stay useful for library authors.
 
 ### Naming: value
 
