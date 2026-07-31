@@ -8,7 +8,7 @@ teams: # delete teams that aren't relevant
   - learning
   - typescript
 prs:
-  accepted: # Fill this in with the URL for the Proposal RFC PR
+  accepted: https://github.com/NullVoxPopuli/rfcs/pull/19
 project-link:
 suite: 
 ---
