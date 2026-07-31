@@ -37,7 +37,7 @@ This is the caching companion to [RFC#1071](https://github.com/emberjs/rfcs/blob
 
 ## Motivation
 
-Our guides are gaining in-depth reactivity documentation ([ember-learn/guides-source#2219](https://github.com/ember-learn/guides-source/pull/2219)), and over the years, it's been useful to talk about reactive primitives as things _outside_ of classes, and compose/wrap them in to refactoring boundaries (classes, components, etc). 
+Our guides are gaining in-depth reactivity documentation ([ember-learn/guides-source#2219](https://github.com/ember-learn/guides-source/pull/2219)), and it's been useful to talk about reactive primitives as things _outside_ of classes, and compose/wrap them in to refactoring boundaries (classes, components, etc). 
 
 [RFC#1071](https://github.com/emberjs/rfcs/blob/master/text/1071-overload-tracked-for-non-class-use.md) gave us `tracked()` for _root state_ outside of classes, but there is no ergonomic equivalent for caching a computation -- today, caching outside of a class requires either a class with a `@cached` getter, or dropping down to the caching primitives from [RFC#615](https://github.com/emberjs/rfcs/blob/master/text/0615-autotracking-memoization.md).
 
