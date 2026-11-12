@@ -183,7 +183,6 @@ is the same as
 appInstance.lookup(MyClass);
 ```
 
-This is most useful for decorators or other shared abstractions that interact with services (such as the router or store). Those abstractions do not have direct access to the services from the component or route context.
 
 Examples: 
 
