@@ -3,7 +3,7 @@ stage: accepted
 start-date: 2019-06-14T00:00:00.000Z # In format YYYY-MM-DDT00:00:00.000Z
 release-date: # In format YYYY-MM-DDT00:00:00.000Z
 release-versions: 
-teams: # delete teams that aren't relevant
+teams:
   - data
   - framework
   - learning
@@ -18,15 +18,16 @@ suite:
 
 ## Summary
 
-This RFC proposes on additive behavior via overloads for the `service` decorator (formally `inject`) -- enabling better editor support and additional ways to manage state tied to the lifetime of an application.
+This RFC proposes an additive behavior via overloads for the `service` decorator (formerly `inject`) -- enabling better editor support and additional ways to manage state tied to the lifetime of an application.
 
 ## Motivation
 
-The main goal is to _use the platform_ and enable "go to definition" support from service definitions so developers can more easily discover the where and how their service is defined. Additionally, addons need to be able to create services that are not forced to be inluded in the initial JS bundle of applications -- if an addon is used in a split route, so, too, should their services.
+The main goal is to _use the platform_ and enable "go to definition" support from service definitions so developers can more easily discover where and how their service is defined. Additionally, addons need to be able to create services that are not forced to be included in the initial JS bundle of applications -- if an addon is used in a split route, so, too, should their services.
 
 ## Detailed design
 
-The existing, not deprecated as a part of this RFC,  
+The existing syntax, which this RFC does not deprecate:
+
 ```ts
 @service notifications;
 @service('notifications') notifications;
@@ -37,7 +38,7 @@ has this behavior:
 - service is not instantiated until accessed (even though the code for it is loaded)
 - service is matched to a _file path_ within the `app/services` directory via custom build tooling
 - usage with typescript requires that the developer import from the service file to `@service declare notifications: Notifications` - which is very repetitive
-- service can be overridden later (if they have not previously been accessed) via `owner.register(key)`
+- service can be overridden later (if it has not previously been accessed) via `owner.register(key, factory)`
 - service can be resolved later without a decorator via `owner.lookup(key)`
 
 
@@ -54,7 +55,7 @@ dispatcher = service(this, MessageDispatcher);
 
 This means that the shorthand syntax of using `@service` without a parameter should be discouraged, and the use of the service class should be used in its place.
 
-At present, the service decorator wraps around the `ApplicationInstance#lookup` method -- something like this (roughly / hand-waiving the implementation details of decorators and getting access to the app instance):
+At present, the service decorator wraps around the `ApplicationInstance#lookup` method -- something like this (roughly / hand-waving the implementation details of decorators and getting access to the app instance):
 
 ```ts
 function service(name) {
@@ -67,7 +68,7 @@ Instead, with this RFC, the service pseudo-function should check for the type of
 ```ts
 function service(nameOrClass) {
   if (typeof nameOrClass === 'string') {
-    return appInstance.lookup(`service:${name}`);
+    return appInstance.lookup(`service:${nameOrClass}`);
   }
 
   return appInstance.lookup(nameOrClass);
@@ -146,8 +147,7 @@ to something, so deferring means returning a stand-in. The only candidate (which
 - breaks identity: `this.myService === owner.lookup(Service)` is `false`
 - shows as a Proxy in the debugger
 
-A `tracked()` read as `this.myService.value` is lazy and correct, but makes the return value more verbose to use, which would make the following not work 
-
+A `tracked()` read as `this.myService.value` is lazy and correct, but makes the return value more verbose at every call
 site. The lazy non-decorator form is a getter:
 
 ```ts
@@ -155,7 +155,7 @@ class Demo {
     // resolves during construction
     eager = service(this, Service);                
     // resolves on first access.
-    // repeat service() calls are idempontent.
+    // repeat service() calls are idempotent.
     get lazy() { return service(this, Service); }  
 }
 ```
@@ -170,6 +170,9 @@ One export serves every form:
 | `service(Key)` | lazy decorator |
 | `service(() => Key)` | lazy decorator, cycle-tolerant |
 | `service(this, Key)` | resolve now |
+
+A class is also a function, so a thunk and a class key are told apart by `prototype`:
+an arrow function has none. A thunk must be an arrow function.
 
 ### lookup by exact class
 
@@ -186,7 +189,7 @@ is the same as
 appInstance.lookup(MyClass);
 ```
 
-This will be most handy for decorators or other common abstractions that desire to interact with services (such as the router or store), but have direct access to them from the component or route context.
+This will be most handy for decorators or other common abstractions that desire to interact with services (such as the router or store), but do not have direct access to them from the component or route context.
 
 Examples: 
 
@@ -250,6 +253,7 @@ Examples:
     // app/components/my-component.js
     import Component from '@glimmer/component';
     import { service } from '@ember/service';
+    import { CookieService } from 'app-name/services/cookies/cookie-service';
 
     class MyComponent extends Component {
       @service(CookieService) cookie;
@@ -270,10 +274,10 @@ Examples:
 
     export class BrowserCookieService extends CookieService {
       getValue(key: string) {
-        return browser.cookies.get({
-          name: key,
-          url: window.location.href
-        })
+        return document.cookie
+          .split('; ')
+          .find((pair) => pair.startsWith(`${key}=`))
+          ?.split('=')[1];
       }
       // ...
     }
@@ -296,7 +300,7 @@ Examples:
     export default { initialize };
     ```
 
-    A key can be a pure contract with no runtime footprint at all.
+    A key can be a pure contract: an abstract class whose abstract members leave nothing at runtime.
 
 #### the hierarchy check
 
@@ -318,8 +322,8 @@ and the result is a test that passes for the wrong reason. Class-keyed registrat
 should assert instead:
 
 ```ts
-lookup(owner, Counter);
-register(owner, Counter, StubCounter);
+owner.lookup(Counter);
+owner.register(Counter, StubCounter);
 // Error: Counter has already been resolved on this owner. Register before the
 // first lookup -- in a test, before render or visit.
 ```
@@ -330,7 +334,7 @@ register(owner, Counter, StubCounter);
 answer can be no. For a class key it is trivially yes for every key -- worst case the
 key instantiates itself -- so the method becomes useless rather than different.
 
-Two separate predicates replace it:
+For class keys, two separate predicates replace it:
 
 - is an explicit override bound for this key on this owner?
 - has this key been resolved on this owner yet?
@@ -346,11 +350,15 @@ a plain class:
 export default class Counter {
   @tracked count = 0;
 
-  constructor(owner: Owner) {
+  constructor() {
     registerDestructor(this, () => this.cleanup());
   }
 
   increment = () => this.count++;
+
+  cleanup() {
+    // release anything this service holds
+  }
 }
 ```
 
@@ -425,7 +433,7 @@ the library declares a dependency, the app supplies the implementation, and ther
 no class both sides can import.
 
 > [!NOTE]
-> For the ember-intl case, where a library _does_ depend on ember-intl, and uses their class key, since the app version of the intl service would _extend_ (and be required to extend) the intl service, because we have the hierarchy lookup, this use case still works with explicit service references. An important caveat is that the first access registers the instance -- so upon app boot, it should interact with the intl service, such as setting the default locale or reading the locale from localStorage / the URL. 
+> The ember-intl case still works with class keys. A library that depends on ember-intl uses its class as the key. The app subclasses that class (the hierarchy check requires this) and registers the subclass with `register(IntlService, AppIntlService)`. Lookup does not search for subclasses, so this registration is required. It must happen before the first lookup of `IntlService`, for example in an instance initializer. After the first lookup, the registration asserts; see "registering after a key has been resolved".
 
 Matching a key structurally -- "any registered class with these members" -- would
 close that gap, but it is a large feature with its own hazards (renaming a method
@@ -473,7 +481,7 @@ advanced escape hatch.
 
 ### TypeScript
 
-`lookup`'s return type is derived from the `DIRegistry` declaration-merging registry,
+`lookup`'s return type is derived from the `Registry` declaration-merging registry,
 keyed on the string name, which is why every service in a typed app carries this:
 
 ```ts
@@ -485,19 +493,23 @@ declare module '@ember/service' {
 ```
 
 With a class key the instance type comes from the class, so the declaration merging
-disappears, as does the `@service declare foo: Foo` duplication from Motivation:
+disappears. The non-decorator form also drops the `@service declare foo: Foo` duplication
+described above, because TypeScript infers the field type from the return value.
+A decorator cannot change the type of the field it decorates, so the decorator form
+keeps the annotation:
 
 ```ts
-@service(FeatureFlags) declare flags: FeatureFlags;  // annotation now redundant
+flags = service(this, FeatureFlags);                     // inferred as FeatureFlags
+@service(FeatureFlags) declare otherFlags: FeatureFlags;  // annotation still required
 ```
 
 Two signature notes:
 
 - `Key` must allow abstract constructors (`abstract new (owner: Owner) => T`); a
   token that is only a contract is the most useful kind of key
-- `hasRegistration` and `unregister` are not on the public `Owner` type today, they
-  live on the private `RegistryProxy`. The testing examples use them, so this RFC
-  needs to say whether they become public.
+- `hasRegistration` and `unregister` are not on the public `Owner` type today. They
+  live on the private `RegistryProxy`. The predicates that replace `hasRegistration`
+  need a public home, so this RFC needs to say whether these become public.
 
 ### Usage in testing
 
@@ -516,6 +528,7 @@ export default class MyService {
 And assuming that in a route there is a service injection like the following:
 ```ts
 import Route from '@ember/routing/route';
+import { service } from '@ember/service';
 import ServiceToOverride from 'app-name/services/my-service';
 
 export default class TheRoute extends Route {
@@ -524,9 +537,9 @@ export default class TheRoute extends Route {
 }
 ```
 
-During an acceptance test, it can be overwritten by doing the following:
+During an acceptance test, it can be overridden by doing the following:
 ```ts
-import { module, test } from 'qunit';
+import { module } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 
 import ServiceToOverride from 'app-name/services/my-service';
@@ -552,10 +565,10 @@ because the injection resolves through the owner on access rather than being ass
 at instantiation. The registration does have to happen before `visit`; see
 "registering after a key has been resolved".
 
-### Integration Tests
+#### Integration Tests
 
 ```ts
-import { module, test } from 'qunit';
+import { module } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 
@@ -606,7 +619,7 @@ Instead of using strings or inferred injections, the guides should be updated to
 
 The guides already cover usage of services, as well as techniques for setting up [any class for injection](https://guides.emberjs.com/release/in-depth-topics/native-classes-in-depth/#toc_using-injection) (albeit under "in depth topics") -- some of this probably could be expanded on but would be out of scope for this RFC. 
 
-For libraries and apps wanting to incrementally migrate from string to explicit, we can provide instructions during a future depreaction-of-string-based-services RFC after a compat library exists, (proxying the string-instantiated service to the real one).
+For libraries and apps wanting to incrementally migrate from string to explicit, we can provide instructions during a future deprecation-of-string-based-services RFC after a compat library exists, (proxying the string-instantiated service to the real one).
 
 Things the guides must cover, because each is a place reasonable code fails:
 
@@ -627,8 +640,8 @@ registration.
 - disruptive for libraries providing services
 - the non-decorator form loses lazy instantiation 
 - class keys create module edges string keys did not, so cycles become possible where
-  they could not exist before. The thunk is a workaround, easy to forget, and
-  forgetting it fails at boot.
+  they could not exist before. The thunk is easy to forget, and forgetting it fails
+  at boot.
 - class names are minified in production, so the container cache and the Ember
   Inspector lose the readable names string keys give them
 - both styles coexist 
@@ -659,6 +672,9 @@ registration.
  - Should `hasRegistration` accept a class at all? It may be string-only forever,
    with two new predicates added alongside.
 
+ - Should looking up an abstract key with no registration throw? At runtime it builds
+   an instance of the abstract class, which has none of the abstract members.
+
  - What does the Ember Inspector show for a class-keyed instance in a production
    build, where `Klass.name` is minified?
 
@@ -669,14 +685,14 @@ registration.
 
 - Previous Alternative: Convert the dependency injection lookup to a `WeakMap<Klass, instanceof Klass>`
 
-    This would likely result in faster lookup, but would require more upfront work to change how the lookup method works on the `ApplicationInstance` / "owner". This _could_ be a separate RFC, but without benchmarking it's hard to say if this massive of a change would be worth it.
+    This would likely result in faster lookup, but would require more upfront work to change how the lookup method works on the `ApplicationInstance` / "owner". This _could_ be a separate RFC, but without benchmarking it's hard to say if a change this large would be worth it.
 
-    Moved out of `Alternatives`, because this RFC should not explicitly recommend or unrecommend specific implementation styles. A `WeakMap` style of managing singletons tied to an owner is exactly the strategy that [`createService`](https://ember-primitives.pages.dev/6-utils/createService) from ember-primitives uses.
+    At first this was moved out of `Alternatives`, because this RFC should not explicitly recommend or unrecommend specific implementation styles. A `WeakMap` style of managing singletons tied to an owner is exactly the strategy that [`createService`](https://ember-primitives.pages.dev/6-utils/createService) from ember-primitives uses.
 
     **Update:** this turned out to be *less* upfront work rather than more, because
     it leaves `Registry` and the string path untouched instead of extending them. It
     is now the recommended direction rather than a rejected alternative; see
-    "Implementation notes".
+    "A class key needs no name" below.
 
 - Where this has been validated
 
