@@ -414,20 +414,18 @@ It does not need the rest of the `EmberObject` hierarchy: `init`, `willDestroy`,
 
 - javascript does not have interfaces
 
-A library cannot name a key the *app* owns, which is [ember-polaris-service#19](https://github.com/chancancode/ember-polaris-service/issues/19). The library declares a dependency, the app supplies the implementation, and no class exists that both sides can import.
+A library cannot name a key the *app* owns, which is [ember-polaris-service#19](https://github.com/chancancode/ember-polaris-service/issues/19). The library declares a dependency, the app supplies the implementation, and there is no class both sides can import.
 
 > [!NOTE]
-> The ember-intl case still works with class keys. A library that depends on ember-intl uses its class as the key. The app subclasses that class, as the hierarchy check requires, and registers the subclass with `register(IntlService, AppIntlService)` before the first lookup of `IntlService`. An instance initializer is a good place. Lookup does not search for subclasses, and a registration after the first lookup asserts; see "registering after a key has been resolved".
+> The ember-intl case still works with class keys. A library that depends on ember-intl uses its class as the key. The app subclasses that class, as the hierarchy check requires, and registers the subclass with `register(IntlService, AppIntlService)` in an instance initializer, before the first lookup of `IntlService`. Lookup does not search for subclasses, and a registration after the first lookup asserts; see "registering after a key has been resolved".
 
-Matching a key structurally -- "any registered class with these members" -- would close that gap. But it is a large feature with its own hazards:
+Matching a key structurally -- "any registered class with these members" -- would close that gap. Class keys do not need it, and it has its own hazards:
 
 - renaming a method silently unbinds a provider
 - two candidates matching one key has no defensible answer
 - `abstract` members leave nothing at runtime to match against
 
-Class keys ship without it.
-
-**Use a string key for this case.** `@service('transport')` keeps working as it does now, so nothing is lost relative to the status quo. This RFC adds a second way to name a dependency and does not replace the first. A library whose dependency is app-supplied keeps the string, and converts if and when a followup RFC gives it something better.
+**Use a string key for this case.** `@service('transport')` keeps working as it does now, so nothing is lost relative to the status quo. A library whose dependency is app-supplied keeps the string, and converts if and when a followup RFC gives it something better.
 
 One constraint that does belong here, because it constrains the implementation:
 class lookup must not fall back to *name* resolution. `lookup(FeatureFlags)` must not resolve `app/services/feature-flags.ts` because the dasherized name happens to match, or "go to definition" stops being trustworthy -- which is the motivation for the RFC. Class keys and string names are separate namespaces that coexist.
@@ -480,7 +478,7 @@ flags = service(this, FeatureFlags);                     // inferred as FeatureF
 Two signature notes:
 
 - `Key` must allow abstract constructors (`abstract new (owner: Owner) => T`); a token that is only a contract is the most useful kind of key
-- `hasRegistration` and `unregister` are not on the public `Owner` type. They live on the private `RegistryProxy`. The predicates that replace `hasRegistration` need a public home, so this RFC needs to say whether these become public.
+- `hasRegistration` and `unregister` are not on the public `Owner` type. They live on the private `RegistryProxy`. This RFC needs to say whether they become public, along with the predicates that replace `hasRegistration`.
 
 ### Usage in testing
 
@@ -583,9 +581,9 @@ Not available today, since `Service` has to be created through the container.
 
 Instead of using strings or inferred injections, the guides should be updated to use the Class definition of a service that it intends to inject.
 
-The guides already cover usage of services, as well as techniques for setting up [any class for injection](https://guides.emberjs.com/release/in-depth-topics/native-classes-in-depth/#toc_using-injection) (under "in depth topics"). Expanding that is out of scope for this RFC.
+The guides already cover usage of services, as well as techniques for setting up [any class for injection](https://guides.emberjs.com/release/in-depth-topics/native-classes-in-depth/#toc_using-injection) (under "in depth topics").
 
-Instructions for libraries and apps that migrate from string keys to class keys belong in a future RFC that deprecates string-based services. That RFC can come after a compat library exists, which proxies the string-instantiated service to the real one.
+Migration instructions from string keys to class keys can come with a future RFC that deprecates string-based services, once a compat library proxies the string-instantiated service to the real one.
 
 Things the guides must cover, because each is a place reasonable code fails:
 
