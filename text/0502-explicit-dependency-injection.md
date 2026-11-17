@@ -95,18 +95,17 @@ function service(nameOrClass) {
 
 A class-keyed service has two parts: the key, and the implementation that the owner instantiates for that key. Without an override, the key is also the implementation.
 
-A key must be a class:
+Keys and implementations follow the same protocol. `service` checks a value in this order:
 
-- a constructor with a `prototype`. An arrow function is a thunk, not a key (see "overloading service in js/ts").
-- it can be abstract, because the key can be only a contract
-- strings stay in the string namespace. Symbols and plain objects are not keys.
+1. If it has a `create` method, it is a factory. The owner calls `create(props)`, with the owner set on `props`. This covers `EmberObject` and `Service` subclasses, a plain object such as `{ create }`, and a function with a static `create`. It is the same factory protocol that `owner.register('service:x', factory)` accepts today.
+2. If it is a function with its own `prototype`, it is a class. The owner calls `new Impl(owner)`, then `setOwner(instance, owner)`. The class can be abstract, because a key can be only a contract.
+3. If it is a function with no `prototype`, it is a thunk (see "overloading service in js/ts"). `service` calls it, and applies steps 1 and 2 to the result.
 
-An implementation must be a class that the owner can instantiate in one of these ways:
+Any other value is not a key. Strings stay in the string namespace. Symbols and plain objects without `create` are not keys.
 
-- a static `create(props)`, as on `EmberObject` and `Service`. The owner is set on `props`, as today.
-- otherwise, `new Impl(owner)`, then `setOwner(instance, owner)`
+`create` must return an object, because the owner holds the instance in a `WeakMap` and destroys it with `associateDestroyableChild`. When the implementation overrides a class key, the instance must also be an instance of the key. When the key is its own implementation, `create` can return any object.
 
-The instance must be an object, because the owner holds it in a `WeakMap` and destroys it with `associateDestroyableChild`. An override must be the key or a subclass of the key; see "the hierarchy check".
+An override must be the key, or inherit from the key; see "the hierarchy check".
 
 
 Libraries using services they are not the owners of are not solved by this RFC; see "out of scope: interface / shape matching". Such a library keeps using a string key.
@@ -198,6 +197,7 @@ One export serves every form:
 
 A class is also a function, so a thunk and a class key are told apart by `prototype`:
 an arrow function has none. A thunk must be an arrow function.
+A function with a `create` method is a factory, even when it is an arrow function, so `create` is checked first.
 
 ### lookup by exact class
 
@@ -331,14 +331,22 @@ Examples:
 
 #### the hierarchy check
 
-`overrideService` makes sure that the override either is the key or is a subclass of the key. This will prevent the ability to register unrelated classes that would break the implied class hierarchy that is assumed with dependency injection. 
+`overrideService` makes sure that the override either is the key or inherits from the key. This will prevent the ability to register unrelated classes that would break the implied class hierarchy that is assumed with dependency injection. 
 
 ```ts
 overrideService(appInstance, CookieService, SomethingUnrelated);
 // Error: SomethingUnrelated is neither CookieService nor a subclass of it.
 ```
 
-Note that this makes subclassing the only way to substitute an implementation, which is the constraint an interface-matching followup would relax.
+One check covers classes and factory objects:
+
+```ts
+impl === key || Object.prototype.isPrototypeOf.call(key, impl)
+```
+
+`class B extends A` sets the prototype of `B` to `A`. A factory object inherits the same way, with `{ __proto__: key, create() {} }`. A constructor function that only sets `B.prototype` is also accepted, with the check `B.prototype instanceof A`.
+
+Note that this makes inheritance the only way to substitute an implementation, which is the constraint an interface-matching followup would relax.
 
 #### overriding after a key has been resolved
 
@@ -495,14 +503,14 @@ flags = service(this, FeatureFlags);                     // inferred as FeatureF
 `Key` must allow abstract constructors, because a key that is only a contract is the most useful kind of key:
 
 ```ts
-type Key<T> = abstract new (...args: any[]) => T;
+interface Factory<T> {
+  create(props: object): T;
+}
+
+type Key<T> = (abstract new (owner: Owner) => T) | Factory<T>;
 
 function service<T>(context: Owner | object, key: Key<T>): T;
-function overrideService<T>(
-  owner: Owner,
-  key: Key<T>,
-  impl: new (owner: Owner) => T,
-): void;
+function overrideService<T>(owner: Owner, key: Key<T>, impl: Key<T>): void;
 ```
 
 The public `Owner` type does not change.
