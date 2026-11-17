@@ -69,27 +69,7 @@ overrideService(owner, Notifications, TestNotifications);
 
 `owner.lookup`, `owner.register`, and the application instance do not change. They keep their string-key behavior, and they do not accept class keys.
 
-At present, the service decorator wraps around the `ApplicationInstance#lookup` method -- something like this (roughly / hand-waving the implementation details of decorators and getting access to the app instance):
-
-```ts
-function service(name) {
-  return appInstance.lookup(`service:${name}`);
-}
-```
-
-Instead, with this RFC, the service pseudo-function should check for the type of the parameter, and:
-
-```ts
-function service(nameOrClass) {
-  if (typeof nameOrClass === 'string') {
-    return appInstance.lookup(`service:${nameOrClass}`);
-  }
-
-  return lookupByClass(appInstance, nameOrClass);
-}
-```
-
-`lookupByClass` is internal to `@ember/service`. It does not go through `owner.lookup`. When no override exists for the class, it _instantiates the class itself_. No registration step is necessary.
+A string keeps today's behavior. A class key resolves to one instance per owner, and needs no registration step.
 
 ### what can be a service
 
@@ -97,13 +77,15 @@ A class-keyed service has two parts: the key, and the implementation that the ow
 
 Keys and implementations follow the same protocol. `service` checks a value in this order:
 
-1. If it has a `create` method, it is a factory. The owner calls `create(props)`, with the owner set on `props`. This covers `EmberObject` and `Service` subclasses, a plain object such as `{ create }`, and a function with a static `create`. It is the same factory protocol that `owner.register('service:x', factory)` accepts today.
-2. If it is a function with its own `prototype`, it is a class. The owner calls `new Impl(owner)`, then `setOwner(instance, owner)`. The class can be abstract, because a key can be only a contract.
-3. If it is a function with no `prototype`, it is a thunk (see "overloading service in js/ts"). `service` calls it, and applies steps 1 and 2 to the result.
+1. If it has a `create` method, it is a factory, and `create` makes the instance. This covers `EmberObject` and `Service` subclasses, a plain object such as `{ create }`, and a function with a static `create`. It is the same factory protocol that `owner.register('service:x', factory)` accepts today.
+2. Otherwise, if it is a class, the instance is made with `new`, and the constructor receives the owner. The class can be abstract, because a key can be only a contract.
+3. Otherwise, if it is an arrow function, it is a thunk (see "overloading service in js/ts"), and its return value is the key.
+
+In each case, the instance has the owner.
 
 Any other value is not a key. Strings stay in the string namespace. Symbols and plain objects without `create` are not keys.
 
-`create` must return an object, because the owner holds the instance in a `WeakMap` and destroys it with `associateDestroyableChild`. When the implementation overrides a class key, the instance must also be an instance of the key. When the key is its own implementation, `create` can return any object.
+`create` must return an object. When the implementation overrides a class key, the instance must also be an instance of the key.
 
 An override must be the key, or inherit from the key; see "the hierarchy check".
 
@@ -195,9 +177,7 @@ One export serves every form:
 | `service(() => Key)` | lazy decorator, cycle-tolerant |
 | `service(this, Key)` | resolve now. `this` is an owner, or an object that has an owner. |
 
-A class is also a function, so a thunk and a class key are told apart by `prototype`:
-an arrow function has none. A thunk must be an arrow function.
-A function with a `create` method is a factory, even when it is an arrow function, so `create` is checked first.
+A thunk must be an arrow function, so that it can be told apart from a class.
 
 ### lookup by exact class
 
@@ -338,13 +318,7 @@ overrideService(appInstance, CookieService, SomethingUnrelated);
 // Error: SomethingUnrelated is neither CookieService nor a subclass of it.
 ```
 
-One check covers classes and factory objects:
-
-```ts
-impl === key || Object.prototype.isPrototypeOf.call(key, impl)
-```
-
-`class B extends A` sets the prototype of `B` to `A`. A factory object inherits the same way, with `{ __proto__: key, create() {} }`. A constructor function that only sets `B.prototype` is also accepted, with the check `B.prototype instanceof A`.
+A subclass inherits from its class. A factory object inherits from a key through its prototype chain, for example `{ __proto__: key, create() {} }`.
 
 Note that this makes inheritance the only way to substitute an implementation, which is the constraint an interface-matching followup would relax.
 
@@ -362,13 +336,6 @@ overrideService(owner, Counter, StubCounter);
 #### `hasRegistration` does not change
 
 `hasRegistration('service:foo')` answers "can the resolver find this name", and the answer can be no. For a class key the answer is always yes, because the key can instantiate itself. Thus `hasRegistration` stays string-only.
-
-The class-keyed path needs two different facts internally:
-
-- is an override bound for this key on this owner?
-- has this key been resolved on this owner yet?
-
-The assertion above needs the second.
 
 ### services no longer need a base class
 
@@ -389,8 +356,6 @@ export default class Counter {
   }
 }
 ```
-
-`InternalFactoryManager#create` currently asserts `typeof this.class.create === 'function'`, so only `EmberObject` descendants can be registered (or those simulating the create method from `EmberObject`). Class-keyed lookup does not use the container, so it accepts both kinds of implementation in "what can be a service".
 
 Extending `Service` stays supported; it stops being mandatory. A service extends it when its fields need the owner.
 
@@ -423,17 +388,6 @@ class AlsoWorks extends Service {
   log = service(this, Logger);  // the owner is already set
 }
 ```
-
-A class-keyed service uses only two things from `Service`:
-
-- a static `create(props)`. Lookup by string requires it, and it gets the owner on `props`.
-- a constructor that calls `setOwner(this, owner)` before the fields of the subclass run. A subclass with its own constructor calls `super(owner)` first.
-
-It does not need the rest of the `EmberObject` hierarchy: `init`, `willDestroy`, `set`/`get`, computed properties, and mixins.
-
-[ember-rfc-502-explicit-services-polyfill](https://github.com/NullVoxPopuli/ember-rfc-502-explicit-services-polyfill) implements `Service` as only these two things. Its babel plugin reports `init`, `willDestroy`, and `Service.extend()` in a class that injects by class key.
-
-`willDestroy` is left out because `registerDestructor` already runs code when the instance is destroyed. In `EmberObject`, `willDestroy` is a destructor too: the constructor calls `registerDestructor(this, () => this.willDestroy())`, without the eager flag. When the instance is destroyed, both are scheduled in the same queue and run at the same time, so `willDestroy` would only be a second name for `registerDestructor`.
 
 ### out of scope: interface / shape matching
 
@@ -662,7 +616,7 @@ The service directory only matters for services still reached by a string key. A
 
  ## Unresolved Questions
 
- - Do the two class-key predicates ("is an override bound", "is the key resolved") become public exports of `@ember/service`?
+ - Does `@ember/service` export a way to ask whether a key has an override, or whether a key was already resolved on an owner?
 
  - Should looking up an abstract key with no override throw? At runtime it builds an instance of the abstract class, which has none of the abstract members.
 
@@ -672,39 +626,10 @@ The service directory only matters for services still reached by a string key. A
 
 ## Appendix
 
-- Previous Alternative: Convert the dependency injection lookup to a `WeakMap<Klass, instanceof Klass>`
+- Implementation
 
-    This would likely result in faster lookup, but would require more upfront work to change how the lookup method works on the `ApplicationInstance` / "owner". This _could_ be a separate RFC, but without benchmarking it's hard to say if a change this large would be worth it.
-
-    At first this was moved out of `Alternatives`, because this RFC should not recommend specific implementation styles.
-
-    **Update:** this turned out to be *less* upfront work rather than more, because it leaves `Registry` and the string path untouched instead of extending them. It is now the recommended direction rather than a rejected alternative; see "A class key needs no name" below.
+    This RFC does not prescribe how class-keyed instances are stored. One approach keeps them in a `WeakMap` keyed on the owner, as [`createService`](https://ember-primitives.pages.dev/6-utils/createService) does. That approach leaves `Registry`, the container, and the string path untouched.
 
 - Where this has been validated
 
-    "Detailed design" has been implemented and tested against `ember-source` 7 in a playground app.
-
-    The owner already *is* the container, so no parallel container is needed. The mechanism is a `WeakMap` keyed on the owner, using only `getOwner` and `setOwner` from `@ember/owner`. Instances are per-owner singletons because the outer key is the owner, and are destroyed with the owner via `associateDestroyableChild`. About 140 lines, including the decorator.
-
-    [ember-rfc-502-explicit-services-polyfill](https://github.com/NullVoxPopuli/ember-rfc-502-explicit-services-polyfill) implements the same design for ember-source 3.28 and newer. Its babel plugin rewrites `@ember/service` imports and owner calls. It is tested in an ember-cli Vite app, a classic broccoli app, an ember.nvp app, and a broccoli app on ember-source 3.28.
-
-
-
-- A class key needs no name
-
-    And also, no resolution, and no resolver, so everything class-keyed can live in a `WeakMap` keyed on the owner:
-
-    ```ts
-    const INSTANCES = new WeakMap<Owner, Map<Key, object>>();
-    const BINDINGS = new WeakMap<Owner, Map<Key, Key>>();
-    ```
-
-    - `INSTANCES` holds the singleton that the first lookup of a key built on an owner. The "registered after it was resolved" assertion reads it, and so does the "has this key been resolved" predicate.
-    - `BINDINGS` holds the class to build for a key on an owner. Only `overrideService(owner, Key, Impl)` writes to it. A lookup reads it only when the key has no instance yet, and falls back to the key itself, so a plain class needs no registration. The "is an override bound" predicate reads it.
-
-    The two maps are separate because a binding is made before its instance exists. After `overrideService(owner, Key, Impl)`, an override is bound, but `Key` is not resolved until the first lookup.
-
-    `Registry`, `container`, the application instance, and the string path are then untouched, which is also what keeps the two namespaces separate by construction rather than by convention. This is the same strategy [`createService`](https://ember-primitives.pages.dev/6-utils/createService) uses.
-
-    Destruction does not go through the container. `destroyDestroyables` calls `value.destroy()` if it happens to exist, which is not enough for plain classes. `associateDestroyableChild(owner, instance)` at instantiation destroys the instance with the owner, and makes `registerDestructor` work with no base class.
-
+    [ember-rfc-502-explicit-services-polyfill](https://github.com/NullVoxPopuli/ember-rfc-502-explicit-services-polyfill) implements this RFC for ember-source 3.28 and newer. It is tested in an ember-cli Vite app, a classic broccoli app, an ember.nvp app, and a broccoli app on ember-source 3.28.
