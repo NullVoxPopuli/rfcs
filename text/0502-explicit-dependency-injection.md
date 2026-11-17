@@ -85,7 +85,6 @@ In each case, the instance has the owner.
 
 Any other value is not a key. Strings stay in the string namespace. Symbols and plain objects without `create` are not keys.
 
-`create` must return an object. When the implementation overrides a class key, the instance must also be an instance of the key.
 
 An override must be the key, or inherit from the key; see "the hierarchy check".
 
